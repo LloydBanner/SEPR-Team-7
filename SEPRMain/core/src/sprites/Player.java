@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -43,11 +44,25 @@ public class Player extends Character implements InputProcessor {
 	public boolean keyUp(int keycode) {
 		switch(keycode) {
 		case Keys.A:
+			if(!Gdx.input.isKeyPressed(Input.Keys.D)) {
+				setVelocityX(0);
+			}
+			break;
 		case Keys.D:
-			setVelocityX(0);
+			if(!Gdx.input.isKeyPressed(Input.Keys.A)) {
+				setVelocityX(0);
+			}
+			break;
 		case Keys.W:
+			if(!Gdx.input.isKeyPressed(Input.Keys.S)) {
+				setVelocityY(0);
+			}
+			break;
 		case Keys.S:
-			setVelocityY(0);
+			if(!Gdx.input.isKeyPressed(Input.Keys.W)) {
+				setVelocityY(0);
+			}
+			break;
 		}
 		return true;
 	}
