@@ -74,28 +74,30 @@ public abstract class Character extends Sprite {
 	}
 	
 	public boolean collidesRight() {
-        for(float step = 0; step < getHeight(); step += collisionLayer.getTileHeight() / 2)
+		//collision check starts a quarter of the way in to the highest block it can collide with
+		//checks every quarter of a block for collision
+        for(float step = (collisionLayer.getTileHeight() / 4); step < getHeight(); step += collisionLayer.getTileHeight() / 4)
                 if(isCellBlocked(getX() + getWidth(), getY() + step))
                         return true;
         return false;
 	}
  
 	public boolean collidesLeft() {
-        for(float step = 0; step < getHeight(); step += collisionLayer.getTileHeight() / 2)
+        for(float step = (collisionLayer.getTileHeight() / 4); step < getHeight(); step += collisionLayer.getTileHeight() / 4)
                 if(isCellBlocked(getX(), getY() + step))
                         return true;
         return false;
 	}
  
 	public boolean collidesTop() {
-        for(float step = 0; step < getWidth(); step += collisionLayer.getTileWidth() / 2)
+        for(float step = (collisionLayer.getTileWidth() / 4); step < getWidth(); step += collisionLayer.getTileWidth() / 4)
                 if(isCellBlocked(getX() + step, getY() + getHeight()))
                         return true;
         return false;
 	}
  
 	public boolean collidesBottom() {
-        for(float step = 0; step < getWidth(); step += collisionLayer.getTileWidth() / 2)
+        for(float step = (collisionLayer.getTileWidth() / 4); step < getWidth(); step += collisionLayer.getTileWidth() / 4)
                 if(isCellBlocked(getX() + step, getY()))
                         return true;
         return false;
