@@ -49,7 +49,6 @@ public abstract class Character extends Sprite {
 		// react to x collision
 		if (collisionX) {
 			setX(oldX);
-			velocity.x = 0;
 		}
 
 		// movement y
@@ -65,7 +64,6 @@ public abstract class Character extends Sprite {
 		// react to y collision
 		if (collisionY) {
 			setY(oldY);
-			velocity.y = 0;
 		}
 	}
 	
