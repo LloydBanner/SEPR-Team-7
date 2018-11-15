@@ -18,7 +18,9 @@ public class SEPRZombieGame extends Game {
 	
 	@Override
 	public void create () {
-
+		//everything in here is just to test at the  moment
+		
+		
 		//need better way to load map to player for collisions
 		//need getter and setter for collision layer player to adjust to collisions on different screens
 		TmxMapLoader loader = new TmxMapLoader();
