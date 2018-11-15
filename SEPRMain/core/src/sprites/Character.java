@@ -69,6 +69,7 @@ public abstract class Character extends Sprite {
 		}
 	}
 	
+	//for checking tiles, similar code could be used to check for other properties 
 	private boolean isCellBlocked(float x, float y) {
 		Cell cell = collisionLayer.getCell((int) (x / collisionLayer.getTileWidth()), (int) (y / collisionLayer.getTileHeight()));
 		return cell != null && cell.getTile() != null && cell.getTile().getProperties().containsKey("blocked");

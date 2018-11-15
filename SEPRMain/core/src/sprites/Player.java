@@ -23,6 +23,7 @@ public class Player extends Character implements InputProcessor {
 
 	@Override
 	public boolean keyDown(int keycode) {
+		//set speed in direction of key press
 		switch(keycode) {
 		case Keys.W:
 			setVelocityY(getSpeed());
@@ -42,6 +43,7 @@ public class Player extends Character implements InputProcessor {
 
 	@Override
 	public boolean keyUp(int keycode) {
+		//Decides if player should stop when key released
 		switch(keycode) {
 		case Keys.A:
 			if(getVelocity().x == -getSpeed()) {
