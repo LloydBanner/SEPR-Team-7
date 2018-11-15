@@ -5,13 +5,26 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+
+import screens.GameWorld;
+import sprites.Player;
 
 public class SEPRZombieGame extends Game {
 	
 	@Override
 	public void create () {
-		//setScreen(new Play());
+
+		//need better way to load map
+		TmxMapLoader loader = new TmxMapLoader();
+		TiledMap map = loader.load("maps/testmap.tmx");
+		//need getter and setter for collision layer player
+		Player player = new Player(new Sprite(new Texture("img/player.png")), (TiledMapTileLayer) map.getLayers().get(0));
+		setScreen(new GameWorld("maps/testmap.tmx", player));
 	}
 
 	@Override
