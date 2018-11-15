@@ -44,22 +44,22 @@ public class Player extends Character implements InputProcessor {
 	public boolean keyUp(int keycode) {
 		switch(keycode) {
 		case Keys.A:
-			if(!Gdx.input.isKeyPressed(Input.Keys.D)) {
+			if(getVelocity().x == -getSpeed()) {
 				setVelocityX(0);
 			}
 			break;
 		case Keys.D:
-			if(!Gdx.input.isKeyPressed(Input.Keys.A)) {
+			if(getVelocity().x == getSpeed()) {
 				setVelocityX(0);
 			}
 			break;
 		case Keys.W:
-			if(!Gdx.input.isKeyPressed(Input.Keys.S)) {
+			if(getVelocity().y == getSpeed()) {
 				setVelocityY(0);
 			}
 			break;
 		case Keys.S:
-			if(!Gdx.input.isKeyPressed(Input.Keys.W)) {
+			if(getVelocity().y == -getSpeed()) {
 				setVelocityY(0);
 			}
 			break;
