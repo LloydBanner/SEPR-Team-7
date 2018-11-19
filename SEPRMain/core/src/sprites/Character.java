@@ -131,9 +131,35 @@ public abstract class Character extends Sprite {
 		return speed;
 	}
 
-	public void setSpeed(int speed) {
-		this.speed = speed;
+	public void increaseSpeed(int speed) {
+		this.speed += speed;
 	}
 	
+	public void decreaseSpeed(int speed) {
+		this.speed -= speed;
+	}
 	
+	public int getHealth() {
+		return health;
+	}
+	
+	public void increaseHealth(int health) {
+		this.health += health;
+	}
+	
+	public void decreaseHealth(int health) {
+		this.health -= health;
+	}
+	
+	public int getDamage() {
+		return damage;
+	}
+	
+	public void increaseDamage(int damage) {
+		this.damage += damage;
+	}
+	
+	public void decreaseDamage(int damage) {
+		this.damage -= damage;
+	}
 }
