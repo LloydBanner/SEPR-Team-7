@@ -40,7 +40,6 @@ public class GameWorld implements Screen {
 		player.setPosition(69 * player.getCollisionLayer().getTileWidth(), 21 * player.getCollisionLayer().getTileHeight());
 		//apply inputs to player
 		Gdx.input.setInputProcessor(player);
-		
 	}
 
 	@Override
