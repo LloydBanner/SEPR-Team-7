@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
+import sprites.items.Item;
+
 public class Player extends Character implements InputProcessor {
 	
 	private HashMap<Item, Integer> inventory;
@@ -105,7 +107,15 @@ public class Player extends Character implements InputProcessor {
 		return false;
 	}
 	
+	public HashMap<Item, Integer> getInventory(){
+		return inventory;
+	}
+	
+	public void addItem(Item item, int value) {
+		inventory.put(item, value);
+	}
 
-
-
+	public void removeItem(Item item) {
+		inventory.remove(item);
+	}
 }
