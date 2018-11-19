@@ -15,6 +15,7 @@ import sprites.items.Item;
 
 public class Player extends Character implements InputProcessor {
 	
+	//need to decide on player inventory
 	private HashMap<Item, Integer> inventory;
 	private Collection<String> missionItems;
 	

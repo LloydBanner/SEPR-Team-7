@@ -25,6 +25,7 @@ public class SEPRZombieGame extends Game {
 		TmxMapLoader loader = new TmxMapLoader();
 		TiledMap map = loader.load("maps/testmap.tmx"); //required by player and screen
 		Player player = new Player(new Sprite(new Texture("img/player.png")), (TiledMapTileLayer) map.getLayers().get(0));
+		//should probably load all sprites apart from player on screen
 		Enemy zombie = new Enemy(new Sprite(new Texture("img/zombie.png")), (TiledMapTileLayer) map.getLayers().get(0));
 		Enemy zombie2 = new Enemy(new Sprite(new Texture("img/zombie.png")), (TiledMapTileLayer) map.getLayers().get(0));
 		setScreen(new GameWorld(map, player, zombie, zombie2));
