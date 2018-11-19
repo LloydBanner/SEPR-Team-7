@@ -20,14 +20,18 @@ public class GameWorld implements Screen {
 	private OrthogonalTiledMapRenderer renderer;
 	private OrthographicCamera camera;
 	private Player player;
+	private Enemy zombie;
+	private Enemy zombie2;
 	private boolean paused = false;
 	
-	public GameWorld(TiledMap map, Player player) {
+	public GameWorld(TiledMap map, Player player, Enemy zombie, Enemy zombie2) {
 		//set screen to loaded map
 		this.map = map;
 		
 		//transfer player data
 		this.player = player;
+		this.zombie = zombie;
+		this.zombie2 = zombie2;
 	}
 
 	@Override
@@ -38,6 +42,8 @@ public class GameWorld implements Screen {
 		
 		//tile map position x across, y down
 		player.setPosition(69 * player.getCollisionLayer().getTileWidth(), 21 * player.getCollisionLayer().getTileHeight());
+		zombie.setPosition(55 * zombie.getCollisionLayer().getTileWidth(), 21 * zombie.getCollisionLayer().getTileHeight());
+		zombie2.setPosition(60 * zombie2.getCollisionLayer().getTileWidth(), 21 * zombie2.getCollisionLayer().getTileHeight());
 		//apply inputs to player
 		Gdx.input.setInputProcessor(player);
 		
@@ -63,6 +69,8 @@ public class GameWorld implements Screen {
 		renderer.renderTileLayer((TiledMapTileLayer) map.getLayers().get("Background"));
 		//render player
 		player.draw(renderer.getBatch());
+		zombie.draw(renderer.getBatch());
+		zombie2.draw(renderer.getBatch());
 		//render foreground
 		renderer.renderTileLayer((TiledMapTileLayer) map.getLayers().get("Foreground"));
 		renderer.getBatch().end();
@@ -100,6 +108,8 @@ public class GameWorld implements Screen {
 		renderer.dispose();
 		
 		player.getTexture().dispose();
+		zombie.getTexture().dispose();
+		zombie2.getTexture().dispose();
 	}
 
 }
