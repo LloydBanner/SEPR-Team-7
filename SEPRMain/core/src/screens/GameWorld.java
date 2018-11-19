@@ -4,10 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+
+import sprites.Enemy;
 import sprites.Player;
 
 public class GameWorld implements Screen {
@@ -18,10 +22,9 @@ public class GameWorld implements Screen {
 	private Player player;
 	private boolean paused = false;
 	
-	public GameWorld(String mapString, Player player) {
-		//load map
-		TmxMapLoader loader = new TmxMapLoader();
-		map = loader.load(mapString);
+	public GameWorld(TiledMap map, Player player) {
+		//set screen to loaded map
+		this.map = map;
 		
 		//transfer player data
 		this.player = player;

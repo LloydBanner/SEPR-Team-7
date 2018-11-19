@@ -20,13 +20,11 @@ public class SEPRZombieGame extends Game {
 	public void create () {
 		//everything in here is just to test at the  moment
 		
-		
-		//need better way to load map to player for collisions
-		//need getter and setter for collision layer player to adjust to collisions on different screens
+		//getter and setter for collisionLayer in player to adjust to collisions on different screens
 		TmxMapLoader loader = new TmxMapLoader();
-		TiledMap map = loader.load("maps/testmap.tmx");
+		TiledMap map = loader.load("maps/testmap.tmx"); //required by player and screen
 		Player player = new Player(new Sprite(new Texture("img/player.png")), (TiledMapTileLayer) map.getLayers().get(0));
-		setScreen(new GameWorld("maps/testmap.tmx", player));
+		setScreen(new GameWorld(map, player));
 	}
 
 	@Override
