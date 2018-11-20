@@ -11,7 +11,10 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
+import sprites.items.HealthConsumable;
 import sprites.items.Item;
+import sprites.items.MissionItem;
+import sprites.items.SpeedConsumable;
 
 public class Player extends Character implements InputProcessor {
 	
@@ -112,11 +115,55 @@ public class Player extends Character implements InputProcessor {
 		return inventory;
 	}
 	
-	public void addItem(Item item, int value) {
-		inventory.put(item, value);
+	public void addItem(Item item) {
+		
+		if (inventory.containsKey(item)) {
+
+            int oldValue = inventory.get(item);
+            inventory.put(item, oldValue + 1);
+            item.dispose();		// adding an item multiple times may be difficult
+            
+        } else {
+
+            inventory.put(item, 1);
+            item.dispose();
+        }
 	}
 
 	public void removeItem(Item item) {
-		inventory.remove(item);
+		
+		if (inventory.get(item) > 1) {
+
+            int oldValue = inventory.get(item);
+            inventory.put(item, oldValue - 1);
+            // add draw item method
+        
+
+        } else {
+
+            inventory.remove(item);
+            // add draw item method
+
+        }
 	}
+
+	public void addMissionItem(MissionItem missionItem) {
+		missionItems.add(missionItem.getId());
+		missionItem.dispose();
+	}
+	
+	public void consume (HealthConsumable consumable) {
+		
+		this.increaseHealth(consumable.getHealthBoost());
+		consumable.dispose();
+		
+	}
+	
+	public void consume (SpeedConsumable consumable) {
+		
+		this.increaseSpeed(consumable.getSpeedBoost());	
+		consumable.dispose();
+		
+	}
+	
 }
