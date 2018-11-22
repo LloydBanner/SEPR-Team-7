@@ -24,9 +24,13 @@ public class GameWorld implements Screen {
 	private Enemy zombie2;
 	private boolean paused = false;
 	
-	public GameWorld(TiledMap map, Player player, Enemy zombie, Enemy zombie2) {
+	public GameWorld(TiledMap map, Player player) {
 		//set screen to loaded map
 		this.map = map;
+		
+		TmxMapLoader loader = new TmxMapLoader();
+		Enemy zombie = new Enemy(new Sprite(new Texture("img/zombie.png")), (TiledMapTileLayer) map.getLayers().get(0));
+		Enemy zombie2 = new Enemy(new Sprite(new Texture("img/zombie.png")), (TiledMapTileLayer) map.getLayers().get(0));
 		
 		//transfer player data
 		this.player = player;
