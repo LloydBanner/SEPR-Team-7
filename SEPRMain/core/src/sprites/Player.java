@@ -1,13 +1,11 @@
 package sprites;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
@@ -25,6 +23,8 @@ public class Player extends Character implements InputProcessor {
 	public Player(Sprite sprite, TiledMapTileLayer collisionLayer) {
 		super(sprite);
 		this.setCollisionLayer(collisionLayer);
+		inventory = new HashMap<Item, Integer>();
+		missionItems = new ArrayList<String>();
 	}
 
 	@Override

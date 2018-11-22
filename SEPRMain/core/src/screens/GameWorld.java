@@ -20,8 +20,8 @@ public class GameWorld implements Screen {
 	private OrthogonalTiledMapRenderer renderer;
 	private OrthographicCamera camera;
 	private Player player;
-	private Enemy zombie;
-	private Enemy zombie2;
+	public final int MAX_ZOMBIES = 10;
+	private Enemy[] zombies = new Enemy[MAX_ZOMBIES];
 	private boolean paused = false;
 	
 	public GameWorld(TiledMap map, Player player) {
@@ -29,13 +29,10 @@ public class GameWorld implements Screen {
 		this.map = map;
 		
 		TmxMapLoader loader = new TmxMapLoader();
-		Enemy zombie = new Enemy(new Sprite(new Texture("img/zombie.png")), (TiledMapTileLayer) map.getLayers().get(0));
-		Enemy zombie2 = new Enemy(new Sprite(new Texture("img/zombie.png")), (TiledMapTileLayer) map.getLayers().get(0));
+		showEnemies(zombies);
 		
 		//transfer player data
 		this.player = player;
-		this.zombie = zombie;
-		this.zombie2 = zombie2;
 	}
 
 	@Override
@@ -46,12 +43,20 @@ public class GameWorld implements Screen {
 		
 		//tile map position x across, y down
 		player.setPosition(69 * player.getCollisionLayer().getTileWidth(), 21 * player.getCollisionLayer().getTileHeight());
-		zombie.setPosition(55 * zombie.getCollisionLayer().getTileWidth(), 21 * zombie.getCollisionLayer().getTileHeight());
-		zombie2.setPosition(60 * zombie2.getCollisionLayer().getTileWidth(), 21 * zombie2.getCollisionLayer().getTileHeight());
 		//apply inputs to player
 		Gdx.input.setInputProcessor(player);
 	}
-
+	
+	public void showEnemies(Enemy[] zombies) {
+		
+		for (int i=0; i < zombies.length; i++) {
+			
+			zombies[i] = new Enemy(new Sprite(new Texture("img/zombie.png")), (TiledMapTileLayer) map.getLayers().get(0));
+			zombies[i].setPosition(55 * zombies[i].getCollisionLayer().getTileWidth(), 21 * zombies[i].getCollisionLayer().getTileHeight());
+		}
+		
+	}
+	
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -68,12 +73,18 @@ public class GameWorld implements Screen {
 		}
 		
 		renderer.getBatch().begin();
+		
 		//render background
 		renderer.renderTileLayer((TiledMapTileLayer) map.getLayers().get("Background"));
+		
 		//render player
 		player.draw(renderer.getBatch());
-		zombie.draw(renderer.getBatch());
-		zombie2.draw(renderer.getBatch());
+		
+		// render enemies
+		for(int i=0; i < zombies.length; i++) {
+			zombies[i].draw(renderer.getBatch());
+		}
+		
 		//render foreground
 		renderer.renderTileLayer((TiledMapTileLayer) map.getLayers().get("Foreground"));
 		renderer.getBatch().end();
@@ -111,8 +122,10 @@ public class GameWorld implements Screen {
 		renderer.dispose();
 		
 		player.getTexture().dispose();
-		zombie.getTexture().dispose();
-		zombie2.getTexture().dispose();
+		
+		for(Enemy zombie : zombies) {
+			zombie.getTexture().dispose();
+		}
 	}
 
 }
