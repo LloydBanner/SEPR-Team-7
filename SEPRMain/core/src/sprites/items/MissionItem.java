@@ -1,16 +1,14 @@
 package sprites.items;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class MissionItem extends Item {
 	
 	private String id;
-    Texture missTex = new Texture("img/");		// add mission item asset
 
-    public MissionItem (String id) {
+    public MissionItem (Sprite sprite, String id) {
 
-    	new Sprite(missTex);		
+    	super(sprite);
     	this.id = id;
 
     }

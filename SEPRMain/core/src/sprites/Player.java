@@ -121,7 +121,7 @@ public class Player extends Character implements InputProcessor {
 
             int oldValue = inventory.get(item);
             inventory.put(item, oldValue + 1);
-            item.dispose();		// adding an item multiple times may be difficult
+            item.dispose();		
             
         } else {
 

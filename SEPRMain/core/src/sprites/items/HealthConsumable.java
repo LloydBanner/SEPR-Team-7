@@ -1,16 +1,14 @@
 package sprites.items;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class HealthConsumable extends Consumable {
 
     private int healthBoost;
-    Texture healthTex = new Texture("img/");	// add health asset
 
-    public HealthConsumable (int healthBoost) {
+    public HealthConsumable (Sprite sprite, int healthBoost) {
        
-    	new Sprite(healthTex);		
+    	super(sprite);
     	this.healthBoost = healthBoost;
     	
     }

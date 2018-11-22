@@ -4,7 +4,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public abstract class Item extends Sprite {
 
-    public void dispose () {
+    public Item(Sprite sprite) {
+    	super(sprite);
+    }
+    
+	public void dispose () {
     	
     	this.getTexture().dispose();
     	

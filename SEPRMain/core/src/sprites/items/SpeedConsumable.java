@@ -1,16 +1,14 @@
 package sprites.items;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class SpeedConsumable extends Consumable {
 
     private int speedBoost;
-    Texture speedTex = new Texture("img/");		// add speed asset
 
-    public SpeedConsumable (int speedBoost) {
+    public SpeedConsumable (Sprite sprite, int speedBoost) {
         
-    	new Sprite(speedTex);		
+    	super(sprite);
     	this.speedBoost = speedBoost;
     	
     }
