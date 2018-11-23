@@ -41,18 +41,17 @@ public class GameWorld implements Screen {
 	
 	private boolean paused = false;
 	
-	public GameWorld(TiledMap map, Player player) {
+	public GameWorld(TiledMap map) {
 		//set screen to loaded map
 		this.map = map;
+		player = new Player(new Sprite(new Texture("img/player.png")), (TiledMapTileLayer) map.getLayers().get(0));
+
 		
 		TmxMapLoader loader = new TmxMapLoader();
 		showEnemies(enemies);
 		showItems();
-		
-		//transfer player data
-		this.player = player;
 	}
-
+	
 	@Override
 	public void show() {
 		renderer = new OrthogonalTiledMapRenderer(map);
@@ -70,7 +69,8 @@ public class GameWorld implements Screen {
 		for (int i=0; i < enemies.length; i++) {
 			
 			enemies[i] = new Enemy(new Sprite(new Texture("img/zombie.png")),
-								  (TiledMapTileLayer) map.getLayers().get(0));
+								  (TiledMapTileLayer) map.getLayers().get(0), 
+								  this.player);
 			
 			enemies[i].setPosition(55 * enemies[i].getCollisionLayer().getTileWidth(), 
 								   21 * enemies[i].getCollisionLayer().getTileHeight());

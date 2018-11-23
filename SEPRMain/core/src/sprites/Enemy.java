@@ -1,12 +1,11 @@
 package sprites;
 
 import java.util.Random;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
-import com.badlogic.gdx.math.Vector2;
 
 
 public class Enemy extends Character{
@@ -15,11 +14,13 @@ public class Enemy extends Character{
 	
 	private boolean isAttacking;
 	private float timeCount;
+	private Player player;
 
-	public Enemy(Sprite sprite, TiledMapTileLayer collisionLayer) {
+	public Enemy(Sprite sprite, TiledMapTileLayer collisionLayer, Player player) {
 		super(sprite);
 		this.setCollisionLayer(collisionLayer);
 		decreaseSpeed(90);
+		this.player = player; 
 	}
 	
 	@Override
