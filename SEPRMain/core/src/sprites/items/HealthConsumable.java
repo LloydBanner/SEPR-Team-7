@@ -1,14 +1,16 @@
 package sprites.items;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 public class HealthConsumable extends Consumable {
 
     private int healthBoost;
 
-    public HealthConsumable (Sprite sprite, int healthBoost) {
+    public HealthConsumable (Sprite sprite, TiledMapTileLayer collisionLayer, int healthBoost) {
        
-    	super(sprite);
+    	super(sprite, collisionLayer);
     	this.healthBoost = healthBoost;
     	
     }
@@ -20,4 +22,9 @@ public class HealthConsumable extends Consumable {
     @Override
     public void consume() {
     }
+    
+    @Override
+	public void draw(Batch batch) {
+		super.draw(batch);
+	}
 }

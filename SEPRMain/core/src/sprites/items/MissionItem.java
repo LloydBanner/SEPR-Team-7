@@ -1,14 +1,15 @@
 package sprites.items;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 public class MissionItem extends Item {
 	
 	private String id;
 
-    public MissionItem (Sprite sprite, String id) {
+    public MissionItem (Sprite sprite, TiledMapTileLayer collisionLayer, String id) {
 
-    	super(sprite);
+    	super(sprite, collisionLayer);
     	this.id = id;
 
     }
@@ -21,6 +22,7 @@ public class MissionItem extends Item {
     @Override
     public void takeItem () {
     }
+    
 }
 
 

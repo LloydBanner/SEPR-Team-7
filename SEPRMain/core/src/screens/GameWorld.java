@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -13,6 +14,11 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 import sprites.Enemy;
 import sprites.Player;
+import sprites.items.HealthConsumable;
+import sprites.items.Item;
+import sprites.items.MissionItem;
+import sprites.items.SpeedConsumable;
+import sprites.items.Weapon;
 
 public class GameWorld implements Screen {
 
@@ -20,8 +26,19 @@ public class GameWorld implements Screen {
 	private OrthogonalTiledMapRenderer renderer;
 	private OrthographicCamera camera;
 	private Player player;
-	public final int MAX_ZOMBIES = 10;
-	private Enemy[] zombies = new Enemy[MAX_ZOMBIES];
+	
+	private final int MAX_ENEMIES = 10;
+	private final int MAX_HEALTH_ITEMS = 10;
+	private final int MAX_SPEED_ITEMS = 10;
+	private final int MAX_WEAPONS = 10;
+	private final int MAX_MISSION_ITEMS = 10;
+	
+	private Enemy[] enemies = new Enemy[MAX_ENEMIES];
+	private Weapon[] weapons = new Weapon[MAX_WEAPONS];
+	private HealthConsumable[] healthItems = new HealthConsumable[MAX_HEALTH_ITEMS];
+	private SpeedConsumable[] speedItems = new SpeedConsumable[MAX_SPEED_ITEMS];
+	private MissionItem[] missionItems = new MissionItem[MAX_MISSION_ITEMS];
+	
 	private boolean paused = false;
 	
 	public GameWorld(TiledMap map, Player player) {
@@ -29,7 +46,8 @@ public class GameWorld implements Screen {
 		this.map = map;
 		
 		TmxMapLoader loader = new TmxMapLoader();
-		showEnemies(zombies);
+		showEnemies(enemies);
+		showItems();
 		
 		//transfer player data
 		this.player = player;
@@ -47,13 +65,125 @@ public class GameWorld implements Screen {
 		Gdx.input.setInputProcessor(player);
 	}
 	
-	public void showEnemies(Enemy[] zombies) {
+	public void showEnemies(Enemy[] enemies) {
 		
-		for (int i=0; i < zombies.length; i++) {
+		for (int i=0; i < enemies.length; i++) {
 			
-			zombies[i] = new Enemy(new Sprite(new Texture("img/zombie.png")), (TiledMapTileLayer) map.getLayers().get(0));
-			zombies[i].setPosition(55 * zombies[i].getCollisionLayer().getTileWidth(), 21 * zombies[i].getCollisionLayer().getTileHeight());
+			enemies[i] = new Enemy(new Sprite(new Texture("img/zombie.png")),
+								  (TiledMapTileLayer) map.getLayers().get(0));
+			
+			enemies[i].setPosition(55 * enemies[i].getCollisionLayer().getTileWidth(), 
+								   21 * enemies[i].getCollisionLayer().getTileHeight());
 		}
+		
+	}
+	
+	public void renderEnemies(Enemy[] enemies, Batch batch) {
+		
+		for (int i=0; i < enemies.length; i++) {
+			enemies[i].draw(batch);
+		}	
+	}
+	
+	public void disposeEnemies(Enemy[] enemies) {
+		
+		for (Enemy enemy : enemies) {
+			enemy.getTexture().dispose();
+		}
+	}
+	
+	public void showWeapons(Weapon[] weapons) {
+		
+		for (int i=0; i < weapons.length; i++ ) {
+			
+			weapons[i] = new Weapon(new Sprite(new Texture("img/zombie.png")), 
+								   (TiledMapTileLayer) map.getLayers().get(0), 5, 7);
+	
+			weapons[i].setPosition(44 * weapons[i].getCollisionLayer().getTileWidth(),
+					 			   29 * weapons[i].getCollisionLayer().getTileHeight());
+			
+		}
+	}
+	
+	public void showHealthItems(HealthConsumable[] healthItems) {
+		
+		for (int i=0; i < healthItems.length; i++ ) {
+			
+			healthItems[i] = new HealthConsumable(new Sprite(new Texture("img/zombie.png")), 
+												 (TiledMapTileLayer) map.getLayers().get(0), 5);
+	
+			healthItems[i].setPosition(44 * healthItems[i].getCollisionLayer().getTileWidth(),
+					 			   	   29 * healthItems[i].getCollisionLayer().getTileHeight());
+			
+		}
+	}
+	
+	public void showSpeedItems(SpeedConsumable[] speedItems) {
+		
+		for (int i=0; i < speedItems.length; i++ ) {
+			
+			speedItems[i] = new SpeedConsumable(new Sprite(new Texture("img/zombie.png")), 
+											   (TiledMapTileLayer) map.getLayers().get(0), 5);
+	
+			speedItems[i].setPosition(44 * speedItems[i].getCollisionLayer().getTileWidth(),
+					 			   	  29 * speedItems[i].getCollisionLayer().getTileHeight());
+			
+		}
+	}
+	
+	public void showMissionItems(MissionItem[] missionItems) {
+		
+		for (int i=0; i < missionItems.length; i++ ) {
+			
+			missionItems[i] = new MissionItem(new Sprite(new Texture("img/zombie.png")), 
+											   (TiledMapTileLayer) map.getLayers().get(0), 
+											   "some test mission item");
+	
+			missionItems[i].setPosition(44 * missionItems[i].getCollisionLayer().getTileWidth(),
+					 			   	    29 * missionItems[i].getCollisionLayer().getTileHeight());
+			
+		}
+	}
+	
+	public void showItems() {
+		
+			showWeapons(weapons);
+			showHealthItems(healthItems);
+			showSpeedItems(speedItems);
+			showMissionItems(missionItems);
+			
+	}
+	
+	public void renderItems(Item[] items, Batch batch) {
+		
+		for (Item item : items) {
+			item.draw(batch);
+		} 
+	}
+	
+	public void renderItems(Batch batch) {
+		
+		renderItems(weapons, batch);
+		renderItems(healthItems, batch);
+		renderItems(speedItems, batch);
+		renderItems(missionItems, batch);
+	
+	}
+	
+	public void disposeItems(Item[] items) {
+		
+		for (Item item : items) {
+			
+			item.dispose();
+		}
+	}
+	
+	public void disposeItems() {
+		
+		disposeItems(weapons);
+		disposeItems(healthItems);
+		disposeItems(speedItems);
+		disposeItems(missionItems);
 		
 	}
 	
@@ -81,10 +211,12 @@ public class GameWorld implements Screen {
 		player.draw(renderer.getBatch());
 		
 		// render enemies
-		for(int i=0; i < zombies.length; i++) {
-			zombies[i].draw(renderer.getBatch());
-		}
+		renderEnemies(enemies, renderer.getBatch());
 		
+		// render items
+		renderItems(renderer.getBatch());
+		
+				
 		//render foreground
 		renderer.renderTileLayer((TiledMapTileLayer) map.getLayers().get("Foreground"));
 		renderer.getBatch().end();
@@ -123,9 +255,8 @@ public class GameWorld implements Screen {
 		
 		player.getTexture().dispose();
 		
-		for(Enemy zombie : zombies) {
-			zombie.getTexture().dispose();
-		}
+		disposeEnemies(enemies);
+		disposeItems();
 	}
 
 }
