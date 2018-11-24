@@ -112,7 +112,7 @@ public class GameWorld implements Screen {
 			healthItems[i] = new HealthConsumable(new Sprite(new Texture("img/zombie.png")), 
 												 (TiledMapTileLayer) map.getLayers().get(0), 5);
 	
-			healthItems[i].setPosition(44 * healthItems[i].getCollisionLayer().getTileWidth(),
+			healthItems[i].setPosition(40 * healthItems[i].getCollisionLayer().getTileWidth(),
 					 			   	   29 * healthItems[i].getCollisionLayer().getTileHeight());
 			
 		}
@@ -139,7 +139,7 @@ public class GameWorld implements Screen {
 											   (TiledMapTileLayer) map.getLayers().get(0), 
 											   "some test mission item");
 	
-			missionItems[i].setPosition(44 * missionItems[i].getCollisionLayer().getTileWidth(),
+			missionItems[i].setPosition(50 * missionItems[i].getCollisionLayer().getTileWidth(),
 					 			   	    29 * missionItems[i].getCollisionLayer().getTileHeight());
 			
 		}
