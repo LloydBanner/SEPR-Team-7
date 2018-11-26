@@ -12,6 +12,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 import screens.GameWorld;
+import screens.Menu;
 
 public class SEPRZombieGame extends Game {
 	
@@ -31,6 +32,7 @@ public class SEPRZombieGame extends Game {
 		//getter and setter for collisionLayer in player to adjust to collisions on different screens
 		
 		setLevel(currentLevel);
+		//main menu test setScreen(new Menu());
 		
 	}
 
