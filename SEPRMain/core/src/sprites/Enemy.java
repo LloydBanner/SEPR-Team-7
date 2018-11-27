@@ -33,9 +33,22 @@ public class Enemy extends Character{
 		super.update(delta);
 		
 		timeCount += delta;
-		if(timeCount > 2) {
+		
+		if(Math.abs(player.getX() - getX()) < 100 && Math.abs(player.getY() - getY()) < 100) {
+			isAttacking = true;
+		} 
+		else {
+			isAttacking = false;
+		}
+		
+		if(timeCount > 2 && !isAttacking) {
 			timeCount = 0;
 			randomMove();
+		}
+		else if(timeCount > 2 && isAttacking){
+			setVelocityX(0); 
+			setVelocityY(0);
+			attackPlayer();
 		}		
 	}
 	
@@ -54,33 +67,47 @@ public class Enemy extends Character{
 					setVelocityX(0);	
 					break;
 			// Right
-			case 2: setVelocityY(0);		
-					setVelocityX(speedMod);	
+			case 2: setVelocityX(speedMod);		
+					setVelocityY(0);	
 					break;
 			// Left
-			case 3: setVelocityY(0);		
-					setVelocityX(-speedMod);
+			case 3: setVelocityX(-speedMod);		
+					setVelocityY(0);
 					break;
 			// Up-Right
-			case 4: setVelocityY(speedMod);		
-					setVelocityX(speedMod);	
+			case 4: setVelocityX(speedMod);		
+					setVelocityY(speedMod);	
 					break;
 			// Down-Right
-			case 5: setVelocityY(-speedMod);		
-					setVelocityX(speedMod);	
+			case 5: setVelocityX(speedMod);		
+					setVelocityY(-speedMod);	
 					break;
 			// Up-Left
-			case 6: setVelocityY(speedMod);		
-					setVelocityX(-speedMod);
+			case 6: setVelocityX(-speedMod);		
+					setVelocityY(speedMod);
 					break;
 			// Down-Left
-			case 7: setVelocityY(-speedMod);		
-					setVelocityX(-speedMod);
+			case 7: setVelocityX(-speedMod);		
+					setVelocityY(-speedMod);
 					break;
 			// Stop
-			default: setVelocityY(0);		
-					 setVelocityX(0);
+			default: setVelocityX(0);		
+					 setVelocityY(0);
 					 break;
+		}
+	}
+	
+	private void attackPlayer() {
+		int chaseSpeed = getSpeed() + 20;
+		float dx = player.getX() - getX();
+		float dy = player.getY() - getY();
+		double norm = Math.sqrt(dx * dx + dy * dy);
+		
+		if (norm > 0){
+		    dx *= (chaseSpeed / norm);
+		    dy *= (chaseSpeed / norm);
+		    setVelocityX(dx);		
+			setVelocityY(dy);
 		}
 	}
 }
