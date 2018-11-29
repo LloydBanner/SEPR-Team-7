@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -27,6 +28,17 @@ public class GameWorld implements Screen {
 	private OrthographicCamera camera;
 	private Player player;
 	
+	private SpriteBatch uiRenderer;
+	private Texture healthFull;
+	private Texture healthThreeQuarters;
+	private Texture healthHalf;
+	private Texture healthQuarter;
+	private Texture healthEmpty;
+	private Texture healthFlash;
+	private final int healthX = 50;
+	private final int healthY = 600;
+	private final int healthSize = 120;
+	
 	private final int MAX_ENEMIES = 10;
 	private final int MAX_HEALTH_ITEMS = 10;
 	private final int MAX_SPEED_ITEMS = 10;
@@ -46,8 +58,15 @@ public class GameWorld implements Screen {
 		this.map = map;
 		player = new Player(new Sprite(new Texture("img/player.png")), (TiledMapTileLayer) map.getLayers().get(0));
 
+		uiRenderer = new SpriteBatch();
+		healthFull = new Texture("img/healthfull.png");
+		healthThreeQuarters = new Texture("img/healththreequarters.png");
+		healthHalf = new Texture("img/healthhalf.png");
+		healthQuarter = new Texture("img/healthquarter.png");
+		healthEmpty = new Texture("img/healthfinal.png");
+		healthFlash = new Texture("img/healthflash.png");
 		
-		TmxMapLoader loader = new TmxMapLoader();
+		TmxMapLoader loader = new TmxMapLoader(); //don't need
 		showEnemies(enemies);
 		showItems();
 	}
@@ -202,6 +221,7 @@ public class GameWorld implements Screen {
 			renderer.render();
 		}
 		
+		//rendering for main game
 		renderer.getBatch().begin();
 		
 		//render background
@@ -221,6 +241,31 @@ public class GameWorld implements Screen {
 		renderer.renderTileLayer((TiledMapTileLayer) map.getLayers().get("Foreground"));
 		renderer.getBatch().end();
 		
+
+		//rendering for ui
+		renderUI();
+	}
+	
+	private void renderUI() {
+		uiRenderer.begin();
+		//health bar
+		if(player.isHealthChange()) {
+			uiRenderer.draw(healthFlash, healthX, healthY, healthSize, healthSize);	
+		}else if(player.getHealth() == 4) {
+			uiRenderer.draw(healthFull, healthX, healthY, healthSize, healthSize);	
+		}else if(player.getHealth() == 3) {
+			uiRenderer.draw(healthThreeQuarters, healthX, healthY, healthSize, healthSize);	
+		}else if(player.getHealth() == 2) {
+			uiRenderer.draw(healthHalf, healthX, healthY, healthSize, healthSize);	
+		}else if(player.getHealth() == 1) {
+			uiRenderer.draw(healthQuarter, healthX, healthY, healthSize, healthSize);	
+		}else if(player.getHealth() == 0) {
+			uiRenderer.draw(healthEmpty, healthX, healthY, healthSize, healthSize);	
+		}
+		
+		//uiRenderer.draw(new Texture("img/zombie_n_skeleton2.png"), 450, 300);
+		
+		uiRenderer.end();
 	}
 
 	@Override
