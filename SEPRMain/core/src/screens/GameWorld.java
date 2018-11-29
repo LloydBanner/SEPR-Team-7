@@ -367,6 +367,8 @@ public class GameWorld implements Screen {
 		
 		renderer.dispose();
 		
+		uiRenderer.dispose();
+		
 		player.getTexture().dispose();
 		
 		disposeEnemies(enemies);
