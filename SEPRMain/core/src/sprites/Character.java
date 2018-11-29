@@ -9,7 +9,10 @@ import com.badlogic.gdx.math.Vector2;
 
 public abstract class Character extends Sprite {
 	
-	private int health;
+	private int health = 4;
+	private int maxHealth = 4;
+	private int minHealth = 0;
+	private boolean healthChange = false;
 	private int damage;
 	private int speed = 60 * 2;
 	private int range;
@@ -144,11 +147,29 @@ public abstract class Character extends Sprite {
 	}
 	
 	public void increaseHealth(int health) {
-		this.health += health;
+		int newHealth = this.health += health;
+		if(newHealth <= maxHealth) {
+			this.health = newHealth;
+		} else {
+			this.health = maxHealth;
+		}
+		healthChange = true;
 	}
 	
 	public void decreaseHealth(int health) {
-		this.health -= health;
+		int newHealth = this.health -= health;
+		if(newHealth >= minHealth) {
+			this.health = newHealth;
+		} else {
+			this.health = minHealth;
+		}
+		healthChange = true;
+	}
+	
+	public boolean isHealthChange() {
+		boolean change = healthChange;
+		healthChange = false;
+		return change;
 	}
 	
 	public int getDamage() {

@@ -43,6 +43,13 @@ public class Player extends Character implements InputProcessor {
 		case Keys.D:
 			setVelocityX(getSpeed());
 			break;
+		//O and P used to test health increase and decrease
+		case Keys.O:
+			increaseHealth(1);
+			break;
+		case Keys.P:
+			decreaseHealth(1);
+			break;
 		}
 		return true;
 	}
