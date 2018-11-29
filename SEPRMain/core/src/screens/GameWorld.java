@@ -39,6 +39,15 @@ public class GameWorld implements Screen {
 	private final int healthY = 600;
 	private final int healthSize = 120;
 	
+	private Texture exitActive;
+	private Texture exitInactive;
+	private Texture continueActive;
+	private Texture continueInactive;
+	private int buttonSize = 250;
+	private int buttonX = 500;
+	private int exitY = 100;
+	private int continueY = 350;
+	
 	private final int MAX_ENEMIES = 10;
 	private final int MAX_HEALTH_ITEMS = 10;
 	private final int MAX_SPEED_ITEMS = 10;
@@ -65,6 +74,12 @@ public class GameWorld implements Screen {
 		healthQuarter = new Texture("img/healthquarter.png");
 		healthEmpty = new Texture("img/healthfinal.png");
 		healthFlash = new Texture("img/healthflash.png");
+		
+		exitActive = new Texture("img/exit2.png");
+		exitInactive = new Texture("img/exit1.png");
+		//switch play with continue texture
+		continueActive = new Texture("img/play2.png");
+		continueInactive = new Texture("img/play1.png");
 		
 		TmxMapLoader loader = new TmxMapLoader(); //don't need
 		showEnemies(enemies);
@@ -208,46 +223,59 @@ public class GameWorld implements Screen {
 	
 	@Override
 	public void render(float delta) {
+		if (player.isEscPressed()) {
+			paused = !paused;
+			player.togglePaused();
+			togglePauseEnemies();
+		}
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
-		
-		camera.position.set(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2, 0);
-		camera.update();
 		
 		renderer.setView(camera);
 		
 		//updates render for animated tiles
-		if(!paused) {
-			renderer.render();
-		}
-		
+		camera.position.set(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2, 0);
+		camera.update();
+			
+		renderer.render();
+			
 		//rendering for main game
 		renderer.getBatch().begin();
-		
+			
 		//render background
 		renderer.renderTileLayer((TiledMapTileLayer) map.getLayers().get("Background"));
-		
+			
 		//render player
 		player.draw(renderer.getBatch());
-		
+			
 		// render enemies
 		renderEnemies(enemies, renderer.getBatch());
-		
+			
 		// render items
 		renderItems(renderer.getBatch());
-		
-				
+			
+					
 		//render foreground
 		renderer.renderTileLayer((TiledMapTileLayer) map.getLayers().get("Foreground"));
 		renderer.getBatch().end();
-		
-
+			
+		uiRenderer.begin();
 		//rendering for ui
 		renderUI();
+		uiRenderer.end();
+
+		if (paused) {
+			uiRenderer.begin();
+			//rendering for ui
+			renderUI();
+			//rendering for pause menu
+			renderPause();
+			uiRenderer.end();
+		}
+		
 	}
 	
 	private void renderUI() {
-		uiRenderer.begin();
 		//health bar
 		if(player.isHealthChange()) {
 			uiRenderer.draw(healthFlash, healthX, healthY, healthSize, healthSize);	
@@ -264,8 +292,49 @@ public class GameWorld implements Screen {
 		}
 		
 		//uiRenderer.draw(new Texture("img/zombie_n_skeleton2.png"), 450, 300);
-		
-		uiRenderer.end();
+	}
+	
+	private void renderPause() {
+		//for menu		
+		if (withinButton(exitY)) {
+			uiRenderer.draw(exitActive, buttonX, exitY, buttonSize, buttonSize);
+			if (Gdx.input.isTouched()) {
+				Gdx.app.exit();
+			}
+		}else {
+			uiRenderer.draw(exitInactive, buttonX, exitY, buttonSize, buttonSize);
+		}
+		if (withinButton(continueY)) {
+			uiRenderer.draw(continueActive, buttonX, continueY, buttonSize, buttonSize);
+			if (Gdx.input.isTouched()) {
+				paused = !paused;
+				player.togglePaused();
+				togglePauseEnemies();
+		}
+		}else {
+			uiRenderer.draw(continueInactive, buttonX, continueY, buttonSize, buttonSize);
+		}
+	}
+	
+	public boolean withinButton(int buttonY) {
+		//720 is screen height
+		//20s used to make hit box better
+		if(Gdx.input.getX() < buttonX + buttonSize) {
+			if(Gdx.input.getX() > buttonX) {
+				if((720 - Gdx.input.getY()) < buttonY + buttonSize - 20) {
+					if((720 - Gdx.input.getY()) > buttonY + 20) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	private void togglePauseEnemies() {
+		for (Enemy enemy : enemies) {
+			enemy.togglePaused();
+		}
 	}
 
 	@Override

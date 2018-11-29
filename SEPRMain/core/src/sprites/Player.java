@@ -19,6 +19,7 @@ public class Player extends Character implements InputProcessor {
 	//need to decide on player inventory
 	private HashMap<Item, Integer> inventory;
 	private Collection<String> missionItems;
+	private boolean escPressed = false;
 	
 	public Player(Sprite sprite, TiledMapTileLayer collisionLayer) {
 		super(sprite);
@@ -30,18 +31,27 @@ public class Player extends Character implements InputProcessor {
 	@Override
 	public boolean keyDown(int keycode) {
 		//set speed in direction of key press
+		if (!isPaused()) {
+			switch(keycode) {
+			case Keys.W:
+				setVelocityY(getSpeed());
+				break;
+			case Keys.S:
+				setVelocityY(-getSpeed());
+				break;
+			case Keys.A:
+				setVelocityX(-getSpeed());
+				break;
+			case Keys.D:
+				setVelocityX(getSpeed());
+				break;
+			}
+		}
+
 		switch(keycode) {
-		case Keys.W:
-			setVelocityY(getSpeed());
-			break;
-		case Keys.S:
-			setVelocityY(-getSpeed());
-			break;
-		case Keys.A:
-			setVelocityX(-getSpeed());
-			break;
-		case Keys.D:
-			setVelocityX(getSpeed());
+		//esc for pause
+		case Keys.ESCAPE:
+			escPressed = true;
 			break;
 		//O and P used to test health increase and decrease
 		case Keys.O:
@@ -116,6 +126,12 @@ public class Player extends Character implements InputProcessor {
 	public boolean scrolled(int amount) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public boolean isEscPressed() {
+		boolean check = this.escPressed;
+		this.escPressed = false;
+		return check;
 	}
 	
 	public HashMap<Item, Integer> getInventory(){

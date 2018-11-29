@@ -32,25 +32,27 @@ public class Enemy extends Character{
 		timeCount += delta;	
 		
 		// Deals with player collisions
-		if (!collisionPlayer()) {
-			oldX = getX(); 
-			oldY = getY();
-		}
-		else {
-			setX(oldX);
-			setY(oldY);
-		}
+		if(!isPaused()) {
+			if (!collisionPlayer()) {
+				oldX = getX(); 
+				oldY = getY();
+			}
+			else {
+				setX(oldX);
+				setY(oldY);
+			}
 		
-		// Every 2 seconds change movement randomly unless in attack range of player
-		if(timeCount > 2 && !isAttacking()) {
-			timeCount = 0;
-			randomMove();
-		} 
-		else if(timeCount > 2 && isAttacking()) {
-			setVelocityX(0); 
-			setVelocityY(0);
-			attackPlayer();
-		}		
+			// Every 2 seconds change movement randomly unless in attack range of player
+			if(timeCount > 2 && !isAttacking()) {
+				timeCount = 0;
+				randomMove();
+			} 
+			else if(timeCount > 2 && isAttacking()) {
+				setVelocityX(0); 
+				setVelocityY(0);
+				attackPlayer();
+			}
+		}
 	}
 	
 	private void randomMove() {

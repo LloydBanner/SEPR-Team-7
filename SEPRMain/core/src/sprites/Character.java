@@ -16,6 +16,7 @@ public abstract class Character extends Sprite {
 	private int damage;
 	private int speed = 60 * 2;
 	private int range;
+	private boolean paused = false;
 	
 	//for movement
 	private Vector2 velocity = new Vector2();
@@ -182,5 +183,15 @@ public abstract class Character extends Sprite {
 	
 	public void decreaseDamage(int damage) {
 		this.damage -= damage;
+	}
+	
+	public void togglePaused() {
+		this.paused = !paused;
+		setVelocityX(0);
+		setVelocityY(0);
+	}
+	
+	public boolean isPaused() {
+		return paused;
 	}
 }
