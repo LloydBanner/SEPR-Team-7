@@ -14,12 +14,13 @@ public class Enemy extends Character{
 	
 	private boolean isAttacking;
 	private float timeCount;
+	private float oldX = getX(), oldY = getY();
 	private Player player;
 
 	public Enemy(Sprite sprite, TiledMapTileLayer collisionLayer, Player player) {
 		super(sprite);
 		this.setCollisionLayer(collisionLayer);
-		decreaseSpeed(90);
+		decreaseSpeed(100);
 		this.player = player; 
 	}
 	
@@ -31,21 +32,24 @@ public class Enemy extends Character{
 	
 	public void update(float delta) {
 		super.update(delta);
+		timeCount += delta;	
 		
-		timeCount += delta;
-		
-		if(Math.abs(player.getX() - getX()) < 100 && Math.abs(player.getY() - getY()) < 100) {
-			isAttacking = true;
-		} 
+		// Deals with player collisions
+		if (!collisionPlayer()) {
+			oldX = getX(); 
+			oldY = getY();
+		}
 		else {
-			isAttacking = false;
+			setX(oldX);
+			setY(oldY);
 		}
 		
-		if(timeCount > 2 && !isAttacking) {
+		// Every 2 seconds change movement randomly unless in attack range of player
+		if(timeCount > 2 && !isAttacking()) {
 			timeCount = 0;
 			randomMove();
-		}
-		else if(timeCount > 2 && isAttacking){
+		} 
+		else if(timeCount > 2 && isAttacking()) {
 			setVelocityX(0); 
 			setVelocityY(0);
 			attackPlayer();
@@ -55,7 +59,7 @@ public class Enemy extends Character{
 	private void randomMove() {
 		Random rand = new Random();
 		int direction = rand.nextInt(10);
-		float speedMod = getSpeed() + rand.nextInt(6);
+		float speedMod = getSpeed() + rand.nextInt(10);
 		// Change Direction based on RNG
 		switch (direction) {
 			// Up
@@ -98,16 +102,32 @@ public class Enemy extends Character{
 	}
 	
 	private void attackPlayer() {
-		int chaseSpeed = getSpeed() + 20;
+		// Increases speed when chasing player, + 50 is the player's speed
+		int chaseSpeed = getSpeed() + 35;
 		float dx = player.getX() - getX();
 		float dy = player.getY() - getY();
 		double norm = Math.sqrt(dx * dx + dy * dy);
-		
-		if (norm > 0){
+		// Velocity directs towards player
+		if (norm > 0) {
 		    dx *= (chaseSpeed / norm);
 		    dy *= (chaseSpeed / norm);
 		    setVelocityX(dx);		
 			setVelocityY(dy);
 		}
+		player.getHealth();
+	}
+	
+	private boolean isAttacking() {
+        if(Math.abs(player.getX() - getX()) < 125 && Math.abs(player.getY() - getY()) < 125) {
+            return true;       	
+        }
+        return false;
+	}
+	
+	public boolean collisionPlayer() {
+        if(Math.abs(player.getX() - getX()) < 25 && Math.abs(player.getY() - getY()) < 25) {
+            return true;       	
+        }
+        return false;
 	}
 }
