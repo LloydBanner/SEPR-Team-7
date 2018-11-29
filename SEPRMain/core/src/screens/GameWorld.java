@@ -248,6 +248,7 @@ public class GameWorld implements Screen {
 	
 	private void renderUI() {
 		uiRenderer.begin();
+		//health bar
 		if(player.isHealthChange()) {
 			uiRenderer.draw(healthFlash, healthX, healthY, healthSize, healthSize);	
 		}else if(player.getHealth() == 4) {
@@ -261,6 +262,8 @@ public class GameWorld implements Screen {
 		}else if(player.getHealth() == 0) {
 			uiRenderer.draw(healthEmpty, healthX, healthY, healthSize, healthSize);	
 		}
+		
+		//uiRenderer.draw(new Texture("img/zombie_n_skeleton2.png"), 450, 300);
 		
 		uiRenderer.end();
 	}
