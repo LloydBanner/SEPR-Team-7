@@ -47,7 +47,7 @@ public class GameWorld implements Screen {
 		player = new Player(new Sprite(new Texture("img/player.png")), (TiledMapTileLayer) map.getLayers().get(0));
 
 		
-		TmxMapLoader loader = new TmxMapLoader();
+		TmxMapLoader loader = new TmxMapLoader(); //don't need
 		showEnemies(enemies);
 		showItems();
 	}
