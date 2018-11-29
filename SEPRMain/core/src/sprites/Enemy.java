@@ -10,9 +10,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 public class Enemy extends Character{
 	
-	//removed some methods as they were supported in character
-	
-	private boolean isAttacking;
 	private float timeCount;
 	private float oldX = getX(), oldY = getY();
 	private Player player;
