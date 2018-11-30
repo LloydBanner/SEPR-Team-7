@@ -224,9 +224,7 @@ public class GameWorld implements Screen {
 	@Override
 	public void render(float delta) {
 		if (player.isEscPressed()) {
-			paused = !paused;
-			player.togglePaused();
-			togglePauseEnemies();
+			pause();
 		}
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
@@ -307,9 +305,7 @@ public class GameWorld implements Screen {
 		if (withinButton(continueY)) {
 			uiRenderer.draw(continueActive, buttonX, continueY, buttonSize, buttonSize);
 			if (Gdx.input.isTouched()) {
-				paused = !paused;
-				player.togglePaused();
-				togglePauseEnemies();
+				pause();
 		}
 		}else {
 			uiRenderer.draw(continueInactive, buttonX, continueY, buttonSize, buttonSize);
@@ -330,12 +326,6 @@ public class GameWorld implements Screen {
 		}
 		return false;
 	}
-	
-	private void togglePauseEnemies() {
-		for (Enemy enemy : enemies) {
-			enemy.togglePaused();
-		}
-	}
 
 	@Override
 	public void resize(int width, int height) {
@@ -346,8 +336,15 @@ public class GameWorld implements Screen {
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
-		
+		paused = !paused;
+		player.togglePaused();
+		togglePauseEnemies();	
+	}
+	
+	private void togglePauseEnemies() {
+		for (Enemy enemy : enemies) {
+			enemy.togglePaused();
+		}
 	}
 
 	@Override
