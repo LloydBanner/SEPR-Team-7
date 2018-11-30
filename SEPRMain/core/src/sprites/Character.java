@@ -20,8 +20,10 @@ public abstract class Character extends Sprite {
 	
 	//for movement
 	private Vector2 velocity = new Vector2();
-	//for collisions
+	//for collisions with tile map
 	private TiledMapTileLayer collisionLayer;
+	private Player player;
+	private Enemy[] enemies;
 	
 	public Character(Sprite sprite) {
 		super(sprite);
@@ -71,6 +73,41 @@ public abstract class Character extends Sprite {
 		}
 	}
 	
+	public void setSpriteCollisions(Player player, Enemy[] enemies) {
+		this.player = player;
+		this.enemies = enemies;
+		
+	}
+	
+	//collisions need reformatting
+	public boolean collisionCharacterRight(Character character) {
+        if(5 < ((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2))) && ((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2))) < 25 && Math.abs((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2))) < 25) {
+            return true;       	
+        }
+        return false;
+	}
+	
+	public boolean collisionCharacterLeft(Character character) {
+        if(-5 > ((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2))) && ((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2))) > -25 && Math.abs((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2))) < 25) {
+            return true;       	
+        }
+        return false;
+	}
+	
+	public boolean collisionCharacterTop(Character character) {
+        if(5 < ((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2))) && ((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2))) < 25 && Math.abs((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2))) < 25) {
+            return true;       	
+        }
+        return false;
+	}
+	
+	public boolean collisionCharacterBottom(Character character) {
+        if(-5 > ((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2))) && ((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2))) > -25 && Math.abs((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2))) < 25) {
+            return true;       	
+        }
+        return false;
+	}
+	
 	//for checking tiles, similar code could be used to check for other properties 
 	private boolean isCellBlocked(float x, float y) {
 		Cell cell = collisionLayer.getCell((int) (x / collisionLayer.getTileWidth()), (int) (y / collisionLayer.getTileHeight()));
@@ -83,6 +120,18 @@ public abstract class Character extends Sprite {
         for(float step = (collisionLayer.getTileHeight() / 4); step < getHeight(); step += collisionLayer.getTileHeight() / 2)
                 if(isCellBlocked(getX() + getWidth(), getY() + step))
                         return true;
+		if(player != this) {
+			if(collisionCharacterRight(player)) {
+				return true;
+			}
+		}
+		for(Enemy enemy : enemies) {
+			if(enemy != this) {
+				if(collisionCharacterRight(enemy)) {
+					return true;
+				}
+			}
+		}
         return false;
 	}
  
@@ -90,6 +139,18 @@ public abstract class Character extends Sprite {
         for(float step = (collisionLayer.getTileHeight() / 4); step < getHeight(); step += collisionLayer.getTileHeight() / 2)
                 if(isCellBlocked(getX(), getY() + step))
                         return true;
+		if(player != this) {
+			if(collisionCharacterLeft(player)) {
+				return true;
+			}
+		}
+		for(Enemy enemy : enemies) {
+			if(enemy != this) {
+				if(collisionCharacterLeft(enemy)) {
+					return true;
+				}
+			}
+		}
         return false;
 	}
  
@@ -97,6 +158,18 @@ public abstract class Character extends Sprite {
         for(float step = (collisionLayer.getTileWidth() / 4); step < getWidth(); step += collisionLayer.getTileWidth() / 2)
                 if(isCellBlocked(getX() + step, getY() + getHeight()))
                         return true;
+		if(player != this) {
+			if(collisionCharacterTop(player)) {
+				return true;
+			}
+		}
+		for(Enemy enemy : enemies) {
+			if(enemy != this) {
+				if(collisionCharacterTop(enemy)) {
+					return true;
+				}
+			}
+		}
         return false;
 	}
  
@@ -104,6 +177,18 @@ public abstract class Character extends Sprite {
         for(float step = (collisionLayer.getTileWidth() / 4); step < getWidth(); step += collisionLayer.getTileWidth() / 2)
                 if(isCellBlocked(getX() + step, getY()))
                         return true;
+		if(player != this) {
+			if(collisionCharacterBottom(player)) {
+				return true;
+			}
+		}
+		for(Enemy enemy : enemies) {
+			if(enemy != this) {
+				if(collisionCharacterBottom(enemy)) {
+					return true;
+				}
+			}
+		}
         return false;
 	}
 

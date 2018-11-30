@@ -33,14 +33,6 @@ public class Enemy extends Character{
 		
 		// Deals with player collisions
 		if(!isPaused()) {
-			if (!collisionPlayer()) {
-				oldX = getX(); 
-				oldY = getY();
-			}
-			else {
-				setX(oldX);
-				setY(oldY);
-			}
 		
 			// Every 2 seconds change movement randomly unless in attack range of player
 			if(timeCount > 2 && !isAttacking()) {
@@ -123,10 +115,4 @@ public class Enemy extends Character{
         return false;
 	}
 	
-	public boolean collisionPlayer() {
-        if(Math.abs(player.getX() - getX()) < 25 && Math.abs(player.getY() - getY()) < 25) {
-            return true;       	
-        }
-        return false;
-	}
 }

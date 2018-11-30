@@ -53,6 +53,7 @@ public class GameWorld implements Screen {
 	private final int MAX_SPEED_ITEMS = 10;
 	private final int MAX_WEAPONS = 10;
 	private final int MAX_MISSION_ITEMS = 10;
+	private final int MAX_COLLISIONS = 20;
 	
 	private Enemy[] enemies = new Enemy[MAX_ENEMIES];
 	private Weapon[] weapons = new Weapon[MAX_WEAPONS];
@@ -84,8 +85,16 @@ public class GameWorld implements Screen {
 		TmxMapLoader loader = new TmxMapLoader(); //don't need
 		showEnemies(enemies);
 		showItems();
+		setSpriteCollisions();
 	}
 	
+	private void setSpriteCollisions() {
+		for(Enemy enemy : enemies) {
+			enemy.setSpriteCollisions(player, enemies);
+		}
+		player.setSpriteCollisions(player, enemies);
+	}
+
 	@Override
 	public void show() {
 		renderer = new OrthogonalTiledMapRenderer(map);
@@ -100,14 +109,18 @@ public class GameWorld implements Screen {
 	
 	public void showEnemies(Enemy[] enemies) {
 		
+		int pos = 20;
+		
 		for (int i=0; i < enemies.length; i++) {
+			
+			pos += 2;
 			
 			enemies[i] = new Enemy(new Sprite(new Texture("img/zombie.png")),
 								  (TiledMapTileLayer) map.getLayers().get(0), 
 								  this.player);
 			
 			enemies[i].setPosition(55 * enemies[i].getCollisionLayer().getTileWidth(), 
-								   21 * enemies[i].getCollisionLayer().getTileHeight());
+								   pos * enemies[i].getCollisionLayer().getTileHeight());
 		}
 		
 	}
