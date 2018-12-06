@@ -79,31 +79,47 @@ public abstract class Character extends Sprite {
 		
 	}
 	
-	//collisions need reformatting
+	//methods bellow check collisions with another character in different directions
 	public boolean collisionCharacterRight(Character character) {
-        if(5 < ((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2))) && ((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2))) < 25 && Math.abs((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2))) < 25) {
-            return true;       	
+        if(5 < ((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2)))) {
+        	if (((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2))) < 25) {
+        		if (Math.abs((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2))) < 25) {
+        			return true;
+        		}   
+        	}
         }
         return false;
 	}
 	
 	public boolean collisionCharacterLeft(Character character) {
-        if(-5 > ((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2))) && ((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2))) > -25 && Math.abs((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2))) < 25) {
-            return true;       	
+        if(-5 > ((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2)))) {
+        	if (((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2))) > -25) {
+        		if (Math.abs((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2))) < 25) {
+        			return true;
+        		}    
+        	}
         }
         return false;
 	}
 	
 	public boolean collisionCharacterTop(Character character) {
-        if(5 < ((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2))) && ((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2))) < 25 && Math.abs((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2))) < 25) {
-            return true;       	
+        if(5 < ((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2)))) {
+            if (((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2))) < 25) {
+            	if (Math.abs((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2))) < 25) {
+                	return true;  
+            	}
+            }     	
         }
         return false;
 	}
 	
 	public boolean collisionCharacterBottom(Character character) {
-        if(-5 > ((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2))) && ((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2))) > -25 && Math.abs((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2))) < 25) {
-            return true;       	
+        if(-5 > ((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2)))) {
+        	if (((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2))) > -25) {
+        		if (Math.abs((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2))) < 25) {
+        			return true;
+        		}
+        	}
         }
         return false;
 	}
