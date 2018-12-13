@@ -1,6 +1,7 @@
 package sprites;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -24,6 +25,26 @@ public abstract class Character extends Sprite {
 	private TiledMapTileLayer collisionLayer;
 	private Player player;
 	private Enemy[] enemies;
+
+	private int animationFrame = 1;
+	private float timeSinceLastAnimation;
+	private Texture neturalAnimation;
+	private Texture upAnimation1;
+	private Texture upAnimation2;
+	private Texture downAnimation1;
+	private Texture downAnimation2;
+	private Texture leftAnimation1;
+	private Texture leftAnimation2;
+	private Texture rightAnimation1;
+	private Texture rightAnimation2;
+	private Texture upLeftAnimation1;
+	private Texture upLeftAnimation2;
+	private Texture downLeftAnimation1;
+	private Texture downLeftAnimation2;
+	private Texture upRightAnimation1;
+	private Texture upRightAnimation2;
+	private Texture downRightAnimation1;
+	private Texture downRightAnimation2;
 	
 	public Character(Sprite sprite) {
 		super(sprite);
@@ -70,6 +91,77 @@ public abstract class Character extends Sprite {
 		// react to y collision
 		if (collisionY) {
 			setY(oldY);
+		}
+		
+		//animations
+		animate(delta);
+	}
+	
+	public void animate(float delta) {
+		timeSinceLastAnimation += delta;
+		if (animationFrame > 2) {
+			animationFrame = 1;
+		}
+		if (velocity.y > 0) {
+			if (velocity.x > 0) {
+				if (animationFrame == 1) {
+					this.setTexture(getUpRightAnimation1());
+				}else {
+					this.setTexture(getUpRightAnimation2());
+				}
+			}else if (velocity.x < 0) {
+				if (animationFrame == 1) {
+					this.setTexture(getUpLeftAnimation1());
+				}else {
+					this.setTexture(getUpLeftAnimation2());
+				}
+			}else {
+				if (animationFrame == 1) {
+					this.setTexture(getUpAnimation1());
+				}else {
+					this.setTexture(getUpAnimation2());
+				}
+			}
+		}else if (velocity.y < 0) {
+			if (velocity.x > 0) {
+				if (animationFrame == 1) {
+					this.setTexture(getDownRightAnimation1());
+				}else {
+					this.setTexture(getDownRightAnimation2());
+				}
+			}else if (velocity.x < 0) {
+				if (animationFrame == 1) {
+					this.setTexture(getDownLeftAnimation1());
+				}else {
+					this.setTexture(getDownLeftAnimation2());
+				}
+			}else {
+				if (animationFrame == 1) {
+					this.setTexture(getDownAnimation1());
+				}else {
+					this.setTexture(getDownAnimation2());
+				}
+			}
+		}else {
+			if (velocity.x > 0) {
+				if (animationFrame == 1) {
+					this.setTexture(getRightAnimation1());
+				}else {
+					this.setTexture(getRightAnimation2());
+				}
+			}else if (velocity.x < 0) {
+				if (animationFrame == 1) {
+					this.setTexture(getLeftAnimation1());
+				}else {
+					this.setTexture(getLeftAnimation2());
+				}
+			}else {
+				this.setTexture(getNeturalAnimation());
+			}	
+		}
+		if(timeSinceLastAnimation >= 0.25) {
+			animationFrame += 1;
+			timeSinceLastAnimation = 0;
 		}
 	}
 	
@@ -294,5 +386,141 @@ public abstract class Character extends Sprite {
 	
 	public boolean isPaused() {
 		return paused;
+	}
+
+	public Texture getNeturalAnimation() {
+		return neturalAnimation;
+	}
+
+	public void setNeturalAnimation(Texture neturalAnimation) {
+		this.neturalAnimation = neturalAnimation;
+	}
+
+	public Texture getUpAnimation1() {
+		return upAnimation1;
+	}
+
+	public void setUpAnimation1(Texture upAnimation1) {
+		this.upAnimation1 = upAnimation1;
+	}
+
+	public Texture getUpAnimation2() {
+		return upAnimation2;
+	}
+
+	public void setUpAnimation2(Texture upAnimation2) {
+		this.upAnimation2 = upAnimation2;
+	}
+
+	public Texture getDownAnimation1() {
+		return downAnimation1;
+	}
+
+	public void setDownAnimation1(Texture downAnimation1) {
+		this.downAnimation1 = downAnimation1;
+	}
+
+	public Texture getDownAnimation2() {
+		return downAnimation2;
+	}
+
+	public void setDownAnimation2(Texture downAnimation2) {
+		this.downAnimation2 = downAnimation2;
+	}
+
+	public Texture getLeftAnimation1() {
+		return leftAnimation1;
+	}
+
+	public void setLeftAnimation1(Texture leftAnimation1) {
+		this.leftAnimation1 = leftAnimation1;
+	}
+
+	public Texture getLeftAnimation2() {
+		return leftAnimation2;
+	}
+
+	public void setLeftAnimation2(Texture leftAnimation2) {
+		this.leftAnimation2 = leftAnimation2;
+	}
+
+	public Texture getRightAnimation1() {
+		return rightAnimation1;
+	}
+
+	public void setRightAnimation1(Texture rightAnimation1) {
+		this.rightAnimation1 = rightAnimation1;
+	}
+
+	public Texture getRightAnimation2() {
+		return rightAnimation2;
+	}
+
+	public void setRightAnimation2(Texture rightAnimation2) {
+		this.rightAnimation2 = rightAnimation2;
+	}
+
+	public Texture getUpLeftAnimation1() {
+		return upLeftAnimation1;
+	}
+
+	public void setUpLeftAnimation1(Texture upLeftAnimation1) {
+		this.upLeftAnimation1 = upLeftAnimation1;
+	}
+
+	public Texture getUpLeftAnimation2() {
+		return upLeftAnimation2;
+	}
+
+	public void setUpLeftAnimation2(Texture upLeftAnimation2) {
+		this.upLeftAnimation2 = upLeftAnimation2;
+	}
+
+	public Texture getDownLeftAnimation1() {
+		return downLeftAnimation1;
+	}
+
+	public void setDownLeftAnimation1(Texture downLeftAnimation1) {
+		this.downLeftAnimation1 = downLeftAnimation1;
+	}
+
+	public Texture getDownLeftAnimation2() {
+		return downLeftAnimation2;
+	}
+
+	public void setDownLeftAnimation2(Texture downLeftAnimation2) {
+		this.downLeftAnimation2 = downLeftAnimation2;
+	}
+
+	public Texture getUpRightAnimation1() {
+		return upRightAnimation1;
+	}
+
+	public void setUpRightAnimation1(Texture upRightAnimation1) {
+		this.upRightAnimation1 = upRightAnimation1;
+	}
+
+	public Texture getUpRightAnimation2() {
+		return upRightAnimation2;
+	}
+
+	public void setUpRightAnimation2(Texture upRightAnimation2) {
+		this.upRightAnimation2 = upRightAnimation2;
+	}
+
+	public Texture getDownRightAnimation1() {
+		return downRightAnimation1;
+	}
+
+	public void setDownRightAnimation1(Texture downRightAnimation1) {
+		this.downRightAnimation1 = downRightAnimation1;
+	}
+
+	public Texture getDownRightAnimation2() {
+		return downRightAnimation2;
+	}
+
+	public void setDownRightAnimation2(Texture downRightAnimation2) {
+		this.downRightAnimation2 = downRightAnimation2;
 	}
 }

@@ -3,6 +3,7 @@ package sprites;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -19,6 +20,25 @@ public class Enemy extends Character{
 		this.setCollisionLayer(collisionLayer);
 		decreaseSpeed(100);
 		this.player = player; 
+		
+		//animation
+		setNeturalAnimation(new Texture("img/zombie.png"));
+		setUpAnimation1(new Texture("img/zombie.png"));
+		setUpAnimation2(new Texture("img/zombie.png"));
+		setDownAnimation1(new Texture("img/zombie.png"));
+		setDownAnimation2(new Texture("img/zombie.png"));
+		setLeftAnimation1(new Texture("img/zombie.png"));
+		setLeftAnimation2(new Texture("img/zombie.png"));
+		setRightAnimation1(new Texture("img/zombie.png"));
+		setRightAnimation2(new Texture("img/zombie.png"));
+		setUpLeftAnimation1(new Texture("img/zombie.png"));
+		setUpLeftAnimation2(new Texture("img/zombie.png"));
+		setDownLeftAnimation1(new Texture("img/zombie.png"));
+		setDownLeftAnimation2(new Texture("img/zombie.png"));
+		setUpRightAnimation1(new Texture("img/zombie.png"));
+		setUpRightAnimation2(new Texture("img/zombie.png"));
+		setDownRightAnimation1(new Texture("img/zombie.png"));
+		setDownRightAnimation2(new Texture("img/zombie.png"));
 	}
 	
 	@Override
