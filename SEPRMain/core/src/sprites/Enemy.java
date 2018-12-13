@@ -22,6 +22,7 @@ public class Enemy extends Character{
 		this.player = player; 
 		
 		//animation
+		//need to add textures for animations
 		setNeturalAnimation(new Texture("img/zombie.png"));
 		setUpAnimation1(new Texture("img/zombie.png"));
 		setUpAnimation2(new Texture("img/zombie.png"));

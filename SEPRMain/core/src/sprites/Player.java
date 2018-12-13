@@ -31,6 +31,7 @@ public class Player extends Character implements InputProcessor {
 		
 		//animation
 		//needs to be changed when classes are added
+		//these sets should be moved in to the classes' class so ech one can have different animations 
 		setNeturalAnimation(new Texture("img/player.png"));
 		setUpAnimation1(new Texture("img/zombie.png"));
 		setUpAnimation2(new Texture("img/player.png"));
