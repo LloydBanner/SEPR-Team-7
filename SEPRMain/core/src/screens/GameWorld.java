@@ -377,7 +377,7 @@ public class GameWorld implements Screen {
 		}else {
 			uiRenderer.draw(backInactive, buttonX, exitY, buttonSize, buttonSize);
 		}
-		//need another texture that is an image with the controls on
+		//need to add image with controls as another texture
 	}
 	
 	public boolean withinButton(int buttonY) {
