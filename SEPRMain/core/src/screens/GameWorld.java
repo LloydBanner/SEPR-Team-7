@@ -47,9 +47,12 @@ public class GameWorld implements Screen {
 	private Texture continueInactive;
 	private Texture controlsActive;
 	private Texture controlsInactive;
+	private Texture backActive;
+	private Texture backInactive;
 	private int buttonSize = 250;
 	private int buttonX = 500;
 	private int exitY = 10;
+	private int backY = 10;
 	private int controlsY = 225;
 	private int continueY = 460;
 	
@@ -91,6 +94,8 @@ public class GameWorld implements Screen {
 		continueInactive = new Texture("img/play1.png");
 		controlsActive = new Texture("img/controls2.png");
 		controlsInactive = new Texture("img/controls1.png");
+		backActive = new Texture("img/back2.png");
+		backInactive = new Texture("img/back1.png");
 		
 		TmxMapLoader loader = new TmxMapLoader(); //don't need
 		showEnemies(enemies);
@@ -362,15 +367,17 @@ public class GameWorld implements Screen {
 	}
 	
 	public void renderControls() {
-		if (withinButton(exitY)) {
-			uiRenderer.draw(exitActive, buttonX, exitY, buttonSize, buttonSize);
+		//Separate pause screen
+		if (withinButton(backY)) {
+			uiRenderer.draw(backActive, buttonX, exitY, buttonSize, buttonSize);
 			if (Gdx.input.isTouched() && !menuCooldown) {
 				menuCooldown = true;
 				showingControls = false;
 			}
 		}else {
-			uiRenderer.draw(exitInactive, buttonX, exitY, buttonSize, buttonSize);
+			uiRenderer.draw(backInactive, buttonX, exitY, buttonSize, buttonSize);
 		}
+		//need another texture that is an image with the controls on
 	}
 	
 	public boolean withinButton(int buttonY) {
