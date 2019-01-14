@@ -164,9 +164,7 @@ public class Player extends Character implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// Sets direction to correspond with cursor position
-		System.out.println(screenX);
-		System.out.println(screenY);
+		// i is a counter, the min and max variables refer to coordinates around the screen
 		int i;
 		float min1 = 0;
 		float max1 = 480;
@@ -185,6 +183,7 @@ public class Player extends Character implements InputProcessor {
 		float min8 = 493;
 		float max8 = 227; 
 		
+		// Checks for cursor in the top regions of the screen
 		for(i=0;i<360;i++) {
 			if(screenY == i) {
 				if(min1 < screenX && screenX < max1) {
@@ -210,6 +209,7 @@ public class Player extends Character implements InputProcessor {
 			min3-=0.4432;
 		}
 		
+		// Checks for cursor in the right region of the screen
 		for(i=1280;i>640;i--) {
 			if(screenX == i) {
 				if(min4 <= screenY && screenY <= max4) {
@@ -221,6 +221,7 @@ public class Player extends Character implements InputProcessor {
 			max4-=0.1847;
 		}
 		
+		// Checks for cursor in the lower region of the screen
 		for(i=720;i>361;i--) {
 			if(screenY == i) {
 				if(max5 < screenX && screenX < min5) {
@@ -247,6 +248,7 @@ public class Player extends Character implements InputProcessor {
 			min7+=0.4432;
 		}
 
+		// Checks for cursor in the left region of the screen
 		for(i=0;i<640;i++) {
 			if(screenX == i) {
 				if(max8 <= screenY && screenY <= min8) {
@@ -258,18 +260,15 @@ public class Player extends Character implements InputProcessor {
 			max8+=0.1847;
 		}
 		
-		// for loops for sides
-		// for loop for below
-		
-		// Attacks in direction of cursor
+		// Checks left mouse button is pressed and that the game is not paused
 		if(button == 0 && !isPaused())
 		{
 			// Increase damage based on weapon?
-			// If the cooldown is not active (cdActive == false) player may attack
+			// If the cooldown is active (cdActive == true) the player can't attack
 			if(!cdActive) {
 				attack(getDamage(), direction);
-				// While implementing reset direction, might leave in
-				direction = 50;
+				// Resets direction to avoid possible errors
+				direction = 0;
 			}
 		}
 		return false;
