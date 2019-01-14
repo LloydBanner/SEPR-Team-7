@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
@@ -21,6 +22,10 @@ public class Player extends Character implements InputProcessor {
 	private HashMap<Item, Integer> inventory;
 	private Collection<String> missionItems;
 	private boolean escPressed = false;
+	private int direction;
+	private boolean cdActive = false;
+	private double timer;
+	private double cdTime = 0.6;
 	
 	public Player(Sprite sprite, TiledMapTileLayer collisionLayer) {
 		//always use same sprite for player so don't need to take it as an input
@@ -50,24 +55,46 @@ public class Player extends Character implements InputProcessor {
 		setDownRightAnimation1(new Texture("img/zombie.png"));
 		setDownRightAnimation2(new Texture("img/player.png"));
 	}
+	
+	public void update(float delta) {
+		super.update(delta);
+		
+		// If the cooldown is running then start our timer 
+		if(cdActive)
+		{
+			timer += delta;		
+			// Check when timer reaches cdTime
+			if(timer>cdTime) {
+				// Turn the cooldown off
+				cooldown(false);
+				// Reset the timer
+				timer = 0;
+			}
+		}
 
+	}
+	
 	@Override
 	public boolean keyDown(int keycode) {
-		//set speed in direction of key press
+		// Keypresses for player movement
 		if (!isPaused()) {
 			switch(keycode) {
+			// Up
 			case Keys.W:
 				setVelocityY(getSpeed());
 				Sprite newSprite = new Sprite(new Texture("img/zombie.png"));
 				newSprite.setPosition(getX(), getY());
 				this.set(newSprite);
 				break;
+			// Down
 			case Keys.S:
 				setVelocityY(-getSpeed());
 				break;
+			// Left
 			case Keys.A:
 				setVelocityX(-getSpeed());
 				break;
+			// Right
 			case Keys.D:
 				setVelocityX(getSpeed());
 				break;
@@ -75,11 +102,11 @@ public class Player extends Character implements InputProcessor {
 		}
 
 		switch(keycode) {
-		//esc for pause
+		// Escape for pause
 		case Keys.ESCAPE:
 			escPressed = true;
 			break;
-		//O and P used to test health increase and decrease
+		// O and P used to test health increase and decrease
 		case Keys.O:
 			increaseHealth(1);
 			break;
@@ -117,6 +144,17 @@ public class Player extends Character implements InputProcessor {
 		}
 		return true;
 	}
+	
+	public void cooldown(boolean cd) {
+		if(cd) {
+			// Set this global variable to true after attacking, timer starts in update()
+			cdActive = true;
+		}
+		else {
+			// Set to false after timer > cdTime
+			cdActive = false;
+		}
+	}
 
 	@Override
 	public boolean keyTyped(char character) {
@@ -126,7 +164,114 @@ public class Player extends Character implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
+		// Sets direction to correspond with cursor position
+		System.out.println(screenX);
+		System.out.println(screenY);
+		int i;
+		float min1 = 0;
+		float max1 = 480;
+		float min2 = 480;
+		float max2 = 800;
+		float min3 = 800;
+		float max3 = 1280;
+		float min4 = 227;
+		float max4 = 493; 
+		float min5 = 1280;
+		float max5 = 800; 
+		float min6 = 800;
+		float max6 = 480; 
+		float min7 = 480;
+		float max7 = 0; 
+		float min8 = 493;
+		float max8 = 227; 
+		
+		for(i=0;i<360;i++) {
+			if(screenY == i) {
+				if(min1 < screenX && screenX < max1) {
+					direction = 1;
+					break;
+				} 
+				if(min2 <= screenX && screenX <= max2) {
+					direction = 2;
+					break;
+				}
+				if(min3 < screenX && screenX < max3) {
+					direction = 3;
+					break;
+				}
+			}
+			if(i>227) {
+				min1+=4.812;
+				max3-=4.812;
+			}
+			max1+=0.4432;
+			min2+=0.4432;
+			max2-=0.4432;
+			min3-=0.4432;
+		}
+		
+		for(i=1280;i>640;i--) {
+			if(screenX == i) {
+				if(min4 <= screenY && screenY <= max4) {
+					direction = 4;
+					break;
+				} 		
+			}
+			min4+=0.1847;
+			max4-=0.1847;
+		}
+		
+		for(i=720;i>361;i--) {
+			if(screenY == i) {
+				if(max5 < screenX && screenX < min5) {
+					direction = 5;
+					break;
+				} 
+				if(max6 <= screenX && screenX <= min6) {
+					direction = 6;
+					break;
+				}
+				if(max7 < screenX && screenX < min7) {
+					direction = 7;
+					break;
+				}
+			}
+			// change gradients
+			if(i<493) {
+				min5-=4.812;
+				max7+=4.812;
+			}
+			max5-=0.4432;
+			min6-=0.4432;
+			max6+=0.4432;
+			min7+=0.4432;
+		}
+
+		for(i=0;i<640;i++) {
+			if(screenX == i) {
+				if(max8 <= screenY && screenY <= min8) {
+					direction = 8;
+					break;
+				} 	
+			}
+			min8-=0.1847;
+			max8+=0.1847;
+		}
+		
+		// for loops for sides
+		// for loop for below
+		
+		// Attacks in direction of cursor
+		if(button == 0 && !isPaused())
+		{
+			// Increase damage based on weapon?
+			// If the cooldown is not active (cdActive == false) player may attack
+			if(!cdActive) {
+				attack(getDamage(), direction);
+				// While implementing reset direction, might leave in
+				direction = 50;
+			}
+		}
 		return false;
 	}
 

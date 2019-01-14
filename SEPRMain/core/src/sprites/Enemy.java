@@ -11,7 +11,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 public class Enemy extends Character{
 	
-	private float timeCount;
+	private float timer;
 	private float oldX = getX(), oldY = getY();
 	private Player player;
 
@@ -50,17 +50,17 @@ public class Enemy extends Character{
 	
 	public void update(float delta) {
 		super.update(delta);
-		timeCount += delta;	
+		timer += delta;	
 		
 		// Deals with player collisions
 		if(!isPaused()) {
 		
 			// Every 2 seconds change movement randomly unless in attack range of player
-			if(timeCount > 2 && !isAttacking()) {
-				timeCount = 0;
+			if(timer > 2 && !isAttacking()) {
+				timer = 0;
 				randomMove();
 			} 
-			else if(timeCount > 2 && isAttacking()) {
+			else if(timer > 2 && isAttacking()) {
 				setVelocityX(0); 
 				setVelocityY(0);
 				attackPlayer();
@@ -114,8 +114,8 @@ public class Enemy extends Character{
 	}
 	
 	private void attackPlayer() {
-		// Increases speed when chasing player, + 50 is the player's speed
-		int chaseSpeed = getSpeed() + 35;
+		// Increases speed when chasing player
+		int chaseSpeed = getSpeed() + 25;
 		float dx = player.getX() - getX();
 		float dy = player.getY() - getY();
 		double norm = Math.sqrt(dx * dx + dy * dy);
