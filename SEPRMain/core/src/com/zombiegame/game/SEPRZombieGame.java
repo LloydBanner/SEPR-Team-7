@@ -41,7 +41,7 @@ public class SEPRZombieGame extends Game {
 		//getter and setter for collisionLayer in player to adjust to collisions on different screens
 		addLevel(1, heslingtonEastData); 
 		addLevel(2, heslingtonWestData);
-		setLevel(1);
+		setLevel(2);
 		//main menu test setScreen(new Menu());
 	}
 	
