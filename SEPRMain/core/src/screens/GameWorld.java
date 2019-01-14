@@ -1,5 +1,7 @@
 package screens;
 
+import java.util.concurrent.TimeUnit;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL30;
@@ -43,10 +45,16 @@ public class GameWorld implements Screen {
 	private Texture exitInactive;
 	private Texture continueActive;
 	private Texture continueInactive;
+	private Texture controlsActive;
+	private Texture controlsInactive;
+	private Texture backActive;
+	private Texture backInactive;
 	private int buttonSize = 250;
 	private int buttonX = 500;
-	private int exitY = 100;
-	private int continueY = 350;
+	private int exitY = 10;
+	private int backY = 10;
+	private int controlsY = 225;
+	private int continueY = 460;
 	
 	private final int MAX_ENEMIES = 10;
 	private final int MAX_HEALTH_ITEMS = 10;
@@ -62,6 +70,9 @@ public class GameWorld implements Screen {
 	private MissionItem[] missionItems = new MissionItem[MAX_MISSION_ITEMS];
 	
 	private boolean paused = false;
+	private boolean showingControls = false;
+	private boolean menuCooldown = true;
+	private float timeCount = 0;
 	
 	public GameWorld(TiledMap map) {
 		//set screen to loaded map
@@ -81,6 +92,10 @@ public class GameWorld implements Screen {
 		//switch play with continue texture
 		continueActive = new Texture("img/play2.png");
 		continueInactive = new Texture("img/play1.png");
+		controlsActive = new Texture("img/controls2.png");
+		controlsInactive = new Texture("img/controls1.png");
+		backActive = new Texture("img/back2.png");
+		backInactive = new Texture("img/back1.png");
 		
 		TmxMapLoader loader = new TmxMapLoader(); //don't need
 		showEnemies(enemies);
@@ -274,14 +289,29 @@ public class GameWorld implements Screen {
 		//rendering for ui
 		renderUI();
 		uiRenderer.end();
-
+		
+		timeCount += delta;
+		if (timeCount > 1) {
+			timeCount = 0;
+			menuCooldown = false;
+		}
 		if (paused) {
-			uiRenderer.begin();
-			//rendering for ui
-			renderUI();
-			//rendering for pause menu
-			renderPause();
-			uiRenderer.end();
+			if (showingControls) {
+				//shows controls in pause menu
+				uiRenderer.begin();
+				//rendering for ui
+				renderUI();
+				//rendering for controls menu
+				renderControls();
+				uiRenderer.end();
+			} else {
+				uiRenderer.begin();
+				//rendering for ui
+				renderUI();
+				//rendering for pause menu
+				renderPause();
+				uiRenderer.end();
+			}
 		}
 		
 	}
@@ -309,7 +339,8 @@ public class GameWorld implements Screen {
 		//for menu		
 		if (withinButton(exitY)) {
 			uiRenderer.draw(exitActive, buttonX, exitY, buttonSize, buttonSize);
-			if (Gdx.input.isTouched()) {
+			if (Gdx.input.isTouched() && !menuCooldown) {
+				menuCooldown = true;
 				Gdx.app.exit();
 			}
 		}else {
@@ -317,12 +348,36 @@ public class GameWorld implements Screen {
 		}
 		if (withinButton(continueY)) {
 			uiRenderer.draw(continueActive, buttonX, continueY, buttonSize, buttonSize);
-			if (Gdx.input.isTouched()) {
+			if (Gdx.input.isTouched() && !menuCooldown) {
+				menuCooldown = true;
 				pause();
 		}
 		}else {
 			uiRenderer.draw(continueInactive, buttonX, continueY, buttonSize, buttonSize);
 		}
+		if (withinButton(controlsY)) {
+			uiRenderer.draw(controlsActive, buttonX, controlsY, buttonSize, buttonSize);
+			if (Gdx.input.isTouched() && !menuCooldown) {
+				menuCooldown = true;
+				showingControls = true;
+		}
+		}else {
+			uiRenderer.draw(controlsInactive, buttonX, controlsY, buttonSize, buttonSize);
+		}
+	}
+	
+	public void renderControls() {
+		//Separate pause screen
+		if (withinButton(backY)) {
+			uiRenderer.draw(backActive, buttonX, exitY, buttonSize, buttonSize);
+			if (Gdx.input.isTouched() && !menuCooldown) {
+				menuCooldown = true;
+				showingControls = false;
+			}
+		}else {
+			uiRenderer.draw(backInactive, buttonX, exitY, buttonSize, buttonSize);
+		}
+		//need to add image with controls as another texture
 	}
 	
 	public boolean withinButton(int buttonY) {

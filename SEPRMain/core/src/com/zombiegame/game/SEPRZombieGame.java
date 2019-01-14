@@ -25,12 +25,12 @@ public class SEPRZombieGame extends Game {
 	// Create map loader
 	TmxMapLoader loader = new TmxMapLoader();
 	
+	private int time = 0;
 	
 	@Override
 	public void create () {
 		//everything in here is just to test at the  moment
 		//getter and setter for collisionLayer in player to adjust to collisions on different screens
-		
 		setLevel(currentLevel);
 		//main menu test setScreen(new Menu());
 		

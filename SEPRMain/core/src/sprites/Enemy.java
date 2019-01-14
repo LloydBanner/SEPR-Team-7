@@ -23,23 +23,23 @@ public class Enemy extends Character{
 		
 		//animation
 		//need to add textures for animations
-		setNeturalAnimation(new Texture("img/zombie.png"));
-		setUpAnimation1(new Texture("img/zombie.png"));
-		setUpAnimation2(new Texture("img/zombie.png"));
-		setDownAnimation1(new Texture("img/zombie.png"));
-		setDownAnimation2(new Texture("img/zombie.png"));
-		setLeftAnimation1(new Texture("img/zombie.png"));
-		setLeftAnimation2(new Texture("img/zombie.png"));
-		setRightAnimation1(new Texture("img/zombie.png"));
-		setRightAnimation2(new Texture("img/zombie.png"));
-		setUpLeftAnimation1(new Texture("img/zombie.png"));
-		setUpLeftAnimation2(new Texture("img/zombie.png"));
-		setDownLeftAnimation1(new Texture("img/zombie.png"));
-		setDownLeftAnimation2(new Texture("img/zombie.png"));
-		setUpRightAnimation1(new Texture("img/zombie.png"));
-		setUpRightAnimation2(new Texture("img/zombie.png"));
-		setDownRightAnimation1(new Texture("img/zombie.png"));
-		setDownRightAnimation2(new Texture("img/zombie.png"));
+		setNeturalAnimation(new Texture("img/zombie01.png"));
+		setUpAnimation1(new Texture("img/zombie11.png"));
+		setUpAnimation2(new Texture("img/zombie09.png"));
+		setDownAnimation1(new Texture("img/zombie00.png"));
+		setDownAnimation2(new Texture("img/zombie02.png"));
+		setLeftAnimation1(new Texture("img/zombie03.png"));
+		setLeftAnimation2(new Texture("img/zombie05.png"));
+		setRightAnimation1(new Texture("img/zombie06.png"));
+		setRightAnimation2(new Texture("img/zombie08.png"));
+		setUpLeftAnimation1(new Texture("img/zombie03.png"));
+		setUpLeftAnimation2(new Texture("img/zombie05.png"));
+		setDownLeftAnimation1(new Texture("img/zombie03.png"));
+		setDownLeftAnimation2(new Texture("img/zombie05.png"));
+		setUpRightAnimation1(new Texture("img/zombie06.png"));
+		setUpRightAnimation2(new Texture("img/zombie08.png"));
+		setDownRightAnimation1(new Texture("img/zombie06.png"));
+		setDownRightAnimation2(new Texture("img/zombie08.png"));
 	}
 	
 	@Override
