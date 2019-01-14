@@ -15,6 +15,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
+import helpers.GameWorldData;
 import sprites.Enemy;
 import sprites.Player;
 import sprites.items.HealthConsumable;
@@ -56,29 +57,36 @@ public class GameWorld implements Screen {
 	private int controlsY = 225;
 	private int continueY = 460;
 	
-	private final int MAX_ENEMIES = 10;
-	private final int MAX_HEALTH_ITEMS = 10;
-	private final int MAX_SPEED_ITEMS = 10;
-	private final int MAX_WEAPONS = 10;
-	private final int MAX_MISSION_ITEMS = 10;
-	private final int MAX_COLLISIONS = 20;
+	//private final int MAX_ENEMIES = 10;
+	//private final int MAX_HEALTH_ITEMS = 10;
+	//private final int MAX_SPEED_ITEMS = 10;
+	//private final int MAX_WEAPONS = 10;
+	//private final int MAX_MISSION_ITEMS = 10;
+	//private final int MAX_COLLISIONS = 20;
 	
-	private Enemy[] enemies = new Enemy[MAX_ENEMIES];
-	private Weapon[] weapons = new Weapon[MAX_WEAPONS];
-	private HealthConsumable[] healthItems = new HealthConsumable[MAX_HEALTH_ITEMS];
-	private SpeedConsumable[] speedItems = new SpeedConsumable[MAX_SPEED_ITEMS];
-	private MissionItem[] missionItems = new MissionItem[MAX_MISSION_ITEMS];
+	private Enemy[] enemies;
+	private Weapon[] weapons;
+	private HealthConsumable[] healthItems;
+	private SpeedConsumable[] speedItems;
+	private MissionItem[] missionItems;
 	
 	private boolean paused = false;
 	private boolean showingControls = false;
 	private boolean menuCooldown = true;
 	private float timeCount = 0;
 	
-	public GameWorld(TiledMap map) {
+	public GameWorld(TiledMap map, GameWorldData levelData) {
 		//set screen to loaded map
 		this.map = map;
 		player = new Player(new Sprite(new Texture("img/player.png")), (TiledMapTileLayer) map.getLayers().get(0));
 
+		enemies = levelData.getEnemiesList();
+		weapons = levelData.getWeaponsList();
+		healthItems = levelData.getHealthItemList();
+		speedItems = levelData.getSpeedItemList();
+		missionItems = levelData.getMissionItemList();
+		
+		
 		uiRenderer = new SpriteBatch();
 		healthFull = new Texture("img/healthfull.png");
 		healthThreeQuarters = new Texture("img/healththreequarters.png");

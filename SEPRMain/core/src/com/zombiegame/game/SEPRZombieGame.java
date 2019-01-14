@@ -11,47 +11,54 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
+import helpers.GameWorldData;
 import screens.GameWorld;
 import screens.Menu;
 
 public class SEPRZombieGame extends Game {
 	
-	// Maps level number to map path
-	private Map<Integer, String> levels = createLevels();
+	public HashMap<Integer,GameWorldData> level1;
+	
+	//Define parameters for each map
+	private GameWorldData heslingtonEastData = new GameWorldData("maps/east.tmx",10,10,10,10,10,20);
+	
+	
 	
 	// Current level
-	private int currentLevel = 2;
+	private int currentLevel = 1;
 	
 	// Create map loader
 	TmxMapLoader loader = new TmxMapLoader();
 	
-	private int time = 0;
+	//Create levels
+	public HashMap<Integer, GameWorldData> levels = new HashMap<Integer, GameWorldData>();
+	
 	
 	@Override
 	public void create () {
 		//everything in here is just to test at the  moment
 		//getter and setter for collisionLayer in player to adjust to collisions on different screens
-		setLevel(currentLevel);
+		addLevel(1, heslingtonEastData); 
+		setLevel(1);
 		//main menu test setScreen(new Menu());
-		
 	}
-
-	private Map<Integer, String> createLevels() {
-		
-		levels = new HashMap<Integer, String>();
-		levels.put(1, "maps/testmap.tmx");
-		levels.put(2, "maps/east.tmx");
-		return levels;
-		
+	
+	public void addLevel (int levelNumber, GameWorldData worldData) {
+		levels.put(levelNumber, worldData);
 	}
+	
 	
 	public void setLevel(int level) {
 		
-		String mapPath = levels.get(level);
+		String mapPath = levels.get(level).getMap();
 		TiledMap map = loader.load(mapPath);
-		setScreen(new GameWorld(map));
+		
+		setScreen(new GameWorld(map, levels.get(level)));
 		
 	}
+	
+	
+	
 
 	@Override
 	public void render () {
