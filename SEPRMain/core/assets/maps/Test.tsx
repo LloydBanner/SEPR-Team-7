@@ -33,7 +33,17 @@
    <property name="blocked" value=""/>
   </properties>
  </tile>
+ <tile id="26">
+  <properties>
+   <property name="blocked" value=""/>
+  </properties>
+ </tile>
  <tile id="49">
+  <properties>
+   <property name="blocked" value=""/>
+  </properties>
+ </tile>
+ <tile id="65">
   <properties>
    <property name="blocked" value=""/>
   </properties>

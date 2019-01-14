@@ -21,6 +21,7 @@ public class SEPRZombieGame extends Game {
 	
 	//Define parameters for each map
 	private GameWorldData heslingtonEastData = new GameWorldData("maps/east.tmx",10,10,10,10,10,20);
+	private GameWorldData heslingtonWestData = new GameWorldData("maps/west.tmx",10,10,10,10,10,20); //don't know if parameters are right
 	
 	
 	
@@ -39,6 +40,7 @@ public class SEPRZombieGame extends Game {
 		//everything in here is just to test at the  moment
 		//getter and setter for collisionLayer in player to adjust to collisions on different screens
 		addLevel(1, heslingtonEastData); 
+		addLevel(2, heslingtonWestData);
 		setLevel(1);
 		//main menu test setScreen(new Menu());
 	}

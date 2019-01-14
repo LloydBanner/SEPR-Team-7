@@ -125,7 +125,7 @@ public class GameWorld implements Screen {
 		camera = new OrthographicCamera();
 		
 		//tile map position x across, y down
-		player.setPosition(69 * player.getCollisionLayer().getTileWidth(), 21 * player.getCollisionLayer().getTileHeight());
+		player.setPosition(50 * player.getCollisionLayer().getTileWidth(), 50 * player.getCollisionLayer().getTileHeight());
 		//apply inputs to player
 		Gdx.input.setInputProcessor(player);
 	}
