@@ -1,6 +1,7 @@
 package sprites;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -14,10 +15,11 @@ public abstract class Character extends Sprite {
 	private int maxHealth = 4;
 	private int minHealth = 0;
 	private boolean healthChange = false;
-	private int damage;
+	private int damage = 1;
 	private int speed = 60 * 2;
 	private int range;
 	private boolean paused = false;
+	private Sound hitSFX, missSFX;
 	
 	//for movement
 	private Vector2 velocity = new Vector2();
@@ -168,7 +170,6 @@ public abstract class Character extends Sprite {
 	public void setSpriteCollisions(Player player, Enemy[] enemies) {
 		this.player = player;
 		this.enemies = enemies;
-		
 	}
 	
 	//methods bellow check collisions with another character in different directions
@@ -187,7 +188,7 @@ public abstract class Character extends Sprite {
         if(-5 > ((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2)))) {
         	if (((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2))) > -25) {
         		if (Math.abs((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2))) < 25) {
-        			return true;
+        			return true;    
         		}    
         	}
         }
@@ -376,6 +377,209 @@ public abstract class Character extends Sprite {
 	
 	public void decreaseDamage(int damage) {
 		this.damage -= damage;
+	}
+	
+	public void attack(int damage, int direction) {
+		// Create shape of hitbox to check for enemies
+		// Change hitbox to be more triangle shaped on diagonals
+		int hitboxLength = 60;
+		int hitboxWidth = 25;
+		int knockback = 30;
+		hitSFX = Gdx.audio.newSound(Gdx.files.internal("sounds/playerAttack.mp3"));
+		missSFX = Gdx.audio.newSound(Gdx.files.internal("sounds/playerMiss.mp3"));
+		player.cooldown(true);
+		
+		// Check for enemies in hitbox based on position of cursor relative to the player
+		switch (direction) {
+		// North West
+		case 1: 
+			for(Enemy enemy : enemies) {
+				if (enemy != this) {
+					if (enemy.getX()<=(player.getX()+hitboxWidth) && enemy.getX()>=(player.getX()-hitboxWidth)) {
+						if (enemy.getY()<=(player.getY()+hitboxLength) && enemy.getY()>=player.getY()) {
+							hitSFX.play();	
+							enemy.setX(enemy.getX()-(knockback/2));
+							enemy.setY(enemy.getY()+(knockback/2));
+							enemy.decreaseHealth(2);
+							if(enemy.getHealth() == 0) {
+								/* 
+								 * Unless better method is found
+								 * set enemy coordinates to 1 million
+								 * freeze enemy and reset health
+								 * call back coordinates > 900000 when needed to spawn again?
+								 */
+								enemy.setX(1000000);
+								enemy.setY(1000000);
+							}
+						}
+					}	
+					else {
+						missSFX.play();
+					}
+				}	
+			}	
+			break;
+		// North
+		case 2:  
+			for(Enemy enemy : enemies) {
+				if (enemy != this) {
+					if (enemy.getX()<=(player.getX()+hitboxWidth) && enemy.getX()>=(player.getX()-hitboxWidth)) {
+						if (enemy.getY()<=(player.getY()+hitboxLength) && enemy.getY()>=player.getY()) {
+							hitSFX.play();	
+							enemy.setY(enemy.getY()+knockback);
+							enemy.decreaseHealth(2);
+							if(enemy.getHealth() == 0) {
+								enemy.setX(1000000);
+								enemy.setY(1000000);
+							}
+								
+						}
+					}	
+					else {
+						missSFX.play();
+					}
+				}	
+			}
+			break;
+		// North East
+		case 3:  
+			for(Enemy enemy : enemies) {
+				if (enemy != this) {
+					if (enemy.getX()<=(player.getX()+hitboxWidth) && enemy.getX()>=(player.getX()-hitboxWidth)) {
+						if (enemy.getY()<=(player.getY()+hitboxLength) && enemy.getY()>=player.getY()) {
+							hitSFX.play();	
+							enemy.setX(enemy.getX()+(knockback/2));
+							enemy.setY(enemy.getY()+(knockback/2));
+							// enemy health -= 1 
+							// if enemy health == 0 dispose
+							enemy.decreaseHealth(2);
+							if(enemy.getHealth() == 0) {
+								enemy.setX(1000000);
+								enemy.setY(1000000);
+							}
+								
+						}
+					}	
+					else {
+						missSFX.play();
+					}
+				}	
+			}
+			break;
+		// East
+		case 4: 
+			for(Enemy enemy : enemies) {
+				if (enemy != this) {
+					if (enemy.getX()<=(player.getX()+hitboxLength) && enemy.getX()>=player.getX()) {
+						if (enemy.getY()<=(player.getY()+hitboxWidth) && enemy.getY()>=(player.getY()-hitboxWidth)) {
+							hitSFX.play();	
+							enemy.setX(enemy.getX()+knockback);
+							enemy.decreaseHealth(2);
+							if(enemy.getHealth() == 0) {
+								enemy.setX(1000000);
+								enemy.setY(1000000);
+							}
+						}
+					}
+					else {
+						missSFX.play();
+					}
+				}	
+			}		
+			break;	
+		// South East
+		case 5:  
+			for(Enemy enemy : enemies) {
+				if (enemy != this) {
+					if (enemy.getX()<=(player.getX()+hitboxWidth) && enemy.getX()>=(player.getX()-hitboxWidth)) {
+						if (enemy.getY()>=(player.getY()-hitboxLength) && enemy.getY()<=player.getY()) {
+							hitSFX.play();	
+							enemy.setX(enemy.getX()+(knockback/2));
+							enemy.setY(enemy.getY()-(knockback/2));
+							// enemy health -= 1 
+							// if enemy health == 0 dispose
+							enemy.decreaseHealth(2);
+							if(enemy.getHealth() == 0) {
+								enemy.setX(1000000);
+								enemy.setY(1000000);
+							}
+								
+						}
+					}	
+					else {
+						missSFX.play();
+					}
+				}	
+			}
+			break;
+		// South
+		case 6: 
+			for(Enemy enemy : enemies) {
+				if (enemy != this) {
+					if (enemy.getX()<=(player.getX()+hitboxWidth) && enemy.getX()>=(player.getX()-hitboxWidth)) {
+						if (enemy.getY()>=(player.getY()-hitboxLength) && enemy.getY()<=player.getY()) {
+							hitSFX.play();	
+							enemy.setY(enemy.getY()-knockback);
+							enemy.decreaseHealth(2);
+							if(enemy.getHealth() == 0) {
+								enemy.setX(1000000);
+								enemy.setY(1000000);
+							}
+						}
+					}	
+					else {
+						missSFX.play();
+					}
+				}	
+			}	
+			break;
+		// South West
+		case 7:  
+			for(Enemy enemy : enemies) {
+				if (enemy != this) {
+					if (enemy.getX()<=(player.getX()+hitboxWidth) && enemy.getX()>=(player.getX()-hitboxWidth)) {
+						if (enemy.getY()>=(player.getY()-hitboxLength) && enemy.getY()<=player.getY()) {
+							hitSFX.play();	
+							enemy.setX(enemy.getX()-(knockback/2));
+							enemy.setY(enemy.getY()-(knockback/2));
+							// enemy health -= 1 
+							// if enemy health == 0 dispose
+							enemy.decreaseHealth(2);
+							if(enemy.getHealth() == 0) {
+								enemy.setX(1000000);
+								enemy.setY(1000000);
+							}
+								
+						}
+					}	
+					else {
+						missSFX.play();
+					}
+				}	
+			}
+			break;
+		// West
+		case 8: 
+			for(Enemy enemy : enemies) {
+				if (enemy != this) {
+					if (enemy.getX()>=(player.getX()-hitboxLength) && enemy.getX()<=player.getX()) {
+						if (enemy.getY()<=(player.getY()+hitboxWidth) && enemy.getY()>=(player.getY()-hitboxWidth)) {
+							hitSFX.play();	
+							enemy.setX(enemy.getX()-knockback);
+							enemy.decreaseHealth(2);
+							if(enemy.getHealth() == 0) {
+								enemy.setX(1000000);
+								enemy.setY(1000000);
+							}
+						}
+					}	
+					else {
+						missSFX.play();
+					}
+				}	
+			}	
+			break;
+		}
 	}
 	
 	public void togglePaused() {
