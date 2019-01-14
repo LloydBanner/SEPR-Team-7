@@ -18,11 +18,12 @@ public class GameWorldData {
 	private HealthConsumable[] healthItems;
 	private SpeedConsumable[] speedItems;
 	private MissionItem[] missionItems;
+	private String map;
 	
 	
 
-	
-	public void GameWOrldData(int maxEnemies, int maxHealthItems, int maxSpeedItems, int maxWeapons, int maxMissionItems, 
+
+	public GameWorldData(String map, int maxEnemies, int maxHealthItems, int maxSpeedItems, int maxWeapons, int maxMissionItems, 
 							  int maxCollisions) {
 		
 		
@@ -31,6 +32,8 @@ public class GameWorldData {
 		this.healthItems = new HealthConsumable[maxHealthItems];
 		this.speedItems = new SpeedConsumable[maxSpeedItems];
 		this.missionItems = new MissionItem[maxMissionItems];
+		this.map = map;
+		
 		
 		
 	}
@@ -53,6 +56,10 @@ public class GameWorldData {
 	
 	public MissionItem[] getMissionItemList() {
 		return this.missionItems;
+	}
+	
+	public String getMap() {
+		return this.map;
 	}
 	
 }
