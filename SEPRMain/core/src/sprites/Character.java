@@ -102,14 +102,14 @@ public abstract class Character extends Sprite {
 		if (animationFrame > 2) {
 			animationFrame = 1;
 		}
-		if (velocity.y > 0) {
-			if (velocity.x > 0) {
+		if (velocity.y > 0.5) {
+			if (velocity.x > 0.5) {
 				if (animationFrame == 1) {
 					this.setTexture(getUpRightAnimation1());
 				}else {
 					this.setTexture(getUpRightAnimation2());
 				}
-			}else if (velocity.x < 0) {
+			}else if (velocity.x < -0.5) {
 				if (animationFrame == 1) {
 					this.setTexture(getUpLeftAnimation1());
 				}else {
@@ -122,14 +122,14 @@ public abstract class Character extends Sprite {
 					this.setTexture(getUpAnimation2());
 				}
 			}
-		}else if (velocity.y < 0) {
-			if (velocity.x > 0) {
+		}else if (velocity.y < -0.5) {
+			if (velocity.x > 0.5) {
 				if (animationFrame == 1) {
 					this.setTexture(getDownRightAnimation1());
 				}else {
 					this.setTexture(getDownRightAnimation2());
 				}
-			}else if (velocity.x < 0) {
+			}else if (velocity.x < -0.5) {
 				if (animationFrame == 1) {
 					this.setTexture(getDownLeftAnimation1());
 				}else {
@@ -143,13 +143,13 @@ public abstract class Character extends Sprite {
 				}
 			}
 		}else {
-			if (velocity.x > 0) {
+			if (velocity.x > 0.5) {
 				if (animationFrame == 1) {
 					this.setTexture(getRightAnimation1());
 				}else {
 					this.setTexture(getRightAnimation2());
 				}
-			}else if (velocity.x < 0) {
+			}else if (velocity.x < -0.5) {
 				if (animationFrame == 1) {
 					this.setTexture(getLeftAnimation1());
 				}else {
@@ -159,7 +159,7 @@ public abstract class Character extends Sprite {
 				this.setTexture(getNeturalAnimation());
 			}	
 		}
-		if(timeSinceLastAnimation >= 0.25) {
+		if(timeSinceLastAnimation >= 0.2) {
 			animationFrame += 1;
 			timeSinceLastAnimation = 0;
 		}
