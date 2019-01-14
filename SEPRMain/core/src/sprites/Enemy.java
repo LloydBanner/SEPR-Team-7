@@ -115,7 +115,7 @@ public class Enemy extends Character{
 	
 	private void attackPlayer() {
 		// Increases speed when chasing player
-		int chaseSpeed = getSpeed() + 25;
+		int chaseSpeed = getSpeed() + 40;
 		float dx = player.getX() - getX();
 		float dy = player.getY() - getY();
 		double norm = Math.sqrt(dx * dx + dy * dy);
