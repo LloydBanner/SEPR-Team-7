@@ -75,10 +75,12 @@ public class GameWorld implements Screen {
 	private boolean menuCooldown = true;
 	private float timeCount = 0;
 	
-	public GameWorld(TiledMap map, GameWorldData levelData) {
+	public GameWorld(TiledMap map, GameWorldData levelData, Player player) {
 		//set screen to loaded map
 		this.map = map;
-		player = new Player(new Sprite(new Texture("img/player.png")), (TiledMapTileLayer) map.getLayers().get(0));
+		this.player = player;
+		
+		player.setCollisionLayer((TiledMapTileLayer) map.getLayers().get(0));
 
 		enemies = levelData.getEnemiesList();
 		weapons = levelData.getWeaponsList();
@@ -117,6 +119,11 @@ public class GameWorld implements Screen {
 		}
 		player.setSpriteCollisions(player, enemies);
 	}
+	
+	public Player getPlayer() {
+		return this.player;
+	}
+	
 
 	@Override
 	public void show() {

@@ -23,7 +23,7 @@ public class GameWorldData {
 	
 
 
-	public GameWorldData(String map, int maxEnemies, int maxHealthItems, int maxSpeedItems, int maxWeapons, int maxMissionItems, 
+	public GameWorldData(int xPlayerPosition, int yPlayerPosition, String map, int maxEnemies, int maxHealthItems, int maxSpeedItems, int maxWeapons, int maxMissionItems, 
 							  int maxCollisions) {
 		
 		
@@ -37,6 +37,8 @@ public class GameWorldData {
 		
 		
 	}
+	
+	public int getXPosition
 	
 	public Enemy[] getEnemiesList() {
 		return this.enemies;

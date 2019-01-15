@@ -23,6 +23,9 @@ public class MissionItem extends Item {
     public void takeItem () {
     }
     
+    
+    
+    
 }
 
 

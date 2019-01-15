@@ -27,10 +27,10 @@ public class Player extends Character implements InputProcessor {
 	private double timer;
 	private double cdTime = 0.6;
 	
-	public Player(Sprite sprite, TiledMapTileLayer collisionLayer) {
+	public Player(Sprite sprite) {
 		//always use same sprite for player so don't need to take it as an input
 		super(sprite);
-		this.setCollisionLayer(collisionLayer);
+		//this.setCollisionLayer(collisionLayer);
 		inventory = new HashMap<Item, Integer>();
 		missionItems = new ArrayList<String>();
 		
@@ -73,6 +73,7 @@ public class Player extends Character implements InputProcessor {
 		}
 
 	}
+	
 	
 	@Override
 	public boolean keyDown(int keycode) {

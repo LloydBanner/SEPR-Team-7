@@ -8,6 +8,7 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		new LwjglApplication(new SEPRZombieGame(), config);
+		
 		config.useGL30 = true;
 	    config.width = 1280;
 	    config.height = 720;
