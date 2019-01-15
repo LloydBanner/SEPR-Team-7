@@ -26,6 +26,8 @@ public class Player extends Character implements InputProcessor {
 	private boolean cdActive = false;
 	private double timer;
 	private double cdTime = 0.6;
+	private int speedChangeCooldown = 0;
+	private float speedChangeTimer = 0;
 	
 	public Player(Sprite sprite) {
 		//always use same sprite for player so don't need to take it as an input
@@ -70,6 +72,17 @@ public class Player extends Character implements InputProcessor {
 				// Reset the timer
 				timer = 0;
 			}
+		}
+		
+		if (speedChangeCooldown > 0) {
+			speedChangeTimer += delta;
+			if (speedChangeTimer >= 1) {
+				speedChangeTimer = 0;
+				speedChangeCooldown -= 1;
+			}
+		} else {
+			speedChangeCooldown = 0;
+			this.setSpeed(this.getBaseSpeed());
 		}
 
 	}
@@ -358,6 +371,15 @@ public class Player extends Character implements InputProcessor {
 		this.increaseSpeed(consumable.getSpeedBoost());	
 		consumable.dispose();
 		
+	}
+	
+	public void speedPowerUp(int speedChange) {
+		if (speedChange >= 0) {
+			this.increaseSpeed(speedChange);
+		}else {
+			this.decreaseSpeed(speedChange);
+		}
+		speedChangeCooldown = 10;
 	}
 	
 }
