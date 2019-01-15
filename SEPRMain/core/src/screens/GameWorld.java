@@ -69,6 +69,8 @@ public class GameWorld implements Screen {
 	private HealthConsumable[] healthItems;
 	private SpeedConsumable[] speedItems;
 	private MissionItem[] missionItems;
+	private int playerXPosition;
+	private int playerYPosition;
 	
 	private boolean paused = false;
 	private boolean showingControls = false;
@@ -87,6 +89,8 @@ public class GameWorld implements Screen {
 		healthItems = levelData.getHealthItemList();
 		speedItems = levelData.getSpeedItemList();
 		missionItems = levelData.getMissionItemList();
+		playerXPosition = levelData.getXPosition();
+		playerYPosition = levelData.getYPosition();
 		
 		
 		uiRenderer = new SpriteBatch();
@@ -132,7 +136,7 @@ public class GameWorld implements Screen {
 		camera = new OrthographicCamera();
 		
 		//tile map position x across, y down
-		player.setPosition(50 * player.getCollisionLayer().getTileWidth(), 50 * player.getCollisionLayer().getTileHeight());
+		player.setPosition(playerXPosition * player.getCollisionLayer().getTileWidth(), playerYPosition * player.getCollisionLayer().getTileHeight());
 		//apply inputs to player
 		Gdx.input.setInputProcessor(player);
 	}

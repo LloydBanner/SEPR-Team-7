@@ -43,7 +43,6 @@ public class SEPRZombieGame extends Game {
 		Player player = new Player(new Sprite(new Texture("img/player.png")));
 
 		addLevel(1, heslingtonEastData); 
-		addLevel(2, heslingtonWestData);
 		setLevel(1, player);
 		//main menu test setScreen(new Menu());
 	}

@@ -19,6 +19,8 @@ public class GameWorldData {
 	private SpeedConsumable[] speedItems;
 	private MissionItem[] missionItems;
 	private String map;
+	private int xPlayerPosition;
+	private int yPlayerPosition;
 	
 	
 
@@ -33,13 +35,20 @@ public class GameWorldData {
 		this.speedItems = new SpeedConsumable[maxSpeedItems];
 		this.missionItems = new MissionItem[maxMissionItems];
 		this.map = map;
+		this.xPlayerPosition = xPlayerPosition;
+		this.yPlayerPosition = yPlayerPosition;
 		
 		
 		
 	}
 	
-	public int getXPosition
+	public int getXPosition() {
+		return this.xPlayerPosition;
+	}
 	
+	public int getYPosition() {
+		return this.yPlayerPosition;
+	}
 	public Enemy[] getEnemiesList() {
 		return this.enemies;
 	}
