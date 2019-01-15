@@ -84,7 +84,8 @@ public abstract class Item extends Sprite {
   	}
     
 	public void dispose () {
-    	
+    	this.setX(1000000000);
+    	this.setY(1000000000);
     	this.getTexture().dispose();
     	
     }
