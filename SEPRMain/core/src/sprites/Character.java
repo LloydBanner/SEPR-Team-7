@@ -348,10 +348,10 @@ public abstract class Character extends Sprite {
 	
 	public void increaseHealth(int health) {
 		int newHealth = this.health += health;
-		if(newHealth <= maxHealth) {
+		if(newHealth <= getMaxHealth()) {
 			this.health = newHealth;
 		} else {
-			this.health = maxHealth;
+			this.health = getMaxHealth();
 		}
 		healthChange = true;
 	}
@@ -739,5 +739,13 @@ public abstract class Character extends Sprite {
 
 	public void setBaseSpeed(int baseSpeed) {
 		this.baseSpeed = baseSpeed;
+	}
+
+	public int getMaxHealth() {
+		return maxHealth;
+	}
+
+	public void setMaxHealth(int maxHealth) {
+		this.maxHealth = maxHealth;
 	}
 }

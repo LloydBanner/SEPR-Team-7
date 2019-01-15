@@ -12,7 +12,6 @@ public class SpeedConsumable extends Consumable {
     private static Sprite speed = new Sprite(new Texture("img/speed.png"));
 
     public SpeedConsumable (TiledMapTileLayer collisionLayer, int speedBoost, Player player) {
-        
     	super(speed, collisionLayer, player);
     	this.speedBoost = speedBoost;
     	

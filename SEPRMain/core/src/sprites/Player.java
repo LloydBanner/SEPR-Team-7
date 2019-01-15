@@ -28,6 +28,8 @@ public class Player extends Character implements InputProcessor {
 	private double cdTime = 0.6;
 	private int speedChangeCooldown = 0;
 	private float speedChangeTimer = 0;
+	private int invincibilityCooldown = 0;
+	private float invincibilityTimer = 0;
 	
 	public Player(Sprite sprite) {
 		//always use same sprite for player so don't need to take it as an input
@@ -83,6 +85,17 @@ public class Player extends Character implements InputProcessor {
 		} else {
 			speedChangeCooldown = 0;
 			this.setSpeed(this.getBaseSpeed());
+		}
+		
+		if (invincibilityCooldown > 0) {
+			this.increaseHealth(getMaxHealth());
+			invincibilityTimer += delta;
+			if (invincibilityTimer >= 1) {
+				invincibilityTimer = 0;
+				invincibilityCooldown -= 1;
+			}
+		} else {
+			invincibilityCooldown = 0;
 		}
 
 	}
@@ -382,4 +395,7 @@ public class Player extends Character implements InputProcessor {
 		speedChangeCooldown = 10;
 	}
 	
+	public void shieldPowerUp(int time) {
+		invincibilityCooldown = time;
+	}
 }

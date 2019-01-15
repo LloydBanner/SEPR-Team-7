@@ -21,6 +21,7 @@ import sprites.Player;
 import sprites.items.HealthConsumable;
 import sprites.items.Item;
 import sprites.items.MissionItem;
+import sprites.items.ShieldConsumable;
 import sprites.items.SpeedConsumable;
 import sprites.items.Weapon;
 
@@ -68,6 +69,7 @@ public class GameWorld implements Screen {
 	private Weapon[] weapons;
 	private HealthConsumable[] healthItems;
 	private SpeedConsumable[] speedItems;
+	private ShieldConsumable[] shieldItems;
 	private MissionItem[] missionItems;
 	private int playerXPosition;
 	private int playerYPosition;
@@ -91,6 +93,8 @@ public class GameWorld implements Screen {
 		missionItems = levelData.getMissionItemList();
 		playerXPosition = levelData.getXPosition();
 		playerYPosition = levelData.getYPosition();
+		//need to change this
+		shieldItems = new ShieldConsumable[5];
 		
 		
 		uiRenderer = new SpriteBatch();
@@ -210,6 +214,18 @@ public class GameWorld implements Screen {
 		}
 	}
 	
+	public void showShieldItems(ShieldConsumable[] shieldItems) {
+		
+		for (int i=0; i < shieldItems.length; i++ ) {
+			
+			shieldItems[i] = new ShieldConsumable((TiledMapTileLayer) map.getLayers().get(0), player);
+	
+			shieldItems[i].setPosition(44 * shieldItems[i].getCollisionLayer().getTileWidth(),
+					 			   	  25 * shieldItems[i].getCollisionLayer().getTileHeight());
+			
+		}
+	}
+	
 	public void showMissionItems(MissionItem[] missionItems) {
 		
 		for (int i=0; i < missionItems.length; i++ ) {
@@ -230,6 +246,7 @@ public class GameWorld implements Screen {
 			showHealthItems(healthItems);
 			showSpeedItems(speedItems);
 			showMissionItems(missionItems);
+			showShieldItems(shieldItems);
 			
 	}
 	
@@ -246,6 +263,7 @@ public class GameWorld implements Screen {
 		renderItems(healthItems, batch);
 		renderItems(speedItems, batch);
 		renderItems(missionItems, batch);
+		renderItems(shieldItems, batch);
 	
 	}
 	
