@@ -178,7 +178,7 @@ public class GameWorld implements Screen {
 		for (int i=0; i < weapons.length; i++ ) {
 			
 			weapons[i] = new Weapon(new Sprite(new Texture("img/zombie.png")), 
-								   (TiledMapTileLayer) map.getLayers().get(0), 5, 7);
+								   (TiledMapTileLayer) map.getLayers().get(0), 5, 7, player);
 	
 			weapons[i].setPosition(44 * weapons[i].getCollisionLayer().getTileWidth(),
 					 			   29 * weapons[i].getCollisionLayer().getTileHeight());
@@ -190,8 +190,7 @@ public class GameWorld implements Screen {
 		
 		for (int i=0; i < healthItems.length; i++ ) {
 			
-			healthItems[i] = new HealthConsumable(new Sprite(new Texture("img/zombie.png")), 
-												 (TiledMapTileLayer) map.getLayers().get(0), 5);
+			healthItems[i] = new HealthConsumable((TiledMapTileLayer) map.getLayers().get(0), 2, player);
 	
 			healthItems[i].setPosition(40 * healthItems[i].getCollisionLayer().getTileWidth(),
 					 			   	   29 * healthItems[i].getCollisionLayer().getTileHeight());
@@ -204,7 +203,7 @@ public class GameWorld implements Screen {
 		for (int i=0; i < speedItems.length; i++ ) {
 			
 			speedItems[i] = new SpeedConsumable(new Sprite(new Texture("img/zombie.png")), 
-											   (TiledMapTileLayer) map.getLayers().get(0), 5);
+											   (TiledMapTileLayer) map.getLayers().get(0), 5, player);
 	
 			speedItems[i].setPosition(44 * speedItems[i].getCollisionLayer().getTileWidth(),
 					 			   	  29 * speedItems[i].getCollisionLayer().getTileHeight());
@@ -218,7 +217,7 @@ public class GameWorld implements Screen {
 			
 			missionItems[i] = new MissionItem(new Sprite(new Texture("img/zombie.png")), 
 											   (TiledMapTileLayer) map.getLayers().get(0), 
-											   "some test mission item");
+											   "some test mission item", player);
 	
 			missionItems[i].setPosition(50 * missionItems[i].getCollisionLayer().getTileWidth(),
 					 			   	    29 * missionItems[i].getCollisionLayer().getTileHeight());
