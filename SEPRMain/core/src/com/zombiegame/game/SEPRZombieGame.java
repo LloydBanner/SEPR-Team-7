@@ -14,14 +14,15 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import helpers.GameWorldData;
 import screens.GameWorld;
 import screens.Menu;
+import sprites.Player;
 
 public class SEPRZombieGame extends Game {
 	
 	public HashMap<Integer,GameWorldData> level1;
 	
 	//Define parameters for each map
-	private GameWorldData heslingtonEastData = new GameWorldData("maps/east.tmx",10,10,10,10,10,20);
-	private GameWorldData heslingtonWestData = new GameWorldData("maps/west.tmx",10,10,10,10,10,20); //don't know if parameters are right
+	private GameWorldData heslingtonEastData = new GameWorldData(50,50,"maps/east.tmx",10,10,10,10,10,20);
+	private GameWorldData heslingtonWestData = new GameWorldData(50,50, "maps/west.tmx",10,10,10,10,10,20); //don't know if parameters are right
 	
 	
 	
@@ -39,9 +40,10 @@ public class SEPRZombieGame extends Game {
 	public void create () {
 		//everything in here is just to test at the  moment
 		//getter and setter for collisionLayer in player to adjust to collisions on different screens
+		Player player = new Player(new Sprite(new Texture("img/player.png")));
+
 		addLevel(1, heslingtonEastData); 
-		addLevel(2, heslingtonWestData);
-		setLevel(2);
+		setLevel(1, player);
 		//main menu test setScreen(new Menu());
 	}
 	
@@ -50,12 +52,12 @@ public class SEPRZombieGame extends Game {
 	}
 	
 	
-	public void setLevel(int level) {
+	public void setLevel(int level, Player player) {
 		
 		String mapPath = levels.get(level).getMap();
 		TiledMap map = loader.load(mapPath);
 		
-		setScreen(new GameWorld(map, levels.get(level)));
+		setScreen(new GameWorld(map, levels.get(level), player));
 		
 	}
 	

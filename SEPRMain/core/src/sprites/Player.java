@@ -26,11 +26,15 @@ public class Player extends Character implements InputProcessor {
 	private boolean cdActive = false;
 	private double timer;
 	private double cdTime = 0.6;
+	private int speedChangeCooldown = 0;
+	private float speedChangeTimer = 0;
+	private int invincibilityCooldown = 0;
+	private float invincibilityTimer = 0;
 	
-	public Player(Sprite sprite, TiledMapTileLayer collisionLayer) {
+	public Player(Sprite sprite) {
 		//always use same sprite for player so don't need to take it as an input
 		super(sprite);
-		this.setCollisionLayer(collisionLayer);
+		//this.setCollisionLayer(collisionLayer);
 		inventory = new HashMap<Item, Integer>();
 		missionItems = new ArrayList<String>();
 		
@@ -71,8 +75,31 @@ public class Player extends Character implements InputProcessor {
 				timer = 0;
 			}
 		}
+		
+		if (speedChangeCooldown > 0) {
+			speedChangeTimer += delta;
+			if (speedChangeTimer >= 1) {
+				speedChangeTimer = 0;
+				speedChangeCooldown -= 1;
+			}
+		} else {
+			speedChangeCooldown = 0;
+			this.setSpeed(this.getBaseSpeed());
+		}
+		
+		if (invincibilityCooldown > 0) {
+			this.increaseHealth(getMaxHealth());
+			invincibilityTimer += delta;
+			if (invincibilityTimer >= 1) {
+				invincibilityTimer = 0;
+				invincibilityCooldown -= 1;
+			}
+		} else {
+			invincibilityCooldown = 0;
+		}
 
 	}
+	
 	
 	@Override
 	public boolean keyDown(int keycode) {
@@ -359,4 +386,16 @@ public class Player extends Character implements InputProcessor {
 		
 	}
 	
+	public void speedPowerUp(int speedChange) {
+		if (speedChange >= 0) {
+			this.increaseSpeed(speedChange);
+		}else {
+			this.decreaseSpeed(speedChange);
+		}
+		speedChangeCooldown = 10;
+	}
+	
+	public void shieldPowerUp(int time) {
+		invincibilityCooldown = time;
+	}
 }

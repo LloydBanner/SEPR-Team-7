@@ -17,6 +17,7 @@ public abstract class Character extends Sprite {
 	private boolean healthChange = false;
 	private int damage = 1;
 	private int speed = 60 * 2;
+	private int baseSpeed = 60 * 2;
 	private int range;
 	private boolean paused = false;
 	private Sound hitSFX, missSFX;
@@ -328,6 +329,10 @@ public abstract class Character extends Sprite {
 	public int getSpeed() {
 		return speed;
 	}
+	
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
 
 	public void increaseSpeed(int speed) {
 		this.speed += speed;
@@ -343,10 +348,10 @@ public abstract class Character extends Sprite {
 	
 	public void increaseHealth(int health) {
 		int newHealth = this.health += health;
-		if(newHealth <= maxHealth) {
+		if(newHealth <= getMaxHealth()) {
 			this.health = newHealth;
 		} else {
-			this.health = maxHealth;
+			this.health = getMaxHealth();
 		}
 		healthChange = true;
 	}
@@ -746,5 +751,21 @@ public abstract class Character extends Sprite {
 
 	public void setDownRightAnimation2(Texture downRightAnimation2) {
 		this.downRightAnimation2 = downRightAnimation2;
+	}
+
+	public int getBaseSpeed() {
+		return baseSpeed;
+	}
+
+	public void setBaseSpeed(int baseSpeed) {
+		this.baseSpeed = baseSpeed;
+	}
+
+	public int getMaxHealth() {
+		return maxHealth;
+	}
+
+	public void setMaxHealth(int maxHealth) {
+		this.maxHealth = maxHealth;
 	}
 }
