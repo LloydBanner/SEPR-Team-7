@@ -380,44 +380,54 @@ public abstract class Character extends Sprite {
 	}
 	
 	public void attack(int damage, int direction) {
-		// Create shape of hitbox to check for enemies
-		// Change hitbox to be more triangle shaped on diagonals
+		// i and height are used to control loops
+		int height;
+		int i = 0;
+		// Initialise parameters for hitboxes to check for enemies
 		int hitboxLength = 60;
 		int hitboxWidth = 25;
+		int lowerBound = 5;
+		int upperBound = 40;
+		// Knockback strength
 		int knockback = 30;
+		// Import sound effects for combat 
 		hitSFX = Gdx.audio.newSound(Gdx.files.internal("sounds/playerAttack.mp3"));
 		missSFX = Gdx.audio.newSound(Gdx.files.internal("sounds/playerMiss.mp3"));
+		// Start cooldown on player's attack
 		player.cooldown(true);
 		
-		// Check for enemies in hitbox based on position of cursor relative to the player
+		// Check for enemies in a hitbox based on the player's position and direction of attack
 		switch (direction) {
 		// North West
 		case 1: 
+			//System.out.print(player.getX() + " " + player.getY());
 			for(Enemy enemy : enemies) {
 				if (enemy != this) {
-					if (enemy.getX()<=(player.getX()+hitboxWidth) && enemy.getX()>=(player.getX()-hitboxWidth)) {
-						if (enemy.getY()<=(player.getY()+hitboxLength) && enemy.getY()>=player.getY()) {
+					if (lowerBound<=(enemy.getY()-player.getY()) && (enemy.getY()-player.getY())<=upperBound) {
+						if (lowerBound<=(player.getX()-enemy.getX()) && (player.getX()-enemy.getX())<=upperBound) {						
 							hitSFX.play();	
 							enemy.setX(enemy.getX()-(knockback/2));
 							enemy.setY(enemy.getY()+(knockback/2));
-							enemy.decreaseHealth(2);
-							if(enemy.getHealth() == 0) {
+							enemy.decreaseHealth(1);
+							if(enemy.getHealth() >= 0) {
 								/* 
 								 * Unless better method is found
 								 * set enemy coordinates to 1 million
 								 * freeze enemy and reset health
-								 * call back coordinates > 900000 when needed to spawn again?
+								 * call back coordinates > 999000 when needed to spawn again?
 								 */
 								enemy.setX(1000000);
 								enemy.setY(1000000);
+								enemy.increaseHealth(4);
+								enemy.isPaused();
 							}
 						}
 					}	
 					else {
 						missSFX.play();
 					}
-				}	
-			}	
+				}							
+			}		
 			break;
 		// North
 		case 2:  
@@ -427,12 +437,13 @@ public abstract class Character extends Sprite {
 						if (enemy.getY()<=(player.getY()+hitboxLength) && enemy.getY()>=player.getY()) {
 							hitSFX.play();	
 							enemy.setY(enemy.getY()+knockback);
-							enemy.decreaseHealth(2);
+							enemy.decreaseHealth(1);
 							if(enemy.getHealth() == 0) {
 								enemy.setX(1000000);
 								enemy.setY(1000000);
-							}
-								
+								enemy.increaseHealth(4);
+								enemy.isPaused();
+							}		
 						}
 					}	
 					else {
@@ -445,19 +456,20 @@ public abstract class Character extends Sprite {
 		case 3:  
 			for(Enemy enemy : enemies) {
 				if (enemy != this) {
-					if (enemy.getX()<=(player.getX()+hitboxWidth) && enemy.getX()>=(player.getX()-hitboxWidth)) {
-						if (enemy.getY()<=(player.getY()+hitboxLength) && enemy.getY()>=player.getY()) {
+					if (lowerBound<=(enemy.getY()-player.getY()) && (enemy.getY()-player.getY())<=upperBound) {
+						if (lowerBound<=(enemy.getX()-player.getX()) && (enemy.getX()-player.getX())<=upperBound) {
 							hitSFX.play();	
 							enemy.setX(enemy.getX()+(knockback/2));
 							enemy.setY(enemy.getY()+(knockback/2));
 							// enemy health -= 1 
 							// if enemy health == 0 dispose
-							enemy.decreaseHealth(2);
+							enemy.decreaseHealth(1);
 							if(enemy.getHealth() == 0) {
 								enemy.setX(1000000);
 								enemy.setY(1000000);
-							}
-								
+								enemy.increaseHealth(4);
+								enemy.isPaused();
+							}		
 						}
 					}	
 					else {
@@ -474,10 +486,12 @@ public abstract class Character extends Sprite {
 						if (enemy.getY()<=(player.getY()+hitboxWidth) && enemy.getY()>=(player.getY()-hitboxWidth)) {
 							hitSFX.play();	
 							enemy.setX(enemy.getX()+knockback);
-							enemy.decreaseHealth(2);
+							enemy.decreaseHealth(1);
 							if(enemy.getHealth() == 0) {
 								enemy.setX(1000000);
 								enemy.setY(1000000);
+								enemy.increaseHealth(4);
+								enemy.isPaused();
 							}
 						}
 					}
@@ -491,19 +505,20 @@ public abstract class Character extends Sprite {
 		case 5:  
 			for(Enemy enemy : enemies) {
 				if (enemy != this) {
-					if (enemy.getX()<=(player.getX()+hitboxWidth) && enemy.getX()>=(player.getX()-hitboxWidth)) {
-						if (enemy.getY()>=(player.getY()-hitboxLength) && enemy.getY()<=player.getY()) {
+					if (lowerBound<=(player.getY()-enemy.getY()) && (player.getY()-enemy.getY())<=upperBound) {
+						if (lowerBound<=(enemy.getX()-player.getX()) && (enemy.getX()-player.getX())<=upperBound) {
 							hitSFX.play();	
 							enemy.setX(enemy.getX()+(knockback/2));
 							enemy.setY(enemy.getY()-(knockback/2));
 							// enemy health -= 1 
 							// if enemy health == 0 dispose
-							enemy.decreaseHealth(2);
+							enemy.decreaseHealth(1);
 							if(enemy.getHealth() == 0) {
 								enemy.setX(1000000);
 								enemy.setY(1000000);
-							}
-								
+								enemy.increaseHealth(4);
+								enemy.isPaused();
+							}								
 						}
 					}	
 					else {
@@ -520,10 +535,12 @@ public abstract class Character extends Sprite {
 						if (enemy.getY()>=(player.getY()-hitboxLength) && enemy.getY()<=player.getY()) {
 							hitSFX.play();	
 							enemy.setY(enemy.getY()-knockback);
-							enemy.decreaseHealth(2);
+							enemy.decreaseHealth(1);
 							if(enemy.getHealth() == 0) {
 								enemy.setX(1000000);
 								enemy.setY(1000000);
+								enemy.increaseHealth(4);
+								enemy.isPaused();
 							}
 						}
 					}	
@@ -537,19 +554,20 @@ public abstract class Character extends Sprite {
 		case 7:  
 			for(Enemy enemy : enemies) {
 				if (enemy != this) {
-					if (enemy.getX()<=(player.getX()+hitboxWidth) && enemy.getX()>=(player.getX()-hitboxWidth)) {
-						if (enemy.getY()>=(player.getY()-hitboxLength) && enemy.getY()<=player.getY()) {
+					if (lowerBound<=(player.getY()-enemy.getY()) && (player.getY()-enemy.getY())<=upperBound) {
+						if (lowerBound<=(player.getX()-enemy.getX()) && (player.getX()-enemy.getX())<=upperBound) {
 							hitSFX.play();	
 							enemy.setX(enemy.getX()-(knockback/2));
 							enemy.setY(enemy.getY()-(knockback/2));
 							// enemy health -= 1 
 							// if enemy health == 0 dispose
-							enemy.decreaseHealth(2);
+							enemy.decreaseHealth(1);
 							if(enemy.getHealth() == 0) {
 								enemy.setX(1000000);
 								enemy.setY(1000000);
-							}
-								
+								enemy.increaseHealth(4);
+								enemy.isPaused();
+							}		
 						}
 					}	
 					else {
@@ -566,10 +584,12 @@ public abstract class Character extends Sprite {
 						if (enemy.getY()<=(player.getY()+hitboxWidth) && enemy.getY()>=(player.getY()-hitboxWidth)) {
 							hitSFX.play();	
 							enemy.setX(enemy.getX()-knockback);
-							enemy.decreaseHealth(2);
+							enemy.decreaseHealth(1);
 							if(enemy.getHealth() == 0) {
 								enemy.setX(1000000);
 								enemy.setY(1000000);
+								enemy.increaseHealth(4);
+								enemy.isPaused();
 							}
 						}
 					}	
