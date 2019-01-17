@@ -168,12 +168,21 @@ public abstract class Character extends Sprite {
 		}
 	}
 	
+	/**
+	 * Sets information about other characters need for collisions with this character.
+	 * @param player
+	 * @param enemies
+	 */
 	public void setSpriteCollisions(Player player, Enemy[] enemies) {
 		this.player = player;
 		this.enemies = enemies;
 	}
 	
-	//methods bellow check collisions with another character in different directions
+	/**
+	 * Checks for character collisions to the right.
+	 * @param character
+	 * @return boolean. True if there is a collision with another character to the right.
+	 */
 	public boolean collisionCharacterRight(Character character) {
         if(5 < ((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2)))) {
         	if (((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2))) < 25) {
@@ -185,6 +194,11 @@ public abstract class Character extends Sprite {
         return false;
 	}
 	
+	/**
+	 * Checks for character collisions to the left.
+	 * @param character
+	 * @return boolean. True if there is a collision with another character to the left.
+	 */
 	public boolean collisionCharacterLeft(Character character) {
         if(-5 > ((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2)))) {
         	if (((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2))) > -25) {
@@ -196,6 +210,11 @@ public abstract class Character extends Sprite {
         return false;
 	}
 	
+	/**
+	 * Checks for character collisions above.
+	 * @param character
+	 * @return boolean. True if there is a collision with another character above this character.
+	 */
 	public boolean collisionCharacterTop(Character character) {
         if(5 < ((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2)))) {
             if (((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2))) < 25) {
@@ -207,6 +226,11 @@ public abstract class Character extends Sprite {
         return false;
 	}
 	
+	/**
+	 * Checks for character collisions below.
+	 * @param character
+	 * @return boolean. True if there is a collision with another character below this character.
+	 */
 	public boolean collisionCharacterBottom(Character character) {
         if(-5 > ((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2)))) {
         	if (((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2))) > -25) {
@@ -219,14 +243,24 @@ public abstract class Character extends Sprite {
 	}
 	
 	//for checking tiles, similar code could be used to check for other properties 
+	/**
+	 * Checks if the cell is blocked to allow the character to collide with blocked tiles.
+	 * @param x coordinate
+	 * @param y coordinate
+	 * @return boolean. True if tile at the coordinate (x, y) has been assigned the sting "blocked".
+	 */
 	private boolean isCellBlocked(float x, float y) {
 		Cell cell = collisionLayer.getCell((int) (x / collisionLayer.getTileWidth()), (int) (y / collisionLayer.getTileHeight()));
 		return cell != null && cell.getTile() != null && cell.getTile().getProperties().containsKey("blocked");
 	}
 	
+	/**
+	 * Checks for tile or character collisions to the right using collisionCharacterRight() and isCellBlocked() methods.
+	 * @return boolean. True if there is any type of collision to the right.
+	 */
 	public boolean collidesRight() {
-		//collision check starts a quarter of the way in to the highest block it can collide with
-		//checks every quarter of a block for collision
+		//collision check starts a quarter of the way in to the first tile and end a three quarters of the way through the last tile
+		//checks every quarter of a tile for a collision
         for(float step = (collisionLayer.getTileHeight() / 4); step < getHeight(); step += collisionLayer.getTileHeight() / 2)
                 if(isCellBlocked(getX() + getWidth(), getY() + step))
                         return true;
@@ -245,6 +279,10 @@ public abstract class Character extends Sprite {
         return false;
 	}
  
+	/**
+	 * Checks for tile or character collisions to the left using collisionCharacterLeft() and isCellBlocked() methods.
+	 * @return boolean. True if there is any type of collision to the left.
+	 */
 	public boolean collidesLeft() {
         for(float step = (collisionLayer.getTileHeight() / 4); step < getHeight(); step += collisionLayer.getTileHeight() / 2)
                 if(isCellBlocked(getX(), getY() + step))
@@ -264,6 +302,10 @@ public abstract class Character extends Sprite {
         return false;
 	}
  
+	/**
+	 * Checks for tile or character collisions above using collisionCharacterTop() and isCellBlocked() methods.
+	 * @return boolean. True if there is any type of collision above.
+	 */
 	public boolean collidesTop() {
         for(float step = (collisionLayer.getTileWidth() / 4); step < getWidth(); step += collisionLayer.getTileWidth() / 2)
                 if(isCellBlocked(getX() + step, getY() + getHeight()))
@@ -283,6 +325,10 @@ public abstract class Character extends Sprite {
         return false;
 	}
  
+	/**
+	 * Checks for tile or character collisions below using collisionCharacterBottom() and isCellBlocked() methods.
+	 * @return boolean. True if there is any type of collision below.
+	 */
 	public boolean collidesBottom() {
         for(float step = (collisionLayer.getTileWidth() / 4); step < getWidth(); step += collisionLayer.getTileWidth() / 2)
                 if(isCellBlocked(getX() + step, getY()))
