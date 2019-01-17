@@ -385,9 +385,6 @@ public abstract class Character extends Sprite {
 	}
 	
 	public void attack(int damage, int direction) {
-		// i and height are used to control loops
-		int height;
-		int i = 0;
 		// Initialise parameters for hitboxes to check for enemies
 		int hitboxLength = 60;
 		int hitboxWidth = 25;
@@ -414,7 +411,7 @@ public abstract class Character extends Sprite {
 							enemy.setX(enemy.getX()-(knockback/2));
 							enemy.setY(enemy.getY()+(knockback/2));
 							enemy.decreaseHealth(1);
-							if(enemy.getHealth() >= 0) {
+							if(enemy.getHealth() <= 0) {
 								/* 
 								 * Unless better method is found
 								 * set enemy coordinates to 1 million
@@ -443,7 +440,7 @@ public abstract class Character extends Sprite {
 							hitSFX.play();	
 							enemy.setY(enemy.getY()+knockback);
 							enemy.decreaseHealth(1);
-							if(enemy.getHealth() == 0) {
+							if(enemy.getHealth() <= 0) {
 								enemy.setX(1000000);
 								enemy.setY(1000000);
 								enemy.increaseHealth(4);
@@ -466,10 +463,8 @@ public abstract class Character extends Sprite {
 							hitSFX.play();	
 							enemy.setX(enemy.getX()+(knockback/2));
 							enemy.setY(enemy.getY()+(knockback/2));
-							// enemy health -= 1 
-							// if enemy health == 0 dispose
 							enemy.decreaseHealth(1);
-							if(enemy.getHealth() == 0) {
+							if(enemy.getHealth() <= 0) {
 								enemy.setX(1000000);
 								enemy.setY(1000000);
 								enemy.increaseHealth(4);
@@ -492,7 +487,7 @@ public abstract class Character extends Sprite {
 							hitSFX.play();	
 							enemy.setX(enemy.getX()+knockback);
 							enemy.decreaseHealth(1);
-							if(enemy.getHealth() == 0) {
+							if(enemy.getHealth() <= 0) {
 								enemy.setX(1000000);
 								enemy.setY(1000000);
 								enemy.increaseHealth(4);
@@ -515,10 +510,8 @@ public abstract class Character extends Sprite {
 							hitSFX.play();	
 							enemy.setX(enemy.getX()+(knockback/2));
 							enemy.setY(enemy.getY()-(knockback/2));
-							// enemy health -= 1 
-							// if enemy health == 0 dispose
 							enemy.decreaseHealth(1);
-							if(enemy.getHealth() == 0) {
+							if(enemy.getHealth() <= 0) {
 								enemy.setX(1000000);
 								enemy.setY(1000000);
 								enemy.increaseHealth(4);
@@ -541,7 +534,7 @@ public abstract class Character extends Sprite {
 							hitSFX.play();	
 							enemy.setY(enemy.getY()-knockback);
 							enemy.decreaseHealth(1);
-							if(enemy.getHealth() == 0) {
+							if(enemy.getHealth() <= 0) {
 								enemy.setX(1000000);
 								enemy.setY(1000000);
 								enemy.increaseHealth(4);
@@ -564,10 +557,8 @@ public abstract class Character extends Sprite {
 							hitSFX.play();	
 							enemy.setX(enemy.getX()-(knockback/2));
 							enemy.setY(enemy.getY()-(knockback/2));
-							// enemy health -= 1 
-							// if enemy health == 0 dispose
 							enemy.decreaseHealth(1);
-							if(enemy.getHealth() == 0) {
+							if(enemy.getHealth() <= 0) {
 								enemy.setX(1000000);
 								enemy.setY(1000000);
 								enemy.increaseHealth(4);
@@ -590,7 +581,7 @@ public abstract class Character extends Sprite {
 							hitSFX.play();	
 							enemy.setX(enemy.getX()-knockback);
 							enemy.decreaseHealth(1);
-							if(enemy.getHealth() == 0) {
+							if(enemy.getHealth() <= 0) {
 								enemy.setX(1000000);
 								enemy.setY(1000000);
 								enemy.increaseHealth(4);

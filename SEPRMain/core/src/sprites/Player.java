@@ -97,7 +97,10 @@ public class Player extends Character implements InputProcessor {
 		} else {
 			invincibilityCooldown = 0;
 		}
-
+		
+		if(getHealth() <= 0) {
+			respawn();
+		}
 	}
 	
 	
@@ -405,5 +408,11 @@ public class Player extends Character implements InputProcessor {
 	
 	public void shieldPowerUp(int time) {
 		invincibilityCooldown = time;
+	}
+	
+	public void respawn() {
+		setX(1600);
+		setY(1600);
+		increaseHealth(4);
 	}
 }
