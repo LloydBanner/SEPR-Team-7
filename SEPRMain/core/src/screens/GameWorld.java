@@ -51,12 +51,17 @@ public class GameWorld implements Screen {
 	private Texture controlsInactive;
 	private Texture backActive;
 	private Texture backInactive;
+	private Texture win;
 	private int buttonSize = 250;
 	private int buttonX = 500;
 	private int exitY = 10;
 	private int backY = 10;
 	private int controlsY = 225;
 	private int continueY = 460;
+	private int winX = 125;
+	private int winY = 1;
+	private int winWidth = 1000;
+	private int winHeight = 800;
 	
 	//private final int MAX_ENEMIES = 10;
 	//private final int MAX_HEALTH_ITEMS = 10;
@@ -76,6 +81,7 @@ public class GameWorld implements Screen {
 	
 	private boolean paused = false;
 	private boolean showingControls = false;
+	private boolean hasWon = false;
 	private boolean menuCooldown = true;
 	private float timeCount = 0;
 	
@@ -114,6 +120,7 @@ public class GameWorld implements Screen {
 		controlsInactive = new Texture("img/controls1.png");
 		backActive = new Texture("img/back2.png");
 		backInactive = new Texture("img/back1.png");
+		win = new Texture("img/player.png");
 		
 		TmxMapLoader loader = new TmxMapLoader(); //don't need
 		showEnemies(enemies);
@@ -230,9 +237,9 @@ public class GameWorld implements Screen {
 		
 		for (int i=0; i < missionItems.length; i++ ) {
 			
-			missionItems[i] = new MissionItem(new Sprite(new Texture("img/zombie.png")), 
+			missionItems[i] = new MissionItem(new Sprite(new Texture("img/buspass.png")), 
 											   (TiledMapTileLayer) map.getLayers().get(0), 
-											   "some test mission item", player);
+											   "win condition", player);
 	
 			missionItems[i].setPosition(52 * missionItems[i].getCollisionLayer().getTileWidth(),
 					 			   	    29 * missionItems[i].getCollisionLayer().getTileHeight());
@@ -330,8 +337,24 @@ public class GameWorld implements Screen {
 			timeCount = 0;
 			menuCooldown = false;
 		}
+		if (!hasWon) {
+			if (player.hasMissionItem(new MissionItem(new Sprite(new Texture("img/buspass.png")), 
+														(TiledMapTileLayer) map.getLayers().get(0), 
+														"win condition", player))) {
+				hasWon = true;
+				this.pause();
+			}
+		}
+		
 		if (paused) {
-			if (showingControls) {
+			if (hasWon) {
+				//shows controls in pause menu
+				uiRenderer.begin();
+				//rendering for ui
+				renderUI();
+				renderWin();
+				uiRenderer.end();
+			}else if (showingControls) {
 				//shows controls in pause menu
 				uiRenderer.begin();
 				//rendering for ui
@@ -413,6 +436,10 @@ public class GameWorld implements Screen {
 			uiRenderer.draw(backInactive, buttonX, exitY, buttonSize, buttonSize);
 		}
 		//need to add image with controls as another texture
+	}
+	
+	public void renderWin() {
+		uiRenderer.draw(win, winX, winY, winWidth, winHeight);
 	}
 	
 	public boolean withinButton(int buttonY) {

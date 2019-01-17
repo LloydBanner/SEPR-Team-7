@@ -23,6 +23,8 @@ public class MissionItem extends Item {
 
     @Override
     public void interact(Player player) {
+    	player.addMissionItem(this);
+    	super.interact(player);
     }
     
     

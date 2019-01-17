@@ -372,6 +372,14 @@ public class Player extends Character implements InputProcessor {
 		missionItem.dispose();
 	}
 	
+	public boolean hasMissionItem(MissionItem missionItem) {
+		if (missionItems.contains(missionItem.getId())) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
 	public void consume (HealthConsumable consumable) {
 		
 		this.increaseHealth(consumable.getHealthBoost());
