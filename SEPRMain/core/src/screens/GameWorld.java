@@ -128,6 +128,9 @@ public class GameWorld implements Screen {
 		setSpriteCollisions();
 	}
 	
+	/**
+	 * Gives each character the information they need to be able to collide with each other.
+	 */
 	private void setSpriteCollisions() {
 		for(Enemy enemy : enemies) {
 			enemy.setSpriteCollisions(player, enemies);
@@ -352,6 +355,7 @@ public class GameWorld implements Screen {
 				uiRenderer.begin();
 				//rendering for ui
 				renderUI();
+				//renders win screen
 				renderWin();
 				uiRenderer.end();
 			}else if (showingControls) {
@@ -480,7 +484,6 @@ public class GameWorld implements Screen {
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

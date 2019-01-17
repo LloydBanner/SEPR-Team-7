@@ -54,7 +54,6 @@ public class Enemy extends Character{
 		
 		// Deals with player collisions
 		if(!isPaused()) {
-		
 			// Every 2 seconds change movement randomly unless in attack range of player
 			if(timer > 2 && !isAttacking()) {
 				timer = 0;
