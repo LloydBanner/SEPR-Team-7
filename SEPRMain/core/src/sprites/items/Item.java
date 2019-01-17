@@ -38,7 +38,10 @@ public abstract class Item extends Sprite {
     	
     }
     
-  //methods bellow check collisions with the player
+    /**
+	 * Checks for a player collision to the right.
+	 * @return boolean. True if the player touches the right of the item.
+	 */
   	public boolean collisionPlayerRight(Character player) {
           if(5 < ((player.getX() + (player.getWidth() / 2)) - (getX() + (getWidth() / 2)))) {
           	if (((player.getX() + (player.getWidth() / 2)) - (getX() + (getWidth() / 2))) < 25) {
@@ -50,6 +53,10 @@ public abstract class Item extends Sprite {
           return false;
   	}
   	
+    /**
+	 * Checks for a player collision to the left.
+	 * @return boolean. True if the player touches the left of the item.
+	 */
   	public boolean collisionPlayerLeft(Character player) {
           if(-5 > ((player.getX() + (player.getWidth() / 2)) - (getX() + (getWidth() / 2)))) {
           	if (((player.getX() + (player.getWidth() / 2)) - (getX() + (getWidth() / 2))) > -25) {
@@ -61,6 +68,10 @@ public abstract class Item extends Sprite {
           return false;
   	}
   	
+    /**
+	 * Checks for a player collision above.
+	 * @return boolean. True if the player touches the top of the item.
+	 */
   	public boolean collisionPlayerTop(Character player) {
           if(5 < ((player.getY() + (player.getHeight() / 2)) - (getY() + (getHeight() / 2)))) {
               if (((player.getY() + (player.getHeight() / 2)) - (getY() + (getHeight() / 2))) < 25) {
@@ -72,6 +83,10 @@ public abstract class Item extends Sprite {
           return false;
   	}
   	
+    /**
+	 * Checks for a player collision below.
+	 * @return boolean. True if the player touches the bottom of the item.
+	 */
   	public boolean collisionPlayerBottom(Character player) {
           if(-5 > ((player.getY() + (player.getHeight() / 2)) - (getY() + (getHeight() / 2)))) {
           	if (((player.getY() + (player.getHeight() / 2)) - (getY() + (getHeight() / 2))) > -25) {
@@ -84,6 +99,7 @@ public abstract class Item extends Sprite {
   	}
     
 	public void dispose () {
+		//removes the item when it is disposed
     	this.setX(1000000000);
     	this.setY(1000000000);
     	this.getTexture().dispose();

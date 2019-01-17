@@ -40,7 +40,7 @@ public class Player extends Character implements InputProcessor {
 		
 		//animation
 		//needs to be changed when classes are added
-		//these sets should be moved in to the classes' class so ech one can have different animations 
+		//these sets should be moved in to the classes' class so each one can have different animations 
 		setNeturalAnimation(new Texture("img/player.png"));
 		setUpAnimation1(new Texture("img/zombie.png"));
 		setUpAnimation2(new Texture("img/player.png"));
@@ -381,20 +381,6 @@ public class Player extends Character implements InputProcessor {
 		}else {
 			return false;
 		}
-	}
-	
-	public void consume (HealthConsumable consumable) {
-		
-		this.increaseHealth(consumable.getHealthBoost());
-		consumable.dispose();
-		
-	}
-	
-	public void consume (SpeedConsumable consumable) {
-		
-		this.increaseSpeed(consumable.getSpeedBoost());	
-		consumable.dispose();
-		
 	}
 	
 	public void speedPowerUp(int speedChange) {
