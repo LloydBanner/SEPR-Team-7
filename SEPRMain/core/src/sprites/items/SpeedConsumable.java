@@ -29,6 +29,6 @@ public class SpeedConsumable extends Consumable {
     
     @Override
     public void consume(Player player) {
-    	player.speedPowerUp(10);
+    	player.speedPowerUp(speedBoost);
     }
 }
