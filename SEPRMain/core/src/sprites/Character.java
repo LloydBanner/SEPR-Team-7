@@ -9,11 +9,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Vector2;
 
-/**
- * Used to represent any Character with health and speed in the game. 
- * @author Lloyd
- * @author Ethan
- */
 public abstract class Character extends Sprite {
 	
 	private int health = 4;
