@@ -9,6 +9,11 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * Used to represent any Character with health and speed in the game. 
+ * @author Lloyd
+ * @author Ethan
+ */
 public abstract class Character extends Sprite {
 	
 	private int health = 4;
@@ -72,7 +77,7 @@ public abstract class Character extends Sprite {
 		// check for x collision
 		if (velocity.x < 0) {
 			collisionX = collidesLeft();
-		} else if (velocity.x > 0) {
+		}else if (velocity.x > 0) {
 			collisionX = collidesRight();
 		}
 
@@ -87,7 +92,7 @@ public abstract class Character extends Sprite {
 		// check for y collision
 		if (velocity.y < 0) {
 			collisionY = collidesBottom();
-		} else if (velocity.y > 0) {
+		}else if (velocity.y > 0) {
 			collisionY = collidesTop();
 		}
 
@@ -162,7 +167,7 @@ public abstract class Character extends Sprite {
 				this.setTexture(getNeturalAnimation());
 			}	
 		}
-		if(timeSinceLastAnimation >= 0.2) {
+		if (timeSinceLastAnimation >= 0.2) {
 			animationFrame += 1;
 			timeSinceLastAnimation = 0;
 		}
@@ -184,7 +189,7 @@ public abstract class Character extends Sprite {
 	 * @return boolean. True if there is a collision with another character to the right.
 	 */
 	public boolean collisionCharacterRight(Character character) {
-        if(5 < ((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2)))) {
+        if (5 < ((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2)))) {
         	if (((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2))) < 25) {
         		if (Math.abs((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2))) < 25) {
         			return true;
@@ -200,7 +205,7 @@ public abstract class Character extends Sprite {
 	 * @return boolean. True if there is a collision with another character to the left.
 	 */
 	public boolean collisionCharacterLeft(Character character) {
-        if(-5 > ((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2)))) {
+        if (-5 > ((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2)))) {
         	if (((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2))) > -25) {
         		if (Math.abs((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2))) < 25) {
         			return true;    
@@ -216,7 +221,7 @@ public abstract class Character extends Sprite {
 	 * @return boolean. True if there is a collision with another character above this character.
 	 */
 	public boolean collisionCharacterTop(Character character) {
-        if(5 < ((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2)))) {
+        if (5 < ((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2)))) {
             if (((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2))) < 25) {
             	if (Math.abs((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2))) < 25) {
                 	return true;  
@@ -232,7 +237,7 @@ public abstract class Character extends Sprite {
 	 * @return boolean. True if there is a collision with another character below this character.
 	 */
 	public boolean collisionCharacterBottom(Character character) {
-        if(-5 > ((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2)))) {
+        if (-5 > ((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2)))) {
         	if (((character.getY() + (character.getHeight() / 2)) - (getY() + (getHeight() / 2))) > -25) {
         		if (Math.abs((character.getX() + (character.getWidth() / 2)) - (getX() + (getWidth() / 2))) < 25) {
         			return true;
@@ -261,17 +266,19 @@ public abstract class Character extends Sprite {
 	public boolean collidesRight() {
 		//collision check starts a quarter of the way in to the first tile and end a three quarters of the way through the last tile
 		//checks every quarter of a tile for a collision
-        for(float step = (collisionLayer.getTileHeight() / 4); step < getHeight(); step += collisionLayer.getTileHeight() / 2)
-                if(isCellBlocked(getX() + getWidth(), getY() + step))
+        for (float step = (collisionLayer.getTileHeight() / 4); step < getHeight(); step += collisionLayer.getTileHeight() / 2) {
+                if (isCellBlocked(getX() + getWidth(), getY() + step)) {
                         return true;
-		if(player != this) {
-			if(collisionCharacterRight(player)) {
+                }
+        }
+		if (player != this) {
+			if (collisionCharacterRight(player)) {
 				return true;
 			}
 		}
-		for(Enemy enemy : enemies) {
-			if(enemy != this) {
-				if(collisionCharacterRight(enemy)) {
+		for (Enemy enemy : enemies) {
+			if (enemy != this) {
+				if (collisionCharacterRight(enemy)) {
 					return true;
 				}
 			}
@@ -284,17 +291,19 @@ public abstract class Character extends Sprite {
 	 * @return boolean. True if there is any type of collision to the left.
 	 */
 	public boolean collidesLeft() {
-        for(float step = (collisionLayer.getTileHeight() / 4); step < getHeight(); step += collisionLayer.getTileHeight() / 2)
-                if(isCellBlocked(getX(), getY() + step))
+        for (float step = (collisionLayer.getTileHeight() / 4); step < getHeight(); step += collisionLayer.getTileHeight() / 2) {
+                if (isCellBlocked(getX(), getY() + step)) {
                         return true;
-		if(player != this) {
-			if(collisionCharacterLeft(player)) {
+                }
+        }
+		if (player != this) {
+			if (collisionCharacterLeft(player)) {
 				return true;
 			}
 		}
-		for(Enemy enemy : enemies) {
-			if(enemy != this) {
-				if(collisionCharacterLeft(enemy)) {
+		for (Enemy enemy : enemies) {
+			if (enemy != this) {
+				if (collisionCharacterLeft(enemy)) {
 					return true;
 				}
 			}
@@ -307,17 +316,19 @@ public abstract class Character extends Sprite {
 	 * @return boolean. True if there is any type of collision above.
 	 */
 	public boolean collidesTop() {
-        for(float step = (collisionLayer.getTileWidth() / 4); step < getWidth(); step += collisionLayer.getTileWidth() / 2)
-                if(isCellBlocked(getX() + step, getY() + getHeight()))
+        for (float step = (collisionLayer.getTileWidth() / 4); step < getWidth(); step += collisionLayer.getTileWidth() / 2) {
+                if (isCellBlocked(getX() + step, getY() + getHeight())) {
                         return true;
-		if(player != this) {
-			if(collisionCharacterTop(player)) {
+                }
+        }
+		if (player != this) {
+			if (collisionCharacterTop(player)) {
 				return true;
 			}
 		}
-		for(Enemy enemy : enemies) {
-			if(enemy != this) {
-				if(collisionCharacterTop(enemy)) {
+		for (Enemy enemy : enemies) {
+			if (enemy != this) {
+				if (collisionCharacterTop(enemy)) {
 					return true;
 				}
 			}
@@ -330,54 +341,24 @@ public abstract class Character extends Sprite {
 	 * @return boolean. True if there is any type of collision below.
 	 */
 	public boolean collidesBottom() {
-        for(float step = (collisionLayer.getTileWidth() / 4); step < getWidth(); step += collisionLayer.getTileWidth() / 2)
-                if(isCellBlocked(getX() + step, getY()))
+        for (float step = (collisionLayer.getTileWidth() / 4); step < getWidth(); step += collisionLayer.getTileWidth() / 2) {
+                if (isCellBlocked(getX() + step, getY())) {
                         return true;
-		if(player != this) {
-			if(collisionCharacterBottom(player)) {
+                }
+        }
+		if (player != this) {
+			if (collisionCharacterBottom(player)) {
 				return true;
 			}
 		}
-		for(Enemy enemy : enemies) {
-			if(enemy != this) {
-				if(collisionCharacterBottom(enemy)) {
+		for (Enemy enemy : enemies) {
+			if (enemy != this) {
+				if (collisionCharacterBottom(enemy)) {
 					return true;
 				}
 			}
 		}
         return false;
-	}
-
-	public TiledMapTileLayer getCollisionLayer() {
-		return collisionLayer;
-	}
-
-	public void setCollisionLayer(TiledMapTileLayer collisionLayer) {
-		this.collisionLayer = collisionLayer;
-	}
-
-	public Vector2 getVelocity() {
-		return velocity;
-	}
-
-	public void setVelocity(Vector2 velocity) {
-		this.velocity = velocity;
-	}
-	
-	public void setVelocityY(float y) {
-		this.velocity.y = y;
-	}
-	
-	public void setVelocityX(float x) {
-		this.velocity.x = x;
-	}
-
-	public int getSpeed() {
-		return speed;
-	}
-	
-	public void setSpeed(int speed) {
-		this.speed = speed;
 	}
 
 	public void increaseSpeed(int speed) {
@@ -386,10 +367,6 @@ public abstract class Character extends Sprite {
 	
 	public void decreaseSpeed(int speed) {
 		this.speed -= speed;
-	}
-	
-	public int getHealth() {
-		return health;
 	}
 	
 	public void increaseHealth(int health) {
@@ -416,10 +393,6 @@ public abstract class Character extends Sprite {
 		boolean change = healthChange;
 		healthChange = false;
 		return change;
-	}
-	
-	public int getDamage() {
-		return damage;
 	}
 	
 	public void increaseDamage(int damage) {
@@ -449,7 +422,7 @@ public abstract class Character extends Sprite {
 		// North West
 		case 1: 
 			//System.out.print(player.getX() + " " + player.getY());
-			for(Enemy enemy : enemies) {
+			for (Enemy enemy : enemies) {
 				if (enemy != this) {
 					if (lowerBound<=(enemy.getY()-player.getY()) && (enemy.getY()-player.getY())<=upperBound) {
 						if (lowerBound<=(player.getX()-enemy.getX()) && (player.getX()-enemy.getX())<=upperBound) {						
@@ -457,7 +430,7 @@ public abstract class Character extends Sprite {
 							enemy.setX(enemy.getX()-(knockback/2));
 							enemy.setY(enemy.getY()+(knockback/2));
 							enemy.decreaseHealth(1);
-							if(enemy.getHealth() <= 0) {
+							if (enemy.getHealth() <= 0) {
 								/* 
 								 * Unless better method is found
 								 * set enemy coordinates to 1 million
@@ -479,14 +452,14 @@ public abstract class Character extends Sprite {
 			break;
 		// North
 		case 2:  
-			for(Enemy enemy : enemies) {
+			for (Enemy enemy : enemies) {
 				if (enemy != this) {
 					if (enemy.getX()<=(player.getX()+hitboxWidth) && enemy.getX()>=(player.getX()-hitboxWidth)) {
 						if (enemy.getY()<=(player.getY()+hitboxLength) && enemy.getY()>=player.getY()) {
 							hitSFX.play();	
 							enemy.setY(enemy.getY()+knockback);
 							enemy.decreaseHealth(1);
-							if(enemy.getHealth() <= 0) {
+							if (enemy.getHealth() <= 0) {
 								enemy.setX(1000000);
 								enemy.setY(1000000);
 								enemy.increaseHealth(4);
@@ -502,7 +475,7 @@ public abstract class Character extends Sprite {
 			break;
 		// North East
 		case 3:  
-			for(Enemy enemy : enemies) {
+			for (Enemy enemy : enemies) {
 				if (enemy != this) {
 					if (lowerBound<=(enemy.getY()-player.getY()) && (enemy.getY()-player.getY())<=upperBound) {
 						if (lowerBound<=(enemy.getX()-player.getX()) && (enemy.getX()-player.getX())<=upperBound) {
@@ -526,14 +499,14 @@ public abstract class Character extends Sprite {
 			break;
 		// East
 		case 4: 
-			for(Enemy enemy : enemies) {
+			for (Enemy enemy : enemies) {
 				if (enemy != this) {
 					if (enemy.getX()<=(player.getX()+hitboxLength) && enemy.getX()>=player.getX()) {
 						if (enemy.getY()<=(player.getY()+hitboxWidth) && enemy.getY()>=(player.getY()-hitboxWidth)) {
 							hitSFX.play();	
 							enemy.setX(enemy.getX()+knockback);
 							enemy.decreaseHealth(1);
-							if(enemy.getHealth() <= 0) {
+							if (enemy.getHealth() <= 0) {
 								enemy.setX(1000000);
 								enemy.setY(1000000);
 								enemy.increaseHealth(4);
@@ -549,7 +522,7 @@ public abstract class Character extends Sprite {
 			break;	
 		// South East
 		case 5:  
-			for(Enemy enemy : enemies) {
+			for (Enemy enemy : enemies) {
 				if (enemy != this) {
 					if (lowerBound<=(player.getY()-enemy.getY()) && (player.getY()-enemy.getY())<=upperBound) {
 						if (lowerBound<=(enemy.getX()-player.getX()) && (enemy.getX()-player.getX())<=upperBound) {
@@ -557,7 +530,7 @@ public abstract class Character extends Sprite {
 							enemy.setX(enemy.getX()+(knockback/2));
 							enemy.setY(enemy.getY()-(knockback/2));
 							enemy.decreaseHealth(1);
-							if(enemy.getHealth() <= 0) {
+							if (enemy.getHealth() <= 0) {
 								enemy.setX(1000000);
 								enemy.setY(1000000);
 								enemy.increaseHealth(4);
@@ -573,14 +546,14 @@ public abstract class Character extends Sprite {
 			break;
 		// South
 		case 6: 
-			for(Enemy enemy : enemies) {
+			for (Enemy enemy : enemies) {
 				if (enemy != this) {
 					if (enemy.getX()<=(player.getX()+hitboxWidth) && enemy.getX()>=(player.getX()-hitboxWidth)) {
 						if (enemy.getY()>=(player.getY()-hitboxLength) && enemy.getY()<=player.getY()) {
 							hitSFX.play();	
 							enemy.setY(enemy.getY()-knockback);
 							enemy.decreaseHealth(1);
-							if(enemy.getHealth() <= 0) {
+							if (enemy.getHealth() <= 0) {
 								enemy.setX(1000000);
 								enemy.setY(1000000);
 								enemy.increaseHealth(4);
@@ -596,7 +569,7 @@ public abstract class Character extends Sprite {
 			break;
 		// South West
 		case 7:  
-			for(Enemy enemy : enemies) {
+			for (Enemy enemy : enemies) {
 				if (enemy != this) {
 					if (lowerBound<=(player.getY()-enemy.getY()) && (player.getY()-enemy.getY())<=upperBound) {
 						if (lowerBound<=(player.getX()-enemy.getX()) && (player.getX()-enemy.getX())<=upperBound) {
@@ -620,14 +593,14 @@ public abstract class Character extends Sprite {
 			break;
 		// West
 		case 8: 
-			for(Enemy enemy : enemies) {
+			for (Enemy enemy : enemies) {
 				if (enemy != this) {
 					if (enemy.getX()>=(player.getX()-hitboxLength) && enemy.getX()<=player.getX()) {
 						if (enemy.getY()<=(player.getY()+hitboxWidth) && enemy.getY()>=(player.getY()-hitboxWidth)) {
 							hitSFX.play();	
 							enemy.setX(enemy.getX()-knockback);
 							enemy.decreaseHealth(1);
-							if(enemy.getHealth() <= 0) {
+							if (enemy.getHealth() <= 0) {
 								enemy.setX(1000000);
 								enemy.setY(1000000);
 								enemy.increaseHealth(4);
@@ -804,5 +777,45 @@ public abstract class Character extends Sprite {
 
 	public void setMaxHealth(int maxHealth) {
 		this.maxHealth = maxHealth;
+	}
+	
+	public int getDamage() {
+		return damage;
+	}
+	
+	public int getHealth() {
+		return health;
+	}
+
+	public int getSpeed() {
+		return speed;
+	}
+	
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
+
+	public TiledMapTileLayer getCollisionLayer() {
+		return collisionLayer;
+	}
+
+	public void setCollisionLayer(TiledMapTileLayer collisionLayer) {
+		this.collisionLayer = collisionLayer;
+	}
+
+	public Vector2 getVelocity() {
+		return velocity;
+	}
+
+	public void setVelocity(Vector2 velocity) {
+		this.velocity = velocity;
+	}
+	
+	public void setVelocityY(float y) {
+		this.velocity.y = y;
+	}
+	
+	public void setVelocityX(float x) {
+		this.velocity.x = x;
 	}
 }
