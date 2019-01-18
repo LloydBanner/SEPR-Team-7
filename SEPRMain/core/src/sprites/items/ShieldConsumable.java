@@ -6,8 +6,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 import sprites.Player;
 
-
-
 public class ShieldConsumable extends Consumable {
 	
 	private static Sprite shield = new Sprite(new Texture("img/shield.png"));
