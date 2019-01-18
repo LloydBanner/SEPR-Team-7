@@ -5,10 +5,12 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.zombiegame.game.SEPRZombieGame;
 
 public class Menu implements Screen {
 	
 	private SpriteBatch renderer;
+	private SEPRZombieGame game;
 	
 	private Texture exitActive;
 	private Texture exitInactive;
@@ -20,12 +22,13 @@ public class Menu implements Screen {
 	private int exitY = 100;
 	private int playY = 350;
 	
-	public Menu() {
+	public Menu(SEPRZombieGame game) {
 		renderer = new SpriteBatch();
 		exitActive = new Texture("img/exit2.png");
 		exitInactive = new Texture("img/exit1.png");
 		playActive = new Texture("img/play2.png");
 		playInactive = new Texture("img/play1.png");
+		this.game = game;
 	}
 	
 	@Override
@@ -51,7 +54,7 @@ public class Menu implements Screen {
 		if (withinButton(playY)) {
 			renderer.draw(playActive, buttonX, playY, buttonSize, buttonSize);
 			if (Gdx.input.isTouched()) {
-				//play screen code
+				this.game.setLevel(1);
 			}
 		}else {
 			renderer.draw(playInactive, buttonX, playY, buttonSize, buttonSize);

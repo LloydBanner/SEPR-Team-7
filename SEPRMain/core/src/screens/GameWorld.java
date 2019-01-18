@@ -116,8 +116,8 @@ public class GameWorld implements Screen {
 		win = new Texture("img/player.png");
 		
 		// TmxMapLoader loader = new TmxMapLoader(); 
-		showEnemies(enemies);
-		showItems();
+		createEnemies(enemies);
+		createItems();
 		setSpriteCollisions();
 	}
 	
@@ -148,7 +148,7 @@ public class GameWorld implements Screen {
 		Gdx.input.setInputProcessor(player);
 	}
 	
-	public void showEnemies(Enemy[] enemies) {
+	public void createEnemies(Enemy[] enemies) {
 		
 		int pos = 20;
 		
@@ -180,7 +180,7 @@ public class GameWorld implements Screen {
 		}
 	}
 	
-	public void showWeapons(Weapon[] weapons) {
+	public void createWeapons(Weapon[] weapons) {
 		
 		for (int i=0; i < weapons.length; i++ ) {
 			
@@ -193,7 +193,7 @@ public class GameWorld implements Screen {
 		}
 	}
 	
-	public void showHealthItems(HealthConsumable[] healthItems) {
+	public void createHealthItems(HealthConsumable[] healthItems) {
 		
 		for (int i=0; i < healthItems.length; i++ ) {
 			
@@ -205,7 +205,7 @@ public class GameWorld implements Screen {
 		}
 	}
 	
-	public void showSpeedItems(SpeedConsumable[] speedItems) {
+	public void createSpeedItems(SpeedConsumable[] speedItems) {
 		
 		for (int i=0; i < speedItems.length; i++ ) {
 			
@@ -217,7 +217,7 @@ public class GameWorld implements Screen {
 		}
 	}
 	
-	public void showShieldItems(ShieldConsumable[] shieldItems) {
+	public void createShieldItems(ShieldConsumable[] shieldItems) {
 		
 		for (int i=0; i < shieldItems.length; i++ ) {
 			
@@ -229,7 +229,7 @@ public class GameWorld implements Screen {
 		}
 	}
 	
-	public void showMissionItems(MissionItem[] missionItems) {
+	public void createMissionItems(MissionItem[] missionItems) {
 		
 		for (int i=0; i < missionItems.length; i++ ) {
 			
@@ -243,13 +243,13 @@ public class GameWorld implements Screen {
 		}
 	}
 	
-	public void showDoors(Door[] doors) {
+	public void createDoors(Door[] doors) {
 		
 		for (int i=0; i < doors.length; i++) {
 		
 			doors[i] = new Door(new Sprite(new Texture("img/player.png")), 2, 
 							   (TiledMapTileLayer) map.getLayers().get(0), player,
-								this.getPlayer().getGame());
+								this.getPlayer().getGame(), missionItems[0]);
 							   
 			
 			doors[i].setPosition(52 * doors[i].getCollisionLayer().getTileWidth(),
@@ -258,14 +258,14 @@ public class GameWorld implements Screen {
 		}
 	}
 	
-	public void showItems() {
+	public void createItems() {
 		
-			showWeapons(weapons);
-			showHealthItems(healthItems);
-			showSpeedItems(speedItems);
-			showMissionItems(missionItems);
-			showShieldItems(shieldItems);
-			showDoors(doors);
+			createWeapons(weapons);
+			createHealthItems(healthItems);
+			createSpeedItems(speedItems);
+			createMissionItems(missionItems);
+			createShieldItems(shieldItems);
+			createDoors(doors);
 			
 	}
 	

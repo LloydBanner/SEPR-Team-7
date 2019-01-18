@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 import helpers.GameWorldData;
 import screens.GameWorld;
+import screens.Menu;
 import sprites.Player;
 
 public class SEPRZombieGame extends Game {
@@ -26,24 +27,26 @@ public class SEPRZombieGame extends Game {
 	//Create levels
 	public HashMap<Integer, GameWorldData> levels = new HashMap<Integer, GameWorldData>();
 	
+	private Player player;
+	
 	
 	@Override
 	public void create () {
 		//everything in here is just to test at the  moment
 		//getter and setter for collisionLayer in player to adjust to collisions on different screens
-		Player player = new Player(new Sprite(new Texture("img/player.png")), this);
+		this.player = new Player(new Sprite(new Texture("img/player.png")), this);
 
 		addLevel(1, heslingtonEastData); 
 		addLevel(2, heslingtonWestData);
-		setLevel(1, player);
-		//main menu test setScreen(new Menu());
+
+		setScreen(new Menu(this));
 	}
 	
 	public void addLevel (int levelNumber, GameWorldData worldData) {
 		levels.put(levelNumber, worldData);
 	}
 	
-	public void setLevel(int level, Player player) {
+	public void setLevel(int level) {
 		
 		String mapPath = levels.get(level).getMap();
 		TiledMap map = loader.load(mapPath);
