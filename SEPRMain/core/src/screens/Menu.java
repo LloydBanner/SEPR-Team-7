@@ -22,6 +22,10 @@ public class Menu implements Screen {
 	private int exitY = 100;
 	private int playY = 350;
 	
+	private String menuType = "main";
+	private boolean menuCooldown = false;
+	private int timer = 0;
+	
 	public Menu(SEPRZombieGame game) {
 		renderer = new SpriteBatch();
 		exitActive = new Texture("img/exit2.png");
@@ -43,9 +47,26 @@ public class Menu implements Screen {
 		
 		renderer.begin();
 		
+		
+		if (menuType == "main") {
+			renderMainMenu();
+		} else if(menuType == "class") {
+			renderClassMenu();
+		}
+		
+		renderer.end();
+		timer += 1;
+		if (timer >= 100) {
+			menuCooldown = false;
+			timer = 0;
+		}
+	}
+	
+	public void renderMainMenu() {
 		if (withinButton(exitY)) {
 			renderer.draw(exitActive, buttonX, exitY, buttonSize, buttonSize);
-			if (Gdx.input.isTouched()) {
+			if (Gdx.input.isTouched() && !menuCooldown) {
+				menuCooldown = true;
 				Gdx.app.exit();
 			}
 		}else {
@@ -53,15 +74,34 @@ public class Menu implements Screen {
 		}
 		if (withinButton(playY)) {
 			renderer.draw(playActive, buttonX, playY, buttonSize, buttonSize);
-			if (Gdx.input.isTouched()) {
+			if (Gdx.input.isTouched() && !menuCooldown) {
+				menuCooldown = true;
+				menuType = "class";
+			}
+		}else {
+			renderer.draw(playInactive, buttonX, playY, buttonSize, buttonSize);
+		}	
+	}
+	
+	public void renderClassMenu() {
+		if (withinButton(exitY)) {
+			renderer.draw(exitActive, buttonX, exitY, buttonSize, buttonSize);
+			if (Gdx.input.isTouched() && !menuCooldown) {
+				menuCooldown = true;
+				Gdx.app.exit();
+			}
+		}else {
+			renderer.draw(exitInactive, buttonX, exitY, buttonSize, buttonSize);
+		}
+		if (withinButton(playY)) {
+			renderer.draw(playActive, buttonX, playY, buttonSize, buttonSize);
+			if (Gdx.input.isTouched() && !menuCooldown) {
+				menuCooldown = true;
 				this.game.setLevel(1);
 			}
 		}else {
 			renderer.draw(playInactive, buttonX, playY, buttonSize, buttonSize);
 		}
-		
-		renderer.end();
-		
 	}
 	
 	public boolean withinButton(int buttonY) {
