@@ -1,8 +1,7 @@
 package helpers;
 
-import java.util.List;
-
 import sprites.Enemy;
+import sprites.items.Door;
 import sprites.items.HealthConsumable;
 import sprites.items.MissionItem;
 import sprites.items.SpeedConsumable;
@@ -18,15 +17,15 @@ public class GameWorldData {
 	private HealthConsumable[] healthItems;
 	private SpeedConsumable[] speedItems;
 	private MissionItem[] missionItems;
+	private Door[] doors; 
 	private String map;
 	private int xPlayerPosition;
 	private int yPlayerPosition;
 	
-	
 
-
-	public GameWorldData(int xPlayerPosition, int yPlayerPosition, String map, int maxEnemies, int maxHealthItems, int maxSpeedItems, int maxWeapons, int maxMissionItems, 
-							  int maxCollisions) {
+	public GameWorldData(int xPlayerPosition, int yPlayerPosition, String map, int maxEnemies,
+						 int maxHealthItems, int maxSpeedItems, int maxWeapons, int maxMissionItems, 
+						 int maxCollisions, int maxDoors) {
 		
 		
 		this.enemies = new Enemy[maxEnemies];
@@ -34,11 +33,10 @@ public class GameWorldData {
 		this.healthItems = new HealthConsumable[maxHealthItems];
 		this.speedItems = new SpeedConsumable[maxSpeedItems];
 		this.missionItems = new MissionItem[maxMissionItems];
+		this.doors = new Door[maxDoors];
 		this.map = map;
 		this.xPlayerPosition = xPlayerPosition;
 		this.yPlayerPosition = yPlayerPosition;
-		
-		
 		
 	}
 	
@@ -67,6 +65,10 @@ public class GameWorldData {
 	
 	public MissionItem[] getMissionItemList() {
 		return this.missionItems;
+	}
+	
+	public Door[] getDoorItemList() {
+		return this.doors;
 	}
 	
 	public String getMap() {

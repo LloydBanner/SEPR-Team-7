@@ -13,7 +13,7 @@ public abstract class Item extends Sprite {
 	
 	//for collisions
 	private TiledMapTileLayer collisionLayer;
-	private Player player;
+	protected Player player;
 	
     public Item(Sprite sprite, TiledMapTileLayer collisionLayer, Player player) {
     	super(sprite);
@@ -32,9 +32,8 @@ public abstract class Item extends Sprite {
     	boolean collisionY = collisionPlayerTop(player) || collisionPlayerBottom(player);
     	
     	if (collisionX || collisionY) {
-    		interact(player);
+    		interact();
     	}
-    	
     	
     }
     
@@ -114,7 +113,11 @@ public abstract class Item extends Sprite {
 		this.collisionLayer = collisionLayer;
 	}
 	
-    public void interact(Player player) {
+	public Player getPlayer() {
+		return this.player;
+	}
+	
+    public void interact() {
     	this.dispose();
     }
 

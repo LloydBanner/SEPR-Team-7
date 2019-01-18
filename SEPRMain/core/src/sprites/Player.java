@@ -4,23 +4,21 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
-import sprites.items.HealthConsumable;
 import sprites.items.Item;
 import sprites.items.MissionItem;
-import sprites.items.SpeedConsumable;
 
 public class Player extends Character implements InputProcessor {
 	
 	//need to decide on player inventory
 	private HashMap<Item, Integer> inventory;
 	private Collection<String> missionItems;
+	private Game game;
 	private boolean escPressed = false;
 	private int direction;
 	private boolean cdActive = false;
@@ -31,12 +29,13 @@ public class Player extends Character implements InputProcessor {
 	private int invincibilityCooldown = 0;
 	private float invincibilityTimer = 0;
 	
-	public Player(Sprite sprite) {
+	public Player(Sprite sprite, Game game) {
 		//always use same sprite for player so don't need to take it as an input
 		super(sprite);
 		//this.setCollisionLayer(collisionLayer);
 		inventory = new HashMap<Item, Integer>();
 		missionItems = new ArrayList<String>();
+		this.game = game;
 		
 		//animation
 		//needs to be changed when classes are added
@@ -58,6 +57,12 @@ public class Player extends Character implements InputProcessor {
 		setUpRightAnimation2(new Texture("img/player.png"));
 		setDownRightAnimation1(new Texture("img/zombie.png"));
 		setDownRightAnimation2(new Texture("img/player.png"));
+	}
+	
+	public Game getGame() {
+		
+		return this.game;
+		
 	}
 	
 	public void update(float delta) {

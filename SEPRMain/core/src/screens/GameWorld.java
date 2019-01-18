@@ -1,7 +1,5 @@
 package screens;
 
-import java.util.concurrent.TimeUnit;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL30;
@@ -12,12 +10,12 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 import helpers.GameWorldData;
 import sprites.Enemy;
 import sprites.Player;
+import sprites.items.Door;
 import sprites.items.HealthConsumable;
 import sprites.items.Item;
 import sprites.items.MissionItem;
@@ -63,19 +61,13 @@ public class GameWorld implements Screen {
 	private int winWidth = 1000;
 	private int winHeight = 800;
 	
-	//private final int MAX_ENEMIES = 10;
-	//private final int MAX_HEALTH_ITEMS = 10;
-	//private final int MAX_SPEED_ITEMS = 10;
-	//private final int MAX_WEAPONS = 10;
-	//private final int MAX_MISSION_ITEMS = 10;
-	//private final int MAX_COLLISIONS = 20;
-	
 	private Enemy[] enemies;
 	private Weapon[] weapons;
 	private HealthConsumable[] healthItems;
 	private SpeedConsumable[] speedItems;
 	private ShieldConsumable[] shieldItems;
 	private MissionItem[] missionItems;
+	private Door[] doors;
 	private int playerXPosition;
 	private int playerYPosition;
 	
@@ -97,6 +89,7 @@ public class GameWorld implements Screen {
 		healthItems = levelData.getHealthItemList();
 		speedItems = levelData.getSpeedItemList();
 		missionItems = levelData.getMissionItemList();
+		doors = levelData.getDoorItemList();
 		playerXPosition = levelData.getXPosition();
 		playerYPosition = levelData.getYPosition();
 		//need to change this
@@ -122,7 +115,7 @@ public class GameWorld implements Screen {
 		backInactive = new Texture("img/back1.png");
 		win = new Texture("img/player.png");
 		
-		TmxMapLoader loader = new TmxMapLoader(); //don't need
+		// TmxMapLoader loader = new TmxMapLoader(); 
 		showEnemies(enemies);
 		showItems();
 		setSpriteCollisions();
@@ -191,7 +184,7 @@ public class GameWorld implements Screen {
 		
 		for (int i=0; i < weapons.length; i++ ) {
 			
-			weapons[i] = new Weapon(new Sprite(new Texture("img/zombie.png")), 
+			weapons[i] = new Weapon(new Sprite(new Texture("img/play2.png")), 
 								   (TiledMapTileLayer) map.getLayers().get(0), 5, 7, player);
 	
 			weapons[i].setPosition(48 * weapons[i].getCollisionLayer().getTileWidth(),
@@ -250,6 +243,21 @@ public class GameWorld implements Screen {
 		}
 	}
 	
+	public void showDoors(Door[] doors) {
+		
+		for (int i=0; i < doors.length; i++) {
+		
+			doors[i] = new Door(new Sprite(new Texture("img/player.png")), 2, 
+							   (TiledMapTileLayer) map.getLayers().get(0), player,
+								this.getPlayer().getGame());
+							   
+			
+			doors[i].setPosition(52 * doors[i].getCollisionLayer().getTileWidth(),
+							 29 * doors[i].getCollisionLayer().getTileHeight());
+		
+		}
+	}
+	
 	public void showItems() {
 		
 			showWeapons(weapons);
@@ -257,6 +265,7 @@ public class GameWorld implements Screen {
 			showSpeedItems(speedItems);
 			showMissionItems(missionItems);
 			showShieldItems(shieldItems);
+			showDoors(doors);
 			
 	}
 	
@@ -273,7 +282,7 @@ public class GameWorld implements Screen {
 		renderItems(healthItems, batch);
 		renderItems(speedItems, batch);
 		renderItems(missionItems, batch);
-		renderItems(shieldItems, batch);
+		renderItems(doors, batch);
 	
 	}
 	
@@ -291,6 +300,7 @@ public class GameWorld implements Screen {
 		disposeItems(healthItems);
 		disposeItems(speedItems);
 		disposeItems(missionItems);
+		disposeItems(doors);
 		
 	}
 	
@@ -494,10 +504,6 @@ public class GameWorld implements Screen {
 	@Override
 	public void dispose() {
 		map.dispose();
-		
-		renderer.dispose();
-		
-		uiRenderer.dispose();
 		
 		player.getTexture().dispose();
 		
