@@ -123,5 +123,9 @@ public abstract class Item extends Sprite {
 
     public void dropItem () {
     }
+
+	public void interact(Player player) {
+		this.dispose();
+	}
     
 }
