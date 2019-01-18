@@ -34,7 +34,7 @@ public class SEPRZombieGame extends Game {
 	public void create () {
 		//everything in here is just to test at the  moment
 		//getter and setter for collisionLayer in player to adjust to collisions on different screens
-		this.player = new Player(new Sprite(new Texture("img/player.png")), this);
+		this.setPlayer(new Player(new Sprite(new Texture("img/player.png")), this));
 
 		addLevel(1, heslingtonEastData); 
 		addLevel(2, heslingtonWestData);
@@ -51,7 +51,7 @@ public class SEPRZombieGame extends Game {
 		String mapPath = levels.get(level).getMap();
 		TiledMap map = loader.load(mapPath);
 
-		setScreen(new GameWorld(map, levels.get(level), player));
+		setScreen(new GameWorld(map, levels.get(level), getPlayer()));
 		
 	}
 	
@@ -78,6 +78,14 @@ public class SEPRZombieGame extends Game {
 	@Override
 	public void resume() {
 		super.resume();
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 	
 }

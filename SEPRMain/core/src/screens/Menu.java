@@ -4,8 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.zombiegame.game.SEPRZombieGame;
+
+import sprites.DramaPlayer;
+import sprites.SportPlayer;
 
 public class Menu implements Screen {
 	
@@ -88,7 +92,9 @@ public class Menu implements Screen {
 			renderer.draw(exitActive, buttonX, exitY, buttonSize, buttonSize);
 			if (Gdx.input.isTouched() && !menuCooldown) {
 				menuCooldown = true;
-				Gdx.app.exit();
+				menuCooldown = true;
+				game.setPlayer(new DramaPlayer(new Sprite(new Texture("img/player.png")), game));
+				this.game.setLevel(1);
 			}
 		}else {
 			renderer.draw(exitInactive, buttonX, exitY, buttonSize, buttonSize);
@@ -97,6 +103,7 @@ public class Menu implements Screen {
 			renderer.draw(playActive, buttonX, playY, buttonSize, buttonSize);
 			if (Gdx.input.isTouched() && !menuCooldown) {
 				menuCooldown = true;
+				game.setPlayer(new SportPlayer(new Sprite(new Texture("img/player.png")), game));
 				this.game.setLevel(1);
 			}
 		}else {

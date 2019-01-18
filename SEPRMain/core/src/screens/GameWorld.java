@@ -209,7 +209,7 @@ public class GameWorld implements Screen {
 		
 		for (int i=0; i < speedItems.length; i++ ) {
 			
-			speedItems[i] = new SpeedConsumable((TiledMapTileLayer) map.getLayers().get(0), 5, player);
+			speedItems[i] = new SpeedConsumable((TiledMapTileLayer) map.getLayers().get(0), 20, player);
 	
 			speedItems[i].setPosition(44 * speedItems[i].getCollisionLayer().getTileWidth(),
 					 			   	  29 * speedItems[i].getCollisionLayer().getTileHeight());

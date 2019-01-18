@@ -28,6 +28,9 @@ public class Player extends Character implements InputProcessor {
 	private float speedChangeTimer = 0;
 	private int invincibilityCooldown = 0;
 	private float invincibilityTimer = 0;
+	private int specialCooldown = 0;
+	private float specialTimer = 0;
+	private boolean specialOnCooldown = false;
 	
 	public Player(Sprite sprite, Game game) {
 		//always use same sprite for player so don't need to take it as an input
@@ -36,27 +39,6 @@ public class Player extends Character implements InputProcessor {
 		inventory = new HashMap<Item, Integer>();
 		missionItems = new ArrayList<String>();
 		this.game = game;
-		
-		//animation
-		//needs to be changed when classes are added
-		//these sets should be moved in to the classes' class so each one can have different animations 
-		setNeturalAnimation(new Texture("img/player.png"));
-		setUpAnimation1(new Texture("img/zombie.png"));
-		setUpAnimation2(new Texture("img/player.png"));
-		setDownAnimation1(new Texture("img/zombie.png"));
-		setDownAnimation2(new Texture("img/player.png"));
-		setLeftAnimation1(new Texture("img/zombie.png"));
-		setLeftAnimation2(new Texture("img/player.png"));
-		setRightAnimation1(new Texture("img/playerRight1.png"));
-		setRightAnimation2(new Texture("img/playerRight2.png"));
-		setUpLeftAnimation1(new Texture("img/zombie.png"));
-		setUpLeftAnimation2(new Texture("img/player.png"));
-		setDownLeftAnimation1(new Texture("img/zombie.png"));
-		setDownLeftAnimation2(new Texture("img/player.png"));
-		setUpRightAnimation1(new Texture("img/zombie.png"));
-		setUpRightAnimation2(new Texture("img/player.png"));
-		setDownRightAnimation1(new Texture("img/zombie.png"));
-		setDownRightAnimation2(new Texture("img/player.png"));
 	}
 	
 	public Game getGame() {
@@ -67,10 +49,8 @@ public class Player extends Character implements InputProcessor {
 	
 	public void update(float delta) {
 		super.update(delta);
-		
 		// If the cooldown is running then start our timer 
-		if(cdActive)
-		{
+		if (cdActive) {
 			timer += delta;		
 			// Check when timer reaches cdTime
 			if(timer>cdTime) {
@@ -103,7 +83,23 @@ public class Player extends Character implements InputProcessor {
 			invincibilityCooldown = 0;
 		}
 		
-		if(getHealth() <= 0) {
+		if (specialCooldown > 0) {
+			specialTimer += delta;
+			if (specialTimer >= 1) {
+				specialTimer = 0;
+				specialCooldown -= 1;
+			}
+			if (specialCooldown <= 50) {
+				restoreDefaults();
+			}
+		} else {
+			if (specialOnCooldown) {
+				specialCooldown = 0;
+				specialOnCooldown = false;
+			}
+		}
+		
+		if (getHealth() <= 0) {
 			respawn();
 		}
 	}
@@ -132,6 +128,11 @@ public class Player extends Character implements InputProcessor {
 			// Right
 			case Keys.D:
 				setVelocityX(getSpeed());
+				break;
+			case Keys.E:
+				if (!specialOnCooldown) {
+				specialAbility();
+				}
 				break;
 			}
 		}
@@ -178,6 +179,15 @@ public class Player extends Character implements InputProcessor {
 			break;
 		}
 		return true;
+	}
+	
+	public void specialAbility() {
+		specialOnCooldown = true;
+		specialCooldown = 60;
+	}
+	
+	public void restoreDefaults() {
+		//used by subclassess
 	}
 	
 	public void cooldown(boolean cd) {
@@ -392,7 +402,7 @@ public class Player extends Character implements InputProcessor {
 		if (speedChange >= 0) {
 			this.increaseSpeed(speedChange);
 		}else {
-			this.decreaseSpeed(speedChange);
+			this.decreaseSpeed(-speedChange);
 		}
 		speedChangeCooldown = 10;
 	}

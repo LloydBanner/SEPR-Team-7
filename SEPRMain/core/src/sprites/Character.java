@@ -175,7 +175,7 @@ public abstract class Character extends Sprite {
 	 */
 	public void setSpriteCollisions(Player player, Enemy[] enemies) {
 		this.player = player;
-		this.enemies = enemies;
+		this.setEnemies(enemies);
 	}
 	
 	/**
@@ -271,7 +271,7 @@ public abstract class Character extends Sprite {
 				return true;
 			}
 		}
-		for (Enemy enemy : enemies) {
+		for (Enemy enemy : getEnemies()) {
 			if (enemy != this) {
 				if (collisionCharacterRight(enemy)) {
 					return true;
@@ -296,7 +296,7 @@ public abstract class Character extends Sprite {
 				return true;
 			}
 		}
-		for (Enemy enemy : enemies) {
+		for (Enemy enemy : getEnemies()) {
 			if (enemy != this) {
 				if (collisionCharacterLeft(enemy)) {
 					return true;
@@ -321,7 +321,7 @@ public abstract class Character extends Sprite {
 				return true;
 			}
 		}
-		for (Enemy enemy : enemies) {
+		for (Enemy enemy : getEnemies()) {
 			if (enemy != this) {
 				if (collisionCharacterTop(enemy)) {
 					return true;
@@ -346,7 +346,7 @@ public abstract class Character extends Sprite {
 				return true;
 			}
 		}
-		for (Enemy enemy : enemies) {
+		for (Enemy enemy : getEnemies()) {
 			if (enemy != this) {
 				if (collisionCharacterBottom(enemy)) {
 					return true;
@@ -417,14 +417,14 @@ public abstract class Character extends Sprite {
 		// North West
 		case 1: 
 			//System.out.print(player.getX() + " " + player.getY());
-			for (Enemy enemy : enemies) {
+			for (Enemy enemy : getEnemies()) {
 				if (enemy != this) {
 					if (lowerBound<=(enemy.getY()-player.getY()) && (enemy.getY()-player.getY())<=upperBound) {
 						if (lowerBound<=(player.getX()-enemy.getX()) && (player.getX()-enemy.getX())<=upperBound) {						
 							hitSFX.play();	
 							enemy.setX(enemy.getX()-(knockback/2));
 							enemy.setY(enemy.getY()+(knockback/2));
-							enemy.decreaseHealth(1);
+							enemy.decreaseHealth(damage);
 							if (enemy.getHealth() <= 0) {
 								/* 
 								 * Unless better method is found
@@ -447,13 +447,13 @@ public abstract class Character extends Sprite {
 			break;
 		// North
 		case 2:  
-			for (Enemy enemy : enemies) {
+			for (Enemy enemy : getEnemies()) {
 				if (enemy != this) {
 					if (enemy.getX()<=(player.getX()+hitboxWidth) && enemy.getX()>=(player.getX()-hitboxWidth)) {
 						if (enemy.getY()<=(player.getY()+hitboxLength) && enemy.getY()>=player.getY()) {
 							hitSFX.play();	
 							enemy.setY(enemy.getY()+knockback);
-							enemy.decreaseHealth(1);
+							enemy.decreaseHealth(damage);
 							if (enemy.getHealth() <= 0) {
 								enemy.setX(1000000);
 								enemy.setY(1000000);
@@ -470,14 +470,14 @@ public abstract class Character extends Sprite {
 			break;
 		// North East
 		case 3:  
-			for (Enemy enemy : enemies) {
+			for (Enemy enemy : getEnemies()) {
 				if (enemy != this) {
 					if (lowerBound<=(enemy.getY()-player.getY()) && (enemy.getY()-player.getY())<=upperBound) {
 						if (lowerBound<=(enemy.getX()-player.getX()) && (enemy.getX()-player.getX())<=upperBound) {
 							hitSFX.play();	
 							enemy.setX(enemy.getX()+(knockback/2));
 							enemy.setY(enemy.getY()+(knockback/2));
-							enemy.decreaseHealth(1);
+							enemy.decreaseHealth(damage);
 							if(enemy.getHealth() <= 0) {
 								enemy.setX(1000000);
 								enemy.setY(1000000);
@@ -494,13 +494,13 @@ public abstract class Character extends Sprite {
 			break;
 		// East
 		case 4: 
-			for (Enemy enemy : enemies) {
+			for (Enemy enemy : getEnemies()) {
 				if (enemy != this) {
 					if (enemy.getX()<=(player.getX()+hitboxLength) && enemy.getX()>=player.getX()) {
 						if (enemy.getY()<=(player.getY()+hitboxWidth) && enemy.getY()>=(player.getY()-hitboxWidth)) {
 							hitSFX.play();	
 							enemy.setX(enemy.getX()+knockback);
-							enemy.decreaseHealth(1);
+							enemy.decreaseHealth(damage);
 							if (enemy.getHealth() <= 0) {
 								enemy.setX(1000000);
 								enemy.setY(1000000);
@@ -517,14 +517,14 @@ public abstract class Character extends Sprite {
 			break;	
 		// South East
 		case 5:  
-			for (Enemy enemy : enemies) {
+			for (Enemy enemy : getEnemies()) {
 				if (enemy != this) {
 					if (lowerBound<=(player.getY()-enemy.getY()) && (player.getY()-enemy.getY())<=upperBound) {
 						if (lowerBound<=(enemy.getX()-player.getX()) && (enemy.getX()-player.getX())<=upperBound) {
 							hitSFX.play();	
 							enemy.setX(enemy.getX()+(knockback/2));
 							enemy.setY(enemy.getY()-(knockback/2));
-							enemy.decreaseHealth(1);
+							enemy.decreaseHealth(damage);
 							if (enemy.getHealth() <= 0) {
 								enemy.setX(1000000);
 								enemy.setY(1000000);
@@ -541,13 +541,13 @@ public abstract class Character extends Sprite {
 			break;
 		// South
 		case 6: 
-			for (Enemy enemy : enemies) {
+			for (Enemy enemy : getEnemies()) {
 				if (enemy != this) {
 					if (enemy.getX()<=(player.getX()+hitboxWidth) && enemy.getX()>=(player.getX()-hitboxWidth)) {
 						if (enemy.getY()>=(player.getY()-hitboxLength) && enemy.getY()<=player.getY()) {
 							hitSFX.play();	
 							enemy.setY(enemy.getY()-knockback);
-							enemy.decreaseHealth(1);
+							enemy.decreaseHealth(damage);
 							if (enemy.getHealth() <= 0) {
 								enemy.setX(1000000);
 								enemy.setY(1000000);
@@ -564,14 +564,14 @@ public abstract class Character extends Sprite {
 			break;
 		// South West
 		case 7:  
-			for (Enemy enemy : enemies) {
+			for (Enemy enemy : getEnemies()) {
 				if (enemy != this) {
 					if (lowerBound<=(player.getY()-enemy.getY()) && (player.getY()-enemy.getY())<=upperBound) {
 						if (lowerBound<=(player.getX()-enemy.getX()) && (player.getX()-enemy.getX())<=upperBound) {
 							hitSFX.play();	
 							enemy.setX(enemy.getX()-(knockback/2));
 							enemy.setY(enemy.getY()-(knockback/2));
-							enemy.decreaseHealth(1);
+							enemy.decreaseHealth(damage);
 							if(enemy.getHealth() <= 0) {
 								enemy.setX(1000000);
 								enemy.setY(1000000);
@@ -588,13 +588,13 @@ public abstract class Character extends Sprite {
 			break;
 		// West
 		case 8: 
-			for (Enemy enemy : enemies) {
+			for (Enemy enemy : getEnemies()) {
 				if (enemy != this) {
 					if (enemy.getX()>=(player.getX()-hitboxLength) && enemy.getX()<=player.getX()) {
 						if (enemy.getY()<=(player.getY()+hitboxWidth) && enemy.getY()>=(player.getY()-hitboxWidth)) {
 							hitSFX.play();	
 							enemy.setX(enemy.getX()-knockback);
-							enemy.decreaseHealth(1);
+							enemy.decreaseHealth(damage);
 							if (enemy.getHealth() <= 0) {
 								enemy.setX(1000000);
 								enemy.setY(1000000);
@@ -778,6 +778,10 @@ public abstract class Character extends Sprite {
 		return damage;
 	}
 	
+	public void setDamage(int damage) {
+		this.damage = damage;
+	}
+	
 	public int getHealth() {
 		return health;
 	}
@@ -812,5 +816,13 @@ public abstract class Character extends Sprite {
 	
 	public void setVelocityX(float x) {
 		this.velocity.x = x;
+	}
+
+	public Enemy[] getEnemies() {
+		return enemies;
+	}
+
+	public void setEnemies(Enemy[] enemies) {
+		this.enemies = enemies;
 	}
 }

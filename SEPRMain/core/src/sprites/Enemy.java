@@ -14,6 +14,9 @@ public class Enemy extends Character{
 	private float timer;
 	private float oldX = getX(), oldY = getY();
 	private Player player;
+	private boolean canSeePlayer;
+	private int sightCooldown = 0;
+	private float sightTimer = 0;
 
 	public Enemy(Sprite sprite, TiledMapTileLayer collisionLayer, Player player) {
 		super(sprite);
@@ -59,7 +62,7 @@ public class Enemy extends Character{
 				timer = 0;
 				randomMove();
 			} 
-			else if(timer > 2 && isAttacking()) {
+			else if(timer > 2 && isAttacking() && isCanSeePlayer()) {
 				setVelocityX(0); 
 				setVelocityY(0);
 				attackPlayer();
@@ -72,6 +75,17 @@ public class Enemy extends Character{
 					timer = 3;
 				}
 			}
+		}
+		
+		if (sightCooldown > 0) {
+			sightTimer += delta;
+			if (sightTimer >= 1) {
+				sightTimer = 0;
+				sightCooldown -= 1;
+			}
+		} else {
+			sightCooldown = 0;
+			canSeePlayer = true;
 		}
 	}
 	
@@ -141,6 +155,18 @@ public class Enemy extends Character{
             return true;       	
         }
         return false;
+	}
+
+	public boolean isCanSeePlayer() {
+		return canSeePlayer;
+	}
+
+	public void setCanSeePlayer(boolean canSeePlayer) {
+		this.canSeePlayer = canSeePlayer;
+	}
+	
+	public void setSightCooldown(int cooldown) {
+		sightCooldown = cooldown;
 	}
 	
 }
