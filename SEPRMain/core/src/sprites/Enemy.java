@@ -14,12 +14,13 @@ public class Enemy extends Character{
 	private float timer;
 	private float oldX = getX(), oldY = getY();
 	private Player player;
+    private static Sprite zombie = new Sprite(new Texture("img/zombie.png"));
 	private boolean canSeePlayer;
 	private int sightCooldown = 0;
 	private float sightTimer = 0;
 
-	public Enemy(Sprite sprite, TiledMapTileLayer collisionLayer, Player player) {
-		super(sprite);
+	public Enemy(TiledMapTileLayer collisionLayer, Player player) {
+		super(zombie);
 		this.setCollisionLayer(collisionLayer);
 		decreaseSpeed(100);
 		this.player = player; 

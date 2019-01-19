@@ -9,7 +9,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		new LwjglApplication(new SEPRZombieGame(), config);
 		
-		config.useGL30 = true;
+		config.useGL30 = false;
 	    config.width = 1280;
 	    config.height = 720;
 	    config.resizable = false;
