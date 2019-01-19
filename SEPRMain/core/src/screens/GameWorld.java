@@ -118,7 +118,7 @@ public class GameWorld implements Screen {
 		controlsInactive = new Texture("img/controls1.png");
 		backActive = new Texture("img/back2.png");
 		backInactive = new Texture("img/back1.png");
-		win = new Texture("img/player.png");
+		win = new Texture("img/playerWon.png");
 		controls = new Texture("img/controls.png");
 		
 		// TmxMapLoader loader = new TmxMapLoader(); 
