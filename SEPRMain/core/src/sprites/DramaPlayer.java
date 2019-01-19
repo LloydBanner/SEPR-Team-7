@@ -9,23 +9,23 @@ public class DramaPlayer extends Player {
 	public DramaPlayer(Sprite sprite, Game game) {
 		super(sprite, game);
 		// animation
-		setNeturalAnimation(new Texture("img/player.png"));
-		setUpAnimation1(new Texture("img/zombie.png"));
-		setUpAnimation2(new Texture("img/player.png"));
-		setDownAnimation1(new Texture("img/zombie.png"));
-		setDownAnimation2(new Texture("img/player.png"));
-		setLeftAnimation1(new Texture("img/zombie.png"));
-		setLeftAnimation2(new Texture("img/player.png"));
-		setRightAnimation1(new Texture("img/playerRight1.png"));
-		setRightAnimation2(new Texture("img/playerRight2.png"));
-		setUpLeftAnimation1(new Texture("img/zombie.png"));
-		setUpLeftAnimation2(new Texture("img/player.png"));
-		setDownLeftAnimation1(new Texture("img/zombie.png"));
-		setDownLeftAnimation2(new Texture("img/player.png"));
-		setUpRightAnimation1(new Texture("img/zombie.png"));
-		setUpRightAnimation2(new Texture("img/player.png"));
-		setDownRightAnimation1(new Texture("img/zombie.png"));
-		setDownRightAnimation2(new Texture("img/player.png"));
+		setNeturalAnimation(new Texture("img/class1 (1).png"));
+		setUpAnimation1(new Texture("img/class1 (10).png"));
+		setUpAnimation2(new Texture("img/class1 (12).png"));
+		setDownAnimation1(new Texture("img/class1 (2).png"));
+		setDownAnimation2(new Texture("img/class1 (4).png"));
+		setLeftAnimation1(new Texture("img/class1 (14).png"));
+		setLeftAnimation2(new Texture("img/class1 (16).png"));
+		setRightAnimation1(new Texture("img/class1 (6).png"));
+		setRightAnimation2(new Texture("img/class1 (8).png"));
+		setUpLeftAnimation1(new Texture("img/class1 (14).png"));
+		setUpLeftAnimation2(new Texture("img/class1 (16).png"));
+		setDownLeftAnimation1(new Texture("img/class1 (14).png"));
+		setDownLeftAnimation2(new Texture("img/class1 (16).png"));
+		setUpRightAnimation1(new Texture("img/class1 (6).png"));
+		setUpRightAnimation2(new Texture("img/class1 (8).png"));
+		setDownRightAnimation1(new Texture("img/class1 (6).png"));
+		setDownRightAnimation2(new Texture("img/class1 (8).png"));
 	}
 	
 	@Override
@@ -58,23 +58,23 @@ public class DramaPlayer extends Player {
 	@Override
 	public void restoreDefaults() {
 		super.restoreDefaults();
-		setNeturalAnimation(new Texture("img/player.png"));
-		setUpAnimation1(new Texture("img/zombie.png"));
-		setUpAnimation2(new Texture("img/player.png"));
-		setDownAnimation1(new Texture("img/zombie.png"));
-		setDownAnimation2(new Texture("img/player.png"));
-		setLeftAnimation1(new Texture("img/zombie.png"));
-		setLeftAnimation2(new Texture("img/player.png"));
-		setRightAnimation1(new Texture("img/playerRight1.png"));
-		setRightAnimation2(new Texture("img/playerRight2.png"));
-		setUpLeftAnimation1(new Texture("img/zombie.png"));
-		setUpLeftAnimation2(new Texture("img/player.png"));
-		setDownLeftAnimation1(new Texture("img/zombie.png"));
-		setDownLeftAnimation2(new Texture("img/player.png"));
-		setUpRightAnimation1(new Texture("img/zombie.png"));
-		setUpRightAnimation2(new Texture("img/player.png"));
-		setDownRightAnimation1(new Texture("img/zombie.png"));
-		setDownRightAnimation2(new Texture("img/player.png"));
+		setNeturalAnimation(new Texture("img/class1 (1).png"));
+		setUpAnimation1(new Texture("img/class1 (10).png"));
+		setUpAnimation2(new Texture("img/class1 (12).png"));
+		setDownAnimation1(new Texture("img/class1 (2).png"));
+		setDownAnimation2(new Texture("img/class1 (4).png"));
+		setLeftAnimation1(new Texture("img/class1 (14).png"));
+		setLeftAnimation2(new Texture("img/class1 (16).png"));
+		setRightAnimation1(new Texture("img/class1 (6).png"));
+		setRightAnimation2(new Texture("img/class1 (8).png"));
+		setUpLeftAnimation1(new Texture("img/class1 (14).png"));
+		setUpLeftAnimation2(new Texture("img/class1 (16).png"));
+		setDownLeftAnimation1(new Texture("img/class1 (14).png"));
+		setDownLeftAnimation2(new Texture("img/class1 (16).png"));
+		setUpRightAnimation1(new Texture("img/class1 (6).png"));
+		setUpRightAnimation2(new Texture("img/class1 (8).png"));
+		setDownRightAnimation1(new Texture("img/class1 (6).png"));
+		setDownRightAnimation2(new Texture("img/class1 (8).png"));
 	}
 
 }

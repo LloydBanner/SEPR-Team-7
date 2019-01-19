@@ -293,7 +293,7 @@ public class GameWorld implements Screen {
 	
 	public void disposeItems() {
 		
-		disposeItems(weapons);
+		//disposeItems(weapons);
 		disposeItems(healthItems);
 		disposeItems(speedItems);
 		disposeItems(missionItems);
