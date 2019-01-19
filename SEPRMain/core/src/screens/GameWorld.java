@@ -50,6 +50,7 @@ public class GameWorld implements Screen {
 	private Texture backActive;
 	private Texture backInactive;
 	private Texture win;
+	private Texture controls;
 	private int buttonSize = 250;
 	private int buttonX = 500;
 	private int exitY = 10;
@@ -60,6 +61,10 @@ public class GameWorld implements Screen {
 	private int winY = 1;
 	private int winWidth = 1000;
 	private int winHeight = 800;
+	private int controlX = 145;
+	private int controlY = 175;
+	private int controlWidth = 900;
+	private int controlHeight = 600;
 	
 	private Enemy[] enemies;
 	private Weapon[] weapons;
@@ -114,6 +119,7 @@ public class GameWorld implements Screen {
 		backActive = new Texture("img/back2.png");
 		backInactive = new Texture("img/back1.png");
 		win = new Texture("img/player.png");
+		controls = new Texture("img/controls.png");
 		
 		// TmxMapLoader loader = new TmxMapLoader(); 
 		createEnemies(enemies);
@@ -209,7 +215,7 @@ public class GameWorld implements Screen {
 		
 		for (int i=0; i < speedItems.length; i++ ) {
 			
-			speedItems[i] = new SpeedConsumable((TiledMapTileLayer) map.getLayers().get(0), 20, player);
+			speedItems[i] = new SpeedConsumable((TiledMapTileLayer) map.getLayers().get(0), 10, player);
 	
 			speedItems[i].setPosition(44 * speedItems[i].getCollisionLayer().getTileWidth(),
 					 			   	  29 * speedItems[i].getCollisionLayer().getTileHeight());
@@ -233,7 +239,7 @@ public class GameWorld implements Screen {
 		
 		for (int i=0; i < missionItems.length; i++ ) {
 			
-			missionItems[i] = new MissionItem(new Sprite(new Texture("img/buspass.png")), 
+			missionItems[i] = new MissionItem(new Sprite(new Texture("img/key.png")), 
 											   (TiledMapTileLayer) map.getLayers().get(0), 
 											   "win condition", player);
 	
@@ -450,6 +456,7 @@ public class GameWorld implements Screen {
 			uiRenderer.draw(backInactive, buttonX, exitY, buttonSize, buttonSize);
 		}
 		//need to add image with controls as another texture
+		uiRenderer.draw(controls, controlX, controlY, controlWidth, controlHeight);
 	}
 	
 	public void renderWin() {
