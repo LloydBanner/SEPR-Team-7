@@ -149,7 +149,8 @@ public class GameWorld implements Screen {
 		camera = new OrthographicCamera();
 		
 		//tile map position x across, y down
-		player.setPosition(playerXPosition * player.getCollisionLayer().getTileWidth(), playerYPosition * player.getCollisionLayer().getTileHeight());
+		player.setPosition(playerXPosition * player.getCollisionLayer().getTileWidth(),
+						   playerYPosition * player.getCollisionLayer().getTileHeight());
 		//apply inputs to player
 		Gdx.input.setInputProcessor(player);
 	}
@@ -162,9 +163,8 @@ public class GameWorld implements Screen {
 			
 			pos += 2;
 			
-			enemies[i] = new Enemy(new Sprite(new Texture("img/zombie.png")),
-								  (TiledMapTileLayer) map.getLayers().get(0), 
-								  this.player);
+			enemies[i] = new Enemy((TiledMapTileLayer) map.getLayers().get(0), 
+								    this.player);
 			
 			enemies[i].setPosition(55 * enemies[i].getCollisionLayer().getTileWidth(), 
 								   pos * enemies[i].getCollisionLayer().getTileHeight());
@@ -190,8 +190,7 @@ public class GameWorld implements Screen {
 		
 		for (int i=0; i < weapons.length; i++ ) {
 			
-			weapons[i] = new Weapon(new Sprite(new Texture("img/play2.png")), 
-								   (TiledMapTileLayer) map.getLayers().get(0), 5, 7, player);
+			weapons[i] = new Weapon((TiledMapTileLayer) map.getLayers().get(0), 5, 7, player);
 	
 			weapons[i].setPosition(48 * weapons[i].getCollisionLayer().getTileWidth(),
 					 			   29 * weapons[i].getCollisionLayer().getTileHeight());
@@ -238,10 +237,8 @@ public class GameWorld implements Screen {
 	public void createMissionItems(MissionItem[] missionItems) {
 		
 		for (int i=0; i < missionItems.length; i++ ) {
-			
-			missionItems[i] = new MissionItem(new Sprite(new Texture("img/key.png")), 
-											   (TiledMapTileLayer) map.getLayers().get(0), 
-											   "win condition", player);
+			missionItems[i] = new MissionItem((TiledMapTileLayer) map.getLayers().get(0), 
+					   "win condition", player);
 	
 			missionItems[i].setPosition(58 * missionItems[i].getCollisionLayer().getTileWidth(),
 					 			   	    29 * missionItems[i].getCollisionLayer().getTileHeight());
@@ -253,8 +250,7 @@ public class GameWorld implements Screen {
 		
 		for (int i=0; i < doors.length; i++) {
 		
-			doors[i] = new Door(new Sprite(new Texture("img/door.png")), 2, 
-							   (TiledMapTileLayer) map.getLayers().get(0), player,
+			doors[i] = new Door(2, (TiledMapTileLayer) map.getLayers().get(0), player,
 								this.getPlayer().getGame(), missionItems[0]);
 							   
 			
@@ -266,7 +262,7 @@ public class GameWorld implements Screen {
 	
 	public void createItems() {
 		
-			createWeapons(weapons);
+			// createWeapons(weapons);
 			createHealthItems(healthItems);
 			createSpeedItems(speedItems);
 			createMissionItems(missionItems);
@@ -284,7 +280,7 @@ public class GameWorld implements Screen {
 	
 	public void renderItems(Batch batch) {
 		
-		renderItems(weapons, batch);
+		// renderItems(weapons, batch);
 		renderItems(healthItems, batch);
 		renderItems(speedItems, batch);
 		renderItems(missionItems, batch);
@@ -302,7 +298,7 @@ public class GameWorld implements Screen {
 	
 	public void disposeItems() {
 		
-		disposeItems(weapons);
+		//disposeItems(weapons);
 		disposeItems(healthItems);
 		disposeItems(speedItems);
 		disposeItems(missionItems);
@@ -357,9 +353,8 @@ public class GameWorld implements Screen {
 			menuCooldown = false;
 		}
 		if (!hasWon) {
-			if (player.hasMissionItem(new MissionItem(new Sprite(new Texture("img/buspass.png")), 
-														(TiledMapTileLayer) map.getLayers().get(0), 
-														"win condition", player))) {
+			if (player.hasMissionItem(new MissionItem((TiledMapTileLayer) map.getLayers().get(0), 
+													  "win condition", player))) {
 				hasWon = true;
 				this.pause();
 			}

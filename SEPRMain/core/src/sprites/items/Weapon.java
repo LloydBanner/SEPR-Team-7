@@ -1,5 +1,6 @@
 package sprites.items;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
@@ -9,10 +10,11 @@ public class Weapon extends Item {
 
     private int damageBoost;
     private int durability;
+    private static Sprite weapon = new Sprite(new Texture("img/health.png"));	// We haven't implemented weapon yet
 
-    public Weapon (Sprite sprite, TiledMapTileLayer collisionLayer, int damageBoost, int durability, Player player) {
+    public Weapon (TiledMapTileLayer collisionLayer, int damageBoost, int durability, Player player) {
 
-    	super(sprite, collisionLayer, player);		
+    	super(weapon, collisionLayer, player);		
         this.damageBoost = damageBoost;
         this.durability = durability;
 
