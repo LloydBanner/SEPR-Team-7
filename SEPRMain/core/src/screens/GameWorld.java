@@ -237,7 +237,7 @@ public class GameWorld implements Screen {
 											   (TiledMapTileLayer) map.getLayers().get(0), 
 											   "win condition", player);
 	
-			missionItems[i].setPosition(52 * missionItems[i].getCollisionLayer().getTileWidth(),
+			missionItems[i].setPosition(58 * missionItems[i].getCollisionLayer().getTileWidth(),
 					 			   	    29 * missionItems[i].getCollisionLayer().getTileHeight());
 			
 		}
@@ -247,7 +247,7 @@ public class GameWorld implements Screen {
 		
 		for (int i=0; i < doors.length; i++) {
 		
-			doors[i] = new Door(new Sprite(new Texture("img/player.png")), 2, 
+			doors[i] = new Door(new Sprite(new Texture("img/door.png")), 2, 
 							   (TiledMapTileLayer) map.getLayers().get(0), player,
 								this.getPlayer().getGame(), missionItems[0]);
 							   

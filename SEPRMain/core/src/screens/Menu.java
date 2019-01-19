@@ -20,6 +20,10 @@ public class Menu implements Screen {
 	private Texture exitInactive;
 	private Texture playActive;
 	private Texture playInactive;
+	private Texture dramaActive;
+	private Texture dramaInactive;
+	private Texture sportActive;
+	private Texture sportInactive;
 	
 	private int buttonSize = 250;
 	private int buttonX = 500;
@@ -36,6 +40,10 @@ public class Menu implements Screen {
 		exitInactive = new Texture("img/exit1.png");
 		playActive = new Texture("img/play2.png");
 		playInactive = new Texture("img/play1.png");
+		dramaActive = new Texture("img/dramaactive.png");
+		dramaInactive = new Texture("img/dramainactive.png");
+		sportActive = new Texture("img/sportactive.png");
+		sportInactive = new Texture("img/sportinactive.png");
 		this.game = game;
 	}
 	
@@ -89,25 +97,24 @@ public class Menu implements Screen {
 	
 	public void renderClassMenu() {
 		if (withinButton(exitY)) {
-			renderer.draw(exitActive, buttonX, exitY, buttonSize, buttonSize);
+			renderer.draw(dramaActive, buttonX, exitY, buttonSize, buttonSize);
 			if (Gdx.input.isTouched() && !menuCooldown) {
-				menuCooldown = true;
 				menuCooldown = true;
 				game.setPlayer(new DramaPlayer(new Sprite(new Texture("img/player.png")), game));
 				this.game.setLevel(1);
 			}
 		}else {
-			renderer.draw(exitInactive, buttonX, exitY, buttonSize, buttonSize);
+			renderer.draw(dramaInactive, buttonX, exitY, buttonSize, buttonSize);
 		}
 		if (withinButton(playY)) {
-			renderer.draw(playActive, buttonX, playY, buttonSize, buttonSize);
+			renderer.draw(sportActive, buttonX, playY, buttonSize, buttonSize);
 			if (Gdx.input.isTouched() && !menuCooldown) {
 				menuCooldown = true;
 				game.setPlayer(new SportPlayer(new Sprite(new Texture("img/player.png")), game));
 				this.game.setLevel(1);
 			}
 		}else {
-			renderer.draw(playInactive, buttonX, playY, buttonSize, buttonSize);
+			renderer.draw(sportInactive, buttonX, playY, buttonSize, buttonSize);
 		}
 	}
 	

@@ -32,7 +32,7 @@ public abstract class Item extends Sprite {
     	boolean collisionY = collisionPlayerTop(player) || collisionPlayerBottom(player);
     	
     	if (collisionX || collisionY) {
-    		interact();
+    		interact(player);
     	}
     	
     }
@@ -116,10 +116,6 @@ public abstract class Item extends Sprite {
 	public Player getPlayer() {
 		return this.player;
 	}
-	
-    public void interact() {
-    	this.dispose();
-    }
 
     public void dropItem () {
     }

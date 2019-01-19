@@ -24,7 +24,7 @@ public class Door extends Item {
 	}
 	
 	@Override
-	public void interact() {
+	public void interact(Player player) {
 		
 		if (player.hasMissionItem(key)) {
 			

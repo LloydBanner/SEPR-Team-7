@@ -13,10 +13,6 @@ public abstract class Consumable extends Item {
 
 	public abstract void consume(Player player);
 
-	public void interact() {
-		super.interact();
-	}
-
 	public void interact(Player player) {
 		super.interact(player);
 	}

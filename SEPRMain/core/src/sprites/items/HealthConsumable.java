@@ -30,7 +30,7 @@ public class HealthConsumable extends Consumable {
     @Override
     public void interact(Player player) {
     	consume(player);
-    	super.interact();
+    	super.interact(player);
     }
     
     @Override
