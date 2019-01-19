@@ -67,7 +67,7 @@ public class Enemy extends Character{
 				setVelocityX(0); 
 				setVelocityY(0);
 				attackPlayer();
-				if (timer > 5.5) {
+				if (timer > 4.5) {
 					if(Math.abs(getX()-player.getX()) < 30) {
 						if(Math.abs(getY()-player.getY()) < 30) {
 							player.decreaseHealth(1);
