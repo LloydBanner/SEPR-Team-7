@@ -9,11 +9,10 @@ import sprites.Player;
 public class MissionItem extends Item {
 	
 	private String id;
-    private static Sprite key = new Sprite(new Texture("img/key.png"));
 
-    public MissionItem (TiledMapTileLayer collisionLayer, String id, Player player) {
+    public MissionItem (Sprite sprite, TiledMapTileLayer collisionLayer, String id, Player player) {
 
-    	super(key, collisionLayer, player);
+    	super(sprite, collisionLayer, player);
     	this.id = id;
 
     }
