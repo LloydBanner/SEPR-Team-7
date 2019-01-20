@@ -59,11 +59,11 @@ public class GameWorldData {
 		
 	}
 	
-	public int getXPosition() {
+	public int getPlayerXPosition() {
 		return this.xPlayerPosition;
 	}
 	
-	public int getYPosition() {
+	public int getPlayerYPosition() {
 		return this.yPlayerPosition;
 	}
 	

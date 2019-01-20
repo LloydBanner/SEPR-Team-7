@@ -15,7 +15,7 @@ import sprites.Player;
 
 public class SEPRZombieGame extends Game {
 	
-	public HashMap<Integer,GameWorldData> level1;
+	//public HashMap<Integer,GameWorldData> level1;
 	
 	//Define parameters for each map
 	// GameWorldData take parameters GameWorldData(int[][] missionItemCoordinates, int[][] zombieCoordinates, int[][] healthItemCoordinates, int[][] speedItemCoordinates, 
@@ -109,7 +109,8 @@ public class SEPRZombieGame extends Game {
 		
 		String mapPath = levels.get(level).getMap();
 		TiledMap map = loader.load(mapPath);
-
+		player.setXSpawn(levels.get(level).getPlayerXPosition());
+		player.setYSpawn(levels.get(level).getPlayerYPosition());
 		setScreen(new GameWorld(map, levels.get(level), getPlayer()));
 		
 	}

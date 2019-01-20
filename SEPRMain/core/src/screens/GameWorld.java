@@ -107,8 +107,8 @@ public class GameWorld implements Screen {
 		shieldItems = levelData.getShieldItemList();
 		doors = levelData.getDoorItemList();
 		doorCoordinates = levelData.getDoorCoordinates();
-		playerXPosition = levelData.getXPosition();
-		playerYPosition = levelData.getYPosition();
+		playerXPosition = levelData.getPlayerXPosition();
+		playerYPosition = levelData.getPlayerYPosition();
 		zombieCoordinates = levelData.getZombieCoordinates();
 		healthItemCoordinates = levelData.getHeathConsumableCoordinates();
 		speedItemCoordinates = levelData.getSpeedConsumableCoordinates();

@@ -31,14 +31,17 @@ public class Player extends Character implements InputProcessor {
 	private int specialCooldown = 0;
 	private float specialTimer = 0;
 	private boolean specialOnCooldown = false;
+	private int xSpawn;
+	private int ySpawn;
 	
 	public Player(Sprite sprite, Game game) {
 		//always use same sprite for player so don't need to take it as an input
 		super(sprite);
-		//this.setCollisionLayer(collisionLayer);
 		inventory = new HashMap<Item, Integer>();
 		missionItems = new ArrayList<String>();
 		this.game = game;
+		this.xSpawn = 0;
+		this.ySpawn = 0;
 	}
 	
 	//Tester Constructor
@@ -104,7 +107,7 @@ public class Player extends Character implements InputProcessor {
 		}
 		
 		if (getHealth() <= 0) {
-			respawn();
+			respawn(xSpawn, ySpawn);
 		}
 	}
 	
@@ -147,12 +150,12 @@ public class Player extends Character implements InputProcessor {
 			escPressed = true;
 			break;
 		// O and P used to test health increase and decrease
-		case Keys.O:
-			increaseHealth(1);
-			break;
-		case Keys.P:
-			decreaseHealth(1);
-			break;
+		//case Keys.O:
+			//increaseHealth(1);
+		//	break;
+		//case Keys.P:
+			//decreaseHealth(1);
+			//break;
 		}
 		return true;
 	}
@@ -419,9 +422,17 @@ public class Player extends Character implements InputProcessor {
 		invincibilityCooldown = time;
 	}
 	
-	public void respawn() {
-		setX(1600);
-		setY(1600);
+	public void setXSpawn(int xSpawn) {
+		this.xSpawn = xSpawn;
+	}
+	
+	public void setYSpawn(int ySpawn) {
+		this.ySpawn = ySpawn;
+	}
+	
+	public void respawn(int xSpawn, int ySpawn) {
+		setX(xSpawn* this.getCollisionLayer().getTileWidth());
+		setY(ySpawn* this.getCollisionLayer().getTileHeight());
 		increaseHealth(4);
 	}
 }
