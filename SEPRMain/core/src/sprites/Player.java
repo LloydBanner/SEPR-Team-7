@@ -394,6 +394,10 @@ public class Player extends Character implements InputProcessor {
 		missionItem.dispose();
 	}
 	
+	public void removeMissionItem(MissionItem missionItem) {
+		missionItems.remove(missionItem.getId());
+	}
+	
 	public boolean hasMissionItem(MissionItem missionItem) {
 		if (missionItems.contains(missionItem.getId())) {
 			return true;

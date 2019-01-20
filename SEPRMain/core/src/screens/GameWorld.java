@@ -78,6 +78,8 @@ public class GameWorld implements Screen {
 	private int[][] shieldItemCoordinates;
 	private MissionItem[] missionItems;
 	private int[][] missionItemCoordiantes;
+	private String missionItemID;
+	private String missionItemTexture;
 	private Door[] doors;
 	private int nextLevel;
 	private int[][] doorCoordinates;
@@ -113,6 +115,8 @@ public class GameWorld implements Screen {
 		missionItemCoordiantes = levelData.getMissionItemCoordinates();
 		shieldItemCoordinates = levelData.getSpeedConsumableCoordinates();
 		nextLevel = levelData.getNextLevel();
+		missionItemID = levelData.getMissionItemID();
+		missionItemTexture = levelData.getMissionItemTexture();
 				
 		
 		uiRenderer = new SpriteBatch();
@@ -215,6 +219,8 @@ public class GameWorld implements Screen {
 		
 		for (int i=0; i < healthItems.length; i++ ) {
 			
+			System.out.print(healthItemCoordinates);
+			
 			int xposition = healthItemCoordinates[i][0];
 			int yposition = healthItemCoordinates[i][1];
 			healthItems[i] = new HealthConsumable((TiledMapTileLayer) map.getLayers().get(0), 2, player);
@@ -255,7 +261,7 @@ public class GameWorld implements Screen {
 		}
 	}
 	
-	public void createMissionItems(MissionItem[] missionItems, int[][] missionItemCoordinates) {
+	public void createMissionItems(MissionItem[] missionItems, int[][] missionItemCoordinates, String missionItemID, String missionItemTexture) {
 		
 			for (int i=0; i < missionItems.length; i++ ) {
 			
@@ -263,8 +269,8 @@ public class GameWorld implements Screen {
 				int xPosition = missionItemCoordinates[i][0];
 				int yPosition = missionItemCoordinates[i][1];
 			
-				missionItems[i] = new MissionItem(new Sprite(new Texture("img/key.png")), (TiledMapTileLayer) map.getLayers().get(0), 
-												  "key", player);
+				missionItems[i] = new MissionItem(new Sprite(new Texture(missionItemTexture)), (TiledMapTileLayer) map.getLayers().get(0), 
+													missionItemID, player);
 	
 				missionItems[i].setPosition(xPosition * missionItems[i].getCollisionLayer().getTileWidth(),
 					 			   	    	yPosition * missionItems[i].getCollisionLayer().getTileHeight());
@@ -277,11 +283,11 @@ public class GameWorld implements Screen {
 		for (int i=0; i < doors.length; i++) {
 			
 			int xPosition = doorCoordinates[i][0];
-			int yPosition = doorCoordinates[i][0];
+			int yPosition = doorCoordinates[i][1];
 			
 			doors[i] = new Door(nextLevel, (TiledMapTileLayer) map.getLayers().get(0), player,
 								this.getPlayer().getGame(), new MissionItem(new Sprite(new Texture("img/key.png")), (TiledMapTileLayer) map.getLayers().get(0), 
-								   "key", player));
+										"key", player));
 							   
 			
 			doors[i].setPosition(xPosition * doors[i].getCollisionLayer().getTileWidth(),
@@ -295,7 +301,7 @@ public class GameWorld implements Screen {
 			// createWeapons(weapons);
 			createHealthItems(healthItems, healthItemCoordinates);
 			createSpeedItems(speedItems, speedItemCoordinates);
-			createMissionItems(missionItems, missionItemCoordiantes);
+			createMissionItems(missionItems, missionItemCoordiantes, missionItemID, missionItemTexture);
 			createShieldItems(shieldItems, shieldItemCoordinates);
 			createDoors(doors, doorCoordinates, nextLevel);
 			
@@ -315,6 +321,7 @@ public class GameWorld implements Screen {
 		renderItems(speedItems, batch);
 		renderItems(missionItems, batch);
 		renderItems(doors, batch);
+		renderItems(shieldItems, batch);
 	
 	}
 	

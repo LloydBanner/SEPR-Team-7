@@ -30,6 +30,7 @@ public class Door extends Item {
 		
 		if (player.hasMissionItem(key)) {
 			
+			player.removeMissionItem(key);
 			((SEPRZombieGame) currentGame).setLevel(nextLocation);
 			
 		} 
