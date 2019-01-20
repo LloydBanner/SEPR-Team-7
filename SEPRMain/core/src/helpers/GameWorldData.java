@@ -30,12 +30,13 @@ public class GameWorldData {
 	private int[][] speedItemCoordinates;
 	private int[][] missionItemCoordinates;
 	private int[][] doorCoordinates;
+	private int nextLevel;
 	
 
 	public GameWorldData(int[][] missionItemCoordinates, int[][] zombieCoordinates, int[][] healthItemCoordinates, int[][] speedItemCoordinates, 
 						 int[][] sheildItemCooridinates, int[][] doorCoordinates, int xPlayerPosition, int yPlayerPosition, String map, int maxEnemies,
 						 int maxHealthItems, int maxSpeedItems, int maxWeapons, int maxMissionItems, 
-						 int maxCollisions, int maxDoors, int maxShieldItems, String missionItemTexture, String missionItemID) {
+						 int maxCollisions, int maxDoors, int maxShieldItems, String missionItemTexture, String missionItemID, int nextLevel) {
 		
 		this.missionItemCoordinates= missionItemCoordinates;
 		this.missionItemID = missionItemID;
@@ -54,6 +55,7 @@ public class GameWorldData {
 		this.map = map;
 		this.xPlayerPosition = xPlayerPosition;
 		this.yPlayerPosition = yPlayerPosition;
+		this.nextLevel = nextLevel;
 		
 	}
 	
@@ -124,6 +126,10 @@ public class GameWorldData {
 	
 	public String getMap() {
 		return this.map;
+	}
+	
+	public int getNextLevel() {
+		return this.nextLevel;
 	}
 	
 }

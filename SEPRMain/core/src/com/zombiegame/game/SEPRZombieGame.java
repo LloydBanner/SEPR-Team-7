@@ -37,7 +37,7 @@ public class SEPRZombieGame extends Game {
 	
 	private GameWorldData heslingtonEastData = new GameWorldData(missionItemCoordinatesHesEast, zombieCoordinatesHesEast, healthCoordinatesHesEast,
 																 speedCoordinatesHesEast, shieldCoordinatesHesEast, doorCoordinatesHesEast,
-																 50,50,"maps/east.tmx",10,10,1,10,1,20, 1, 1, missionItemTextureHesEast, missionItemIDHesEast);
+																 50,50,"maps/east.tmx",10,10,1,10,1,20, 1, 1, missionItemTextureHesEast, missionItemIDHesEast, 3);
 	
 	//Heslington West
 	private int[][] zombieCoordinatesHesWest = new int[][] {{50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}};
@@ -54,7 +54,30 @@ public class SEPRZombieGame extends Game {
 
 	private GameWorldData heslingtonWestData = new GameWorldData(missionItemCoordinatesHesWest, zombieCoordinatesHesWest, healthCoordinatesHesWest,
 																 speedCoordinatesHesWest, shieldItemCoordinatesHesWest, doorCoordinatesHesWest, 
-																 50,50, "maps/west.tmx",10,10,10,10,1,20,1,1,missionItemTextureHesWest, missionItemIDHesWest);
+																 50,50, "maps/west.tmx",10,10,10,10,1,20,1,1,missionItemTextureHesWest, missionItemIDHesWest, 1);
+	
+	//Inside ComputerScience
+	
+	private int[][] zombieCoordinatesCompSci = new int[][] {{50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}};
+	private int[][] healthCoordinatesCompSci = new int[][] {{50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}};
+	private int[][] speedCoordinatesCompSci = new int[][] {{50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}};
+	private int[][] missionItemCoordinatesCompSci = new int[][] {{50,50}};
+	private int[][] shieldItemCoordinatesCompSci = new int[][] {{44,25}};
+	private int[][] doorCoordinatesCompSci = new int[][] {{52, 29}};
+	
+	//MissionItem parameters
+	private String missionItemIDCompSci = "key";
+	private String missionItemTextureCompSci = "img/key.png";
+	
+	private GameWorldData compSciData = new GameWorldData(missionItemCoordinatesCompSci, zombieCoordinatesCompSci, healthCoordinatesCompSci,
+			 speedCoordinatesCompSci, shieldItemCoordinatesCompSci, doorCoordinatesCompSci, 
+			 50,50, "maps/insidecs.tmx",10,10,10,10,1,20,1,1,missionItemTextureCompSci, missionItemIDCompSci, 2);
+	
+	
+	
+	
+	
+	
 	
 	// Create map loader
 	TmxMapLoader loader = new TmxMapLoader();
@@ -71,8 +94,9 @@ public class SEPRZombieGame extends Game {
 		//getter and setter for collisionLayer in player to adjust to collisions on different screens
 		this.setPlayer(new Player(new Sprite(new Texture("img/player.png")), this));
 
-		addLevel(1, heslingtonEastData); 
-		addLevel(2, heslingtonWestData);
+		addLevel(1, compSciData); 
+		addLevel(2, heslingtonEastData);
+		addLevel(3, heslingtonWestData);
 
 		setScreen(new Menu(this));
 	}
