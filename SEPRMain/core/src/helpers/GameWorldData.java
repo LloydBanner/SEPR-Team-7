@@ -27,10 +27,11 @@ public class GameWorldData {
 	private int[][] healthItemCoordinates;
 	private int[][] speedItemCoordinates;
 	private int[][] missionItemCoordinates;
+	private int[][] doorCoordinates;
 	
 
 	public GameWorldData(int[][] missionItemCoordinates, int[][] zombieCoordinates, int[][] healthItemCoordinates, int[][] speedItemCoordinates, 
-						 int[][] sheildItemCooridinates, int xPlayerPosition, int yPlayerPosition, String map, int maxEnemies,
+						 int[][] sheildItemCooridinates, int[][] doorCoordinates, int xPlayerPosition, int yPlayerPosition, String map, int maxEnemies,
 						 int maxHealthItems, int maxSpeedItems, int maxWeapons, int maxMissionItems, 
 						 int maxCollisions, int maxDoors, int maxShieldItems) {
 		
@@ -38,6 +39,7 @@ public class GameWorldData {
 		this.zombieCoordinates= zombieCoordinates;
 		this.healthItemCoordinates = healthItemCoordinates;
 		this.speedItemCoordinates = speedItemCoordinates;
+		this.doorCoordinates = doorCoordinates;
 		this.enemies = new Enemy[maxEnemies];
 		this.weapons = new Weapon[maxWeapons];
 		this.healthItems = new HealthConsumable[maxHealthItems];
@@ -65,6 +67,10 @@ public class GameWorldData {
 	
 	public int[][] getZombieCoordinates(){
 		return this.zombieCoordinates;
+	}
+	
+	public int[][] getDoorCoordinates(){
+		return this.doorCoordinates;
 	}
 	
 	public Weapon[] getWeaponsList() {

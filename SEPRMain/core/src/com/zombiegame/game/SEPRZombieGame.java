@@ -24,9 +24,11 @@ public class SEPRZombieGame extends Game {
 	private int[][] speedCoordinatesHesEast = new int[][] {{44,20}};
 	private int[][] shieldCoordinatesHesEast = new int[][] {{40,23}};
 	private int[][] missionItemCoordinatesHesEast = new int[][] {{44,25}};
+	private int[][] doorCoordinatesHesEast = new int[][] {{52, 29}};
 	
 	private GameWorldData heslingtonEastData = new GameWorldData(missionItemCoordinatesHesEast, zombieCoordinatesHesEast, healthCoordinatesHesEast,
-																 speedCoordinatesHesEast, shieldCoordinatesHesEast, 50,50,"maps/east.tmx",10,10,1,10,1,20, 1, 1);
+																 speedCoordinatesHesEast, shieldCoordinatesHesEast, doorCoordinatesHesEast,
+																 50,50,"maps/east.tmx",10,10,1,10,1,20, 1, 1);
 	
 	//Heslington West
 	private int[][] zombieCoordinatesHesWest = new int[][] {{50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}};
@@ -34,9 +36,12 @@ public class SEPRZombieGame extends Game {
 	private int[][] speedCoordinatesHesWest = new int[][] {{50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}};
 	private int[][] missionItemCoordinatesHesWest = new int[][] {{50,50}};
 	private int[][] shieldItemCoordinatesHesWest = new int[][] {{44,25}};
+	private int[][] doorCoordinatesHesWest = new int[][] {{52, 29}};
+
 
 	private GameWorldData heslingtonWestData = new GameWorldData(missionItemCoordinatesHesWest, zombieCoordinatesHesWest, healthCoordinatesHesWest,
-																 speedCoordinatesHesEast, shieldItemCoordinatesHesWest,50,50, "maps/west.tmx",10,10,10,10,10,20,1, 1);
+																 speedCoordinatesHesEast, shieldItemCoordinatesHesWest, doorCoordinatesHesWest, 
+																 50,50, "maps/west.tmx",10,10,10,10,10,20,1, 1);
 	
 	// Create map loader
 	TmxMapLoader loader = new TmxMapLoader();
