@@ -17,8 +17,13 @@ public class HealthConsumable extends Consumable {
     	this.healthBoost = healthBoost;
     	
     }
+    
+    //Tester Constructor
+    public HealthConsumable(int healthBoost) {
+    	this.healthBoost = healthBoost;
+	}
 
-    public int getHealthBoost() {
+	public int getHealthBoost() {
         return this.healthBoost;
     }
 

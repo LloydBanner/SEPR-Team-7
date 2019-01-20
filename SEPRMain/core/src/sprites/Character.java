@@ -53,6 +53,9 @@ public abstract class Character extends Sprite {
 		super(sprite);
 	}
 	
+	public Character() {
+	}
+	
 	@Override
 	public void draw(Batch batch) {
 		update(Gdx.graphics.getDeltaTime());

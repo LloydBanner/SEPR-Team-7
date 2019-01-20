@@ -41,6 +41,10 @@ public class Player extends Character implements InputProcessor {
 		this.game = game;
 	}
 	
+	//Tester Constructor
+	public Player() {
+	}
+
 	public Game getGame() {
 		
 		return this.game;

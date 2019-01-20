@@ -21,6 +21,10 @@ public abstract class Item extends Sprite {
     	this.setCollisionLayer(collisionLayer);
     }
     
+    //Tester Consumable 
+    public Item() {
+    }
+    
     @Override
     public void draw(Batch batch) {
     	update(Gdx.graphics.getDeltaTime());
