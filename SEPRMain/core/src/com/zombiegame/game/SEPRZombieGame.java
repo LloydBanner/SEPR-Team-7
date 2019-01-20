@@ -18,6 +18,11 @@ public class SEPRZombieGame extends Game {
 	public HashMap<Integer,GameWorldData> level1;
 	
 	//Define parameters for each map
+	// GameWorldData take parameters GameWorldData(int[][] missionItemCoordinates, int[][] zombieCoordinates, int[][] healthItemCoordinates, int[][] speedItemCoordinates, 
+	// int[][] sheildItemCooridinates, int[][] doorCoordinates, int xPlayerPosition, int yPlayerPosition, String map, int maxEnemies,
+	// int maxHealthItems, int maxSpeedItems, int maxWeapons, int maxMissionItems, 
+	// int maxCollisions, int maxDoors, int maxShieldItems, String missionItemTexture, String missionItemID)
+	
 	//Heslington east
 	private int[][] zombieCoordinatesHesEast = new int[][] {{50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}, {50,50}};
 	private int[][] healthCoordinatesHesEast = new int[][] {{46,26}, {46,26}, {46,26}, {46,26}, {46,26}, {46,26}, {46,26}, {46,26}, {46,26}, {46,26}};
@@ -49,7 +54,7 @@ public class SEPRZombieGame extends Game {
 
 	private GameWorldData heslingtonWestData = new GameWorldData(missionItemCoordinatesHesWest, zombieCoordinatesHesWest, healthCoordinatesHesWest,
 																 speedCoordinatesHesWest, shieldItemCoordinatesHesWest, doorCoordinatesHesWest, 
-																 50,50, "maps/west.tmx",10,10,10,10,10,20,1,1,missionItemTextureHesWest, missionItemIDHesWest);
+																 50,50, "maps/west.tmx",10,10,10,10,1,20,1,1,missionItemTextureHesWest, missionItemIDHesWest);
 	
 	// Create map loader
 	TmxMapLoader loader = new TmxMapLoader();
