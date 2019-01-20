@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 import helpers.GameWorldData;
@@ -67,11 +68,15 @@ public class GameWorld implements Screen {
 	private int controlHeight = 600;
 	
 	private Enemy[] enemies;
+	private int[][] zombieCoordinates;
 	private Weapon[] weapons;
 	private HealthConsumable[] healthItems;
+	private int[][] healthItemCoordinates;
 	private SpeedConsumable[] speedItems;
+	private int[][] speedItemCoordinates;
 	private ShieldConsumable[] shieldItems;
 	private MissionItem[] missionItems;
+	private int[][] missionItemCoordiantes;
 	private Door[] doors;
 	private int playerXPosition;
 	private int playerYPosition;
@@ -97,6 +102,12 @@ public class GameWorld implements Screen {
 		doors = levelData.getDoorItemList();
 		playerXPosition = levelData.getXPosition();
 		playerYPosition = levelData.getYPosition();
+		zombieCoordinates = levelData.getZombieCoordinates();
+		healthItemCoordinates = levelData.getHeathConsumableCoordinates();
+		speedItemCoordinates = levelData.getSpeedConsumableCoordinates();
+		missionItemCoordiantes = levelData.getMissionItemCoordinates();
+		
+		
 		//need to change this
 		shieldItems = new ShieldConsumable[5];
 		
@@ -121,8 +132,7 @@ public class GameWorld implements Screen {
 		win = new Texture("img/playerWon.png");
 		controls = new Texture("img/controls.png");
 		
-		// TmxMapLoader loader = new TmxMapLoader(); 
-		createEnemies(enemies);
+		createEnemies(enemies, zombieCoordinates);
 		createItems();
 		setSpriteCollisions();
 	}
@@ -155,19 +165,19 @@ public class GameWorld implements Screen {
 		Gdx.input.setInputProcessor(player);
 	}
 	
-	public void createEnemies(Enemy[] enemies) {
+	public void createEnemies(Enemy[] enemies, int [][] zombieCoordinates) {
 		
-		int pos = 20;
 		
 		for (int i=0; i < enemies.length; i++) {
 			
-			pos += 2;
+			int xPosition = zombieCoordinates[i][0];
+			int yPosition = zombieCoordinates[i][1];
 			
 			enemies[i] = new Enemy((TiledMapTileLayer) map.getLayers().get(0), 
 								    this.player);
 			
-			enemies[i].setPosition(55 * enemies[i].getCollisionLayer().getTileWidth(), 
-								   pos * enemies[i].getCollisionLayer().getTileHeight());
+			enemies[i].setPosition(xPosition * enemies[i].getCollisionLayer().getTileWidth(), 
+								   yPosition * enemies[i].getCollisionLayer().getTileHeight());
 		}
 		
 	}
@@ -198,26 +208,31 @@ public class GameWorld implements Screen {
 		}
 	}
 	
-	public void createHealthItems(HealthConsumable[] healthItems) {
+	public void createHealthItems(HealthConsumable[] healthItems, int[][] healthItemCoordinates) {
 		
 		for (int i=0; i < healthItems.length; i++ ) {
 			
+			int xposition = healthItemCoordinates[i][0];
+			int yposition = healthItemCoordinates[i][1];
 			healthItems[i] = new HealthConsumable((TiledMapTileLayer) map.getLayers().get(0), 2, player);
 	
-			healthItems[i].setPosition(40 * healthItems[i].getCollisionLayer().getTileWidth(),
-					 			   	   29 * healthItems[i].getCollisionLayer().getTileHeight());
+			healthItems[i].setPosition(xposition * healthItems[i].getCollisionLayer().getTileWidth(),
+					 			   	   yposition * healthItems[i].getCollisionLayer().getTileHeight());
 			
 		}
 	}
 	
-	public void createSpeedItems(SpeedConsumable[] speedItems) {
+	public void createSpeedItems(SpeedConsumable[] speedItems, int[][] speedItemCoordinates) {
 		
 		for (int i=0; i < speedItems.length; i++ ) {
 			
+			int xPosition = speedItemCoordinates[i][0];
+			int yPosition = speedItemCoordinates[i][1];
+			
 			speedItems[i] = new SpeedConsumable((TiledMapTileLayer) map.getLayers().get(0), 10, player);
 	
-			speedItems[i].setPosition(44 * speedItems[i].getCollisionLayer().getTileWidth(),
-					 			   	  29 * speedItems[i].getCollisionLayer().getTileHeight());
+			speedItems[i].setPosition(xPosition * speedItems[i].getCollisionLayer().getTileWidth(),
+					 			   	  yPosition * speedItems[i].getCollisionLayer().getTileHeight());
 			
 		}
 	}
@@ -234,16 +249,22 @@ public class GameWorld implements Screen {
 		}
 	}
 	
-	public void createMissionItems(MissionItem[] missionItems) {
+	public void createMissionItems(MissionItem[] missionItems, int[][] missionItemCoordinates) {
 		
-		for (int i=0; i < missionItems.length; i++ ) {
+			//for (int i=0; i < missionItems.length; i++ ) {
+			int i = 0;
+			
+			
+			int xPosition = missionItemCoordinates[i][0];
+			int yPosition = missionItemCoordinates[i][1];
+			
 			missionItems[i] = new MissionItem(new Sprite(new Texture("img/key.png")), (TiledMapTileLayer) map.getLayers().get(0), 
 					   "key", player);
 	
-			missionItems[i].setPosition(58 * missionItems[i].getCollisionLayer().getTileWidth(),
-					 			   	    29 * missionItems[i].getCollisionLayer().getTileHeight());
+			missionItems[i].setPosition(xPosition * missionItems[i].getCollisionLayer().getTileWidth(),
+					 			   	    yPosition * missionItems[i].getCollisionLayer().getTileHeight());
 			
-		}
+		//}
 	}
 	
 	public void createDoors(Door[] doors) {
@@ -264,9 +285,9 @@ public class GameWorld implements Screen {
 	public void createItems() {
 		
 			// createWeapons(weapons);
-			createHealthItems(healthItems);
-			createSpeedItems(speedItems);
-			createMissionItems(missionItems);
+			createHealthItems(healthItems, healthItemCoordinates);
+			createSpeedItems(speedItems, speedItemCoordinates);
+			createMissionItems(missionItems, missionItemCoordiantes);
 			createShieldItems(shieldItems);
 			createDoors(doors);
 			

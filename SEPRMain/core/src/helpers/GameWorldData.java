@@ -21,13 +21,21 @@ public class GameWorldData {
 	private String map;
 	private int xPlayerPosition;
 	private int yPlayerPosition;
+	private int[][] zombieCoordinates;
+	private int[][] healthItemCoordinates;
+	private int[][] speedItemCoordinates;
+	private int[][] missionItemCoordinates;
 	
 
-	public GameWorldData(int xPlayerPosition, int yPlayerPosition, String map, int maxEnemies,
+	public GameWorldData(int[][] missionItemCoordinates, int[][] zombieCoordinates, int[][] healthItemCoordinates, int[][] speedItemCoordinates, 
+						 int xPlayerPosition, int yPlayerPosition, String map, int maxEnemies,
 						 int maxHealthItems, int maxSpeedItems, int maxWeapons, int maxMissionItems, 
 						 int maxCollisions, int maxDoors) {
 		
-		
+		this.missionItemCoordinates= missionItemCoordinates;
+		this.zombieCoordinates= zombieCoordinates;
+		this.healthItemCoordinates = healthItemCoordinates;
+		this.speedItemCoordinates = speedItemCoordinates;
 		this.enemies = new Enemy[maxEnemies];
 		this.weapons = new Weapon[maxWeapons];
 		this.healthItems = new HealthConsumable[maxHealthItems];
@@ -47,8 +55,13 @@ public class GameWorldData {
 	public int getYPosition() {
 		return this.yPlayerPosition;
 	}
+	
 	public Enemy[] getEnemiesList() {
 		return this.enemies;
+	}
+	
+	public int[][] getZombieCoordinates(){
+		return this.zombieCoordinates;
 	}
 	
 	public Weapon[] getWeaponsList() {
@@ -59,12 +72,25 @@ public class GameWorldData {
 		return this.healthItems;
 	}
 	
+	public int[][] getHeathConsumableCoordinates(){
+		return this.healthItemCoordinates;
+	}
+	
 	public SpeedConsumable[] getSpeedItemList() {
 		return this.speedItems;
 	}
 	
+	public int[][] getSpeedConsumableCoordinates(){
+		return this.speedItemCoordinates;
+	}
+	
+	
 	public MissionItem[] getMissionItemList() {
 		return this.missionItems;
+	}
+	
+	public int[][] getMissionItemCoordinates(){
+		return this.missionItemCoordinates;
 	}
 	
 	public Door[] getDoorItemList() {
