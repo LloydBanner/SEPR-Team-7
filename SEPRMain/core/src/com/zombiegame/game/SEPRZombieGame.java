@@ -90,8 +90,6 @@ public class SEPRZombieGame extends Game {
 	
 	@Override
 	public void create () {
-		//everything in here is just to test at the  moment
-		//getter and setter for collisionLayer in player to adjust to collisions on different screens
 		this.setPlayer(new Player(new Sprite(new Texture("img/player.png")), this));
 
 		addLevel(1, compSciData); 
