@@ -4,6 +4,7 @@ import sprites.Enemy;
 import sprites.items.Door;
 import sprites.items.HealthConsumable;
 import sprites.items.MissionItem;
+import sprites.items.ShieldConsumable;
 import sprites.items.SpeedConsumable;
 import sprites.items.Weapon;
 
@@ -17,6 +18,7 @@ public class GameWorldData {
 	private HealthConsumable[] healthItems;
 	private SpeedConsumable[] speedItems;
 	private MissionItem[] missionItems;
+	private ShieldConsumable[] shieldItems;
 	private Door[] doors; 
 	private String map;
 	private int xPlayerPosition;
@@ -28,9 +30,9 @@ public class GameWorldData {
 	
 
 	public GameWorldData(int[][] missionItemCoordinates, int[][] zombieCoordinates, int[][] healthItemCoordinates, int[][] speedItemCoordinates, 
-						 int xPlayerPosition, int yPlayerPosition, String map, int maxEnemies,
+						 int[][] sheildItemCooridinates, int xPlayerPosition, int yPlayerPosition, String map, int maxEnemies,
 						 int maxHealthItems, int maxSpeedItems, int maxWeapons, int maxMissionItems, 
-						 int maxCollisions, int maxDoors) {
+						 int maxCollisions, int maxDoors, int maxShieldItems) {
 		
 		this.missionItemCoordinates= missionItemCoordinates;
 		this.zombieCoordinates= zombieCoordinates;
@@ -42,6 +44,7 @@ public class GameWorldData {
 		this.speedItems = new SpeedConsumable[maxSpeedItems];
 		this.missionItems = new MissionItem[maxMissionItems];
 		this.doors = new Door[maxDoors];
+		this.shieldItems = new ShieldConsumable[maxShieldItems];
 		this.map = map;
 		this.xPlayerPosition = xPlayerPosition;
 		this.yPlayerPosition = yPlayerPosition;
@@ -66,6 +69,10 @@ public class GameWorldData {
 	
 	public Weapon[] getWeaponsList() {
 		return this.weapons;
+	}
+	
+	public ShieldConsumable[] getShieldItemList() {
+		return this.shieldItems;
 	}
 	
 	public HealthConsumable[] getHealthItemList() {

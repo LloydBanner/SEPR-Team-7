@@ -16,6 +16,11 @@ public class SpeedConsumable extends Consumable {
     	this.speedBoost = speedBoost;
     	
     }
+    
+    //Tester Constructor
+    public SpeedConsumable (int speedBoost) {
+    	this.speedBoost = speedBoost;
+    }
 
     public int getSpeedBoost() {
         return this.speedBoost;

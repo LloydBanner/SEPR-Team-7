@@ -75,6 +75,7 @@ public class GameWorld implements Screen {
 	private SpeedConsumable[] speedItems;
 	private int[][] speedItemCoordinates;
 	private ShieldConsumable[] shieldItems;
+	private int[][] shieldItemCoordinates;
 	private MissionItem[] missionItems;
 	private int[][] missionItemCoordiantes;
 	private Door[] doors;
@@ -99,6 +100,7 @@ public class GameWorld implements Screen {
 		healthItems = levelData.getHealthItemList();
 		speedItems = levelData.getSpeedItemList();
 		missionItems = levelData.getMissionItemList();
+		shieldItems = levelData.getShieldItemList();
 		doors = levelData.getDoorItemList();
 		playerXPosition = levelData.getXPosition();
 		playerYPosition = levelData.getYPosition();
@@ -106,11 +108,8 @@ public class GameWorld implements Screen {
 		healthItemCoordinates = levelData.getHeathConsumableCoordinates();
 		speedItemCoordinates = levelData.getSpeedConsumableCoordinates();
 		missionItemCoordiantes = levelData.getMissionItemCoordinates();
-		
-		
-		//need to change this
-		shieldItems = new ShieldConsumable[5];
-		
+		shieldItemCoordinates = levelData.getSpeedConsumableCoordinates();
+				
 		
 		uiRenderer = new SpriteBatch();
 		healthFull = new Texture("img/healthfull.png");
@@ -229,7 +228,7 @@ public class GameWorld implements Screen {
 			int xPosition = speedItemCoordinates[i][0];
 			int yPosition = speedItemCoordinates[i][1];
 			
-			speedItems[i] = new SpeedConsumable((TiledMapTileLayer) map.getLayers().get(0), 10, player);
+			speedItems[i] = new SpeedConsumable((TiledMapTileLayer) map.getLayers().get(0), 20, player);
 	
 			speedItems[i].setPosition(xPosition * speedItems[i].getCollisionLayer().getTileWidth(),
 					 			   	  yPosition * speedItems[i].getCollisionLayer().getTileHeight());
@@ -237,34 +236,36 @@ public class GameWorld implements Screen {
 		}
 	}
 	
-	public void createShieldItems(ShieldConsumable[] shieldItems) {
+	public void createShieldItems(ShieldConsumable[] shieldItems, int[][] shieldItemCoordinates) {
 		
 		for (int i=0; i < shieldItems.length; i++ ) {
 			
+			int xPosition = shieldItemCoordinates[i][0];
+			int yPosition = shieldItemCoordinates[i][0];
+			
 			shieldItems[i] = new ShieldConsumable((TiledMapTileLayer) map.getLayers().get(0), player);
 	
-			shieldItems[i].setPosition(44 * shieldItems[i].getCollisionLayer().getTileWidth(),
-					 			   	  25 * shieldItems[i].getCollisionLayer().getTileHeight());
+			shieldItems[i].setPosition(xPosition * shieldItems[i].getCollisionLayer().getTileWidth(),
+					 			   	  yPosition * shieldItems[i].getCollisionLayer().getTileHeight());
 			
 		}
 	}
 	
 	public void createMissionItems(MissionItem[] missionItems, int[][] missionItemCoordinates) {
 		
-			//for (int i=0; i < missionItems.length; i++ ) {
-			int i = 0;
+			for (int i=0; i < missionItems.length; i++ ) {
 			
 			
-			int xPosition = missionItemCoordinates[i][0];
-			int yPosition = missionItemCoordinates[i][1];
+				int xPosition = missionItemCoordinates[i][0];
+				int yPosition = missionItemCoordinates[i][1];
 			
-			missionItems[i] = new MissionItem(new Sprite(new Texture("img/key.png")), (TiledMapTileLayer) map.getLayers().get(0), 
-					   "key", player);
+				missionItems[i] = new MissionItem(new Sprite(new Texture("img/key.png")), (TiledMapTileLayer) map.getLayers().get(0), 
+												  "key", player);
 	
-			missionItems[i].setPosition(xPosition * missionItems[i].getCollisionLayer().getTileWidth(),
-					 			   	    yPosition * missionItems[i].getCollisionLayer().getTileHeight());
+				missionItems[i].setPosition(xPosition * missionItems[i].getCollisionLayer().getTileWidth(),
+					 			   	    	yPosition * missionItems[i].getCollisionLayer().getTileHeight());
 			
-		//}
+		}
 	}
 	
 	public void createDoors(Door[] doors) {
@@ -288,7 +289,7 @@ public class GameWorld implements Screen {
 			createHealthItems(healthItems, healthItemCoordinates);
 			createSpeedItems(speedItems, speedItemCoordinates);
 			createMissionItems(missionItems, missionItemCoordiantes);
-			createShieldItems(shieldItems);
+			createShieldItems(shieldItems, shieldItemCoordinates);
 			createDoors(doors);
 			
 	}
