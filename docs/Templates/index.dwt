@@ -33,7 +33,9 @@ ul.nav a { zoom: 1; }  /* the zoom property gives IE the hasLayout trigger it ne
     <li><a href="index.html">Home</a></li>
       <li><a href="games.html">Games</a></li>
       <li><a href="team.html">Team</a></li>
-      <li><a href="assessment.html">Assessment</a></li>
+      <li><a href="assessment.html">Assessment 1</a></li>
+      <li><a href="assessment2.html">Assessment 2</a></li>
+      <li><a href="assessment3.html">Assessment 3</a></li>
     </ul>
     <p>&nbsp;</p>
     <p>&nbsp;</p>
